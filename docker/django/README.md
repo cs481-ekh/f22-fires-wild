@@ -1,0 +1,1 @@
+This directory reserved for Django Docker files
