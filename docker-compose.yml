@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mysql-db:
-    container_name: db
+    container_name: mysql
     build:
       context: .
       dockerfile: ./docker/mysql/Dockerfile
@@ -10,12 +10,15 @@ services:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
     env_file: .env
+    expose:
+      - 3306
     ports:
       - "3306:3306"
     networks:
     - backend-network
 
   backend:
+    container_name: django
     build:
       context: .
       dockerfile: docker/django/Dockerfile
