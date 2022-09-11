@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   mysql-db:
+    container_name: db
     build:
       context: .
       dockerfile: ./docker/mysql/Dockerfile
@@ -11,6 +12,8 @@ services:
     env_file: .env
     ports:
       - "3306:3306"
+    networks:
+    - backend-network
 
   backend:
     build:
@@ -28,7 +31,13 @@ services:
     ports:
       - "8000:8000"
     command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
+    networks:
+    - backend-network 
 
 volumes:
   backend:
   mysql_data:
+
+networks:
+  backend-network:
+    driver: bridge
