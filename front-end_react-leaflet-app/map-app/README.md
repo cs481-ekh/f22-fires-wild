@@ -12,6 +12,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 | leaflet       | 1.8.0   |
 | react-leaflet | 4.0.2   |
 
+Docs:  
+
+[yarn](https://yarnpkg.com/)  
+[nodejs](https://nodejs.org/api/all.html)  
+[leaflet](https://leafletjs.com/reference.html)  
+[react-leaflet](https://react-leaflet.js.org/docs/start-introduction/)  
+
 ## Available Scripts
 
 In the project directory, you can run:
