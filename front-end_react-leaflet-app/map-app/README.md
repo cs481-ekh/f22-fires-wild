@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Utilized Software Versions
+ 
+
+| Name          | Version |
+|---------------|---------|
+| yarn          | 1.22.19 |
+| nodejs        | v18.7.0 |
+| leaflet       | 1.8.0   |
+| react-leaflet | 4.0.2   |
+
 ## Available Scripts
 
 In the project directory, you can run:
