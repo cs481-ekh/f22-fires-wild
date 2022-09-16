@@ -1,6 +1,10 @@
 # capstone-template
 BSU CS481 Capstone project template
 
+# Architectural Diagram
+<img src="img/fires-wild-diagram.png" width="100%"></img>
+
+
 # Prereqs
 - Docker (recommend docker desktop)
     - docker-compose
