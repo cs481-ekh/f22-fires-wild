@@ -52,7 +52,6 @@ services:
     networks:
       - ffp-network
 
-
 volumes:
   ffp-web:
   ffp-mysql:
@@ -60,3 +59,4 @@ volumes:
 networks:
   ffp-network:
     driver: bridge
+    
