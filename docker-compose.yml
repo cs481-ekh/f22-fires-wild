@@ -17,11 +17,11 @@ services:
     networks:
     - ffp-network
 
-  ffp-web:
-    container_name: ffp-web
+  ffp-django:
+    container_name: ffp-django
     build:
       context: .
-      dockerfile: docker/ffp-web/Dockerfile
+      dockerfile: ./docker/django/Dockerfile
     env_file: env_vars
     restart: always
     volumes:
@@ -36,6 +36,22 @@ services:
     command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
     networks:
     - ffp-network 
+
+  ffp-react:
+    restart: always
+    command : yarn start
+    container_name: ffp-react
+    build:
+      context: ./fire-react-app/
+      dockerfile: ../docker/react/Dockerfile
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    depends_on:
+      - ffp-django
+    networks:
+      - ffp-network
+
 
 volumes:
   ffp-web:

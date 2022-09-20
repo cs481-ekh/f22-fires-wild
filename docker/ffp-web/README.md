@@ -1,1 +1,0 @@
-This directory contains Docker files for Django
