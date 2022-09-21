@@ -1,17 +1,34 @@
-import React, { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-//import {Icon} from "leaflet";
-import './App.css';
+import React from "react"
+import Navbar from "./Navbar"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Admin from "./pages/Admin"
+import Data from "./pages/Data"
 
 function App() {
+  let PageComponent
+  switch (window.location.pathname) {
+    case "/":
+      PageComponent = Home
+      break
+    case "/Data":
+      PageComponent = Data
+      break
+    case "/About":
+      PageComponent = About
+      break
+    case "/Admin":
+      PageComponent = Admin
+      break
+  }
+
   return (
-      <MapContainer center={[35, -100]} zoom={4}scrollWheelZoom={true}>
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              />
-            </MapContainer>
-  );
+    <>
+      <Navbar />
+      <PageComponent />
+    </>
+  )
+
 }
 
 export default App;
