@@ -1,0 +1,19 @@
+name: Execute testing
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: KengoTODA/actions-setup-docker-compose@main
+        with:
+          version: "1.29.2"
+      - uses: actions/checkout@v3
+      - name: Run test script
+        run: ./test.sh
