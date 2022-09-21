@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'data2019.apps.Data2019Config',
+    'FPA_FOD_PLUS.apps.FFPConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

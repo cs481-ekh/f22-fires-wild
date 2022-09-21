@@ -30,8 +30,12 @@ From the root project directory:
     - output from this command contains information useful for debugging
 - `$ docker-compose up`
     - this will start the project
-    - NOTE: This will likely produce errors, as the mysql container is not usually initialized the first time before the django container tries to access it. to solve this, you can restart just the django container in Docker desktop, or try running `$ docker-compose down` (NO `-v`) then `$ docker-compose up`
 - You should now see the containers running in docker, and be able to access the website from localhost.
+
+## Troubleshooting
+- Django container error: `django.db.utils.OperationalError: (2003, "Can't connect to MySQL server on 'ffp-mysql' ([Errno 111] Connection refused)")`
+    - The mysql container is not usually initialized the first time before the django container tries to access it. to solve this, you can restart just the django container in Docker desktop, or try running `$ docker-compose down` (NO `-v`) then `$ docker-compose up`. This can also be accomplished by stopping the Django container and restarting it using Docker Desktop.
+
 
 # Attributions:
 - [Django MySQL Docker Sample - Sergei Konik](https://skonik.me/setup-django-with-mysql-using/)
