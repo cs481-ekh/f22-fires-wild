@@ -6,6 +6,4 @@ docker-compose build
 
 docker-compose up
 
-docker ps
-
 exit 0
