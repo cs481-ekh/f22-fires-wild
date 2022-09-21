@@ -1,4 +1,4 @@
-name: Execute build
+name: Build Phase
 
 on:
   push:
