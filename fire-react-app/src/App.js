@@ -5,31 +5,22 @@ import About from "./pages/About"
 import Admin from "./pages/Admin"
 import Data from "./pages/Data"
 import "./styles.css"
+import { Route, Routes } from "react-router-dom"
 
 function App() {
-  let component
-  switch (window.location.pathname) {
-    case "/":
-      component = <Home />
-      break
-    case "/Data":
-      component = <Data />
-      break
-    case "/About":
-      component = <About />
-      break
-    case "/Admin":
-      component = <Admin />
-      break
-  }
-
   return (
     <>
       <Navbar />
-      <div className="page_container">{component}</div>
+      <div className="page_container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Data" element={<Data />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/Admin" element={<Admin />} />
+        </Routes>
+      </div>
       </>
   )
-
 }
 
 export default App;
