@@ -1,2 +1,10 @@
 #!/bin/bash
-exit 127
+docker-compose build
+
+docker-compose up -d
+
+cd functional-testing
+
+yarn
+
+yarn cypress run
