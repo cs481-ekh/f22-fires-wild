@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: KengoTODA/actions-setup-docker-compose@main
+        with:
+          version: "1.29.2"
       - uses: actions/checkout@v3
       - name: Run build script
         run: ./build.sh
