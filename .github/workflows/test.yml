@@ -1,4 +1,4 @@
-name: Execute testing
+name: Test Phase
 
 on:
   push:
