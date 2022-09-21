@@ -4,29 +4,30 @@ import Home from "./pages/Home"
 import About from "./pages/About"
 import Admin from "./pages/Admin"
 import Data from "./pages/Data"
+import "./styles.css"
 
 function App() {
-  let PageComponent
+  let component
   switch (window.location.pathname) {
     case "/":
-      PageComponent = Home
+      component = <Home />
       break
     case "/Data":
-      PageComponent = Data
+      component = <Data />
       break
     case "/About":
-      PageComponent = About
+      component = <About />
       break
     case "/Admin":
-      PageComponent = Admin
+      component = <Admin />
       break
   }
 
   return (
     <>
       <Navbar />
-      <PageComponent />
-    </>
+      <div className="page_container">{component}</div>
+      </>
   )
 
 }
