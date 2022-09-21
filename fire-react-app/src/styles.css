@@ -6,13 +6,19 @@ body {
     margin: 0;
 }
 
-.site-title {
-    font-size: 2rem;
+.page_container {
+    text-align: center;
+}
+
+.logo {
+    height: 7vh;
+    width: auto;
 }
 
 .nav {
-    background-color: royalblue;
+    background-color: darkblue;
     color: darkorange;
+    font-size: medium;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -25,12 +31,15 @@ body {
     margin: 0;
     list-style: none;
     display: flex;
-    gap: 1rem;
+    gap: 3rem;
 }
 
 .nav a {
     color: inherit;
     text-decoration: none;
+    font-size: 3vh;
+    font-family: 'Lucida Sans Unicode';
+    font: 'Lucida Sans Unicode';
     height: 100%;
     display: flex;
     align-items: center;
@@ -41,6 +50,6 @@ body {
     background-color: black;
 }
 
-.nav li.hover {
-    background-color: orange;
+.nav li:hover {
+    background-color: royalblue;
 }

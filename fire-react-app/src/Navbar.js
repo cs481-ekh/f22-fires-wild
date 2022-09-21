@@ -1,10 +1,13 @@
 import React from "react";
 import "./styles.css";
+import logo from "./components/ffp_logo.png";
 
 function Navbar() {
   return (
     <nav className="nav">
-    <a href="/" className="site-title">[LOGO?]</a>
+    <a href="/">
+      <img alt="[LOGO]" className="logo" src={logo} />
+    </a>
     <ul>
       <li>
         <a href="/Data">Data</a>
