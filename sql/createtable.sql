@@ -1,39 +1,39 @@
-CREATE TABLE FPA_FOD_PLUS(
+CREATE TABLE mytable(
    FOD_ID                        INTEGER  NOT NULL PRIMARY KEY 
-  ,FPA_ID                        VARCHAR(41)
-  ,SOURCE_SYSTEM_TYPE            VARCHAR(9)
-  ,SOURCE_SYSTEM                 VARCHAR(11)
-  ,NWCG_REPORTING_AGENCY         VARCHAR(6)
-  ,NWCG_REPORTING_UNIT_ID        VARCHAR(8)
-  ,NWCG_REPORTING_UNIT_NAME      VARCHAR(77)
-  ,SOURCE_REPORTING_UNIT         VARCHAR(8)
-  ,SOURCE_REPORTING_UNIT_NAME    VARCHAR(69)
+  ,FPA_ID                        VARCHAR(30) 
+  ,SOURCE_SYSTEM_TYPE            VARCHAR(6) 
+  ,SOURCE_SYSTEM                 VARCHAR(11) 
+  ,NWCG_REPORTING_AGENCY         VARCHAR(6) 
+  ,NWCG_REPORTING_UNIT_ID        VARCHAR(8) 
+  ,NWCG_REPORTING_UNIT_NAME      VARCHAR(69) 
+  ,SOURCE_REPORTING_UNIT         VARCHAR(7) 
+  ,SOURCE_REPORTING_UNIT_NAME    VARCHAR(69) 
   ,LOCAL_FIRE_REPORT_ID          INTEGER 
-  ,LOCAL_INCIDENT_ID             VARCHAR(28)
-  ,FIRE_CODE                     VARCHAR(8)
-  ,FIRE_NAME                     VARCHAR(50)
-  ,ICS_209_PLUS_INCIDENT_JOIN_ID VARCHAR(44)
-  ,ICS_209_PLUS_COMPLEX_JOIN_ID  VARCHAR(33)
+  ,LOCAL_INCIDENT_ID             VARCHAR(16)
+  ,FIRE_CODE                     VARCHAR(4)
+  ,FIRE_NAME                     VARCHAR(42)
+  ,ICS_209_PLUS_INCIDENT_JOIN_ID VARCHAR(25)
+  ,ICS_209_PLUS_COMPLEX_JOIN_ID  VARCHAR(30)
   ,MTBS_ID                       VARCHAR(21)
-  ,MTBS_FIRE_NAME                VARCHAR(19)
-  ,COMPLEX_NAME                  VARCHAR(20)
-  ,FIRE_YEAR                     INTEGER 
-  ,DISCOVERY_DATE                DATE 
-  ,DISCOVERY_DOY                 INTEGER 
+  ,MTBS_FIRE_NAME                VARCHAR(9)
+  ,COMPLEX_NAME                  VARCHAR(30)
+  ,FIRE_YEAR                     INTEGER  
+  ,DISCOVERY_DATE                DATE  
+  ,DISCOVERY_DOY                 INTEGER  
   ,DISCOVERY_TIME                INTEGER 
-  ,NWCG_CAUSE_CLASSIFICATION     VARCHAR(39)
-  ,NWCG_GENERAL_CAUSE            VARCHAR(42)
+  ,NWCG_CAUSE_CLASSIFICATION     VARCHAR(39) 
+  ,NWCG_GENERAL_CAUSE            VARCHAR(42) 
   ,NWCG_CAUSE_AGE_CATEGORY       VARCHAR(5)
-  ,CONT_DATE                     TIMESTAMP NULL
+  ,CONT_DATE                     VARCHAR(11)
   ,CONT_DOY                      INTEGER 
   ,CONT_TIME                     INTEGER 
-  ,FIRE_SIZE                     NUMERIC(10,4)
-  ,FIRE_SIZE_CLASS               VARCHAR(1)
-  ,LATITUDE                      NUMERIC(11,8)
-  ,LONGITUDE                     NUMERIC(12,8)
-  ,OWNER_DESCR                   VARCHAR(21)
-  ,STATE                         VARCHAR(2)
-  ,COUNTY                        VARCHAR(20)
+  ,FIRE_SIZE                     NUMERIC(8,3) 
+  ,FIRE_SIZE_CLASS               VARCHAR(1) 
+  ,LATITUDE                      NUMERIC(10,7) 
+  ,LONGITUDE                     NUMERIC(10,6) 
+  ,OWNER_DESCR                   VARCHAR(21) 
+  ,STATE                         VARCHAR(2) 
+  ,COUNTY                        VARCHAR(15)
   ,FIPS_CODE                     INTEGER 
   ,FIPS_NAME                     VARCHAR(33)
   ,Annual_etr                    INTEGER 
@@ -145,34 +145,34 @@ CREATE TABLE FPA_FOD_PLUS(
   ,FPL200S                       BIT 
   ,M_WKFC_105                    BIT 
   ,M_EBSI                        BIT 
-  ,UI_EXP                        VARCHAR(11)
+  ,UI_EXP                        VARCHAR(6)
   ,THRHLD                        INTEGER 
   ,Unnamed_0                     INTEGER 
   ,CheatGrass                    INTEGER 
   ,ExoticAnnualGrass             INTEGER 
   ,Medusahead                    INTEGER 
   ,PoaSecunda                    INTEGER 
-  ,pr_Normal                     NUMERIC(5,2)
-  ,tmmn_Normal                   NUMERIC(11,7)
-  ,tmmx_Normal                   NUMERIC(11,7)
+  ,pr_Normal                     NUMERIC(4,2)
+  ,tmmn_Normal                   NUMERIC(10,6)
+  ,tmmx_Normal                   NUMERIC(10,6)
   ,rmin_Normal                   NUMERIC(4,1)
   ,rmax_Normal                   NUMERIC(4,1)
   ,sph_Normal                    NUMERIC(6,4)
   ,srad_Normal                   INTEGER 
   ,fm100_Normal                  NUMERIC(4,1)
   ,fm1000_Normal                 NUMERIC(4,1)
-  ,bi_Normal                     NUMERIC(11,9)
+  ,bi_Normal                     NUMERIC(10,7)
   ,vpd_Normal                    NUMERIC(4,2)
-  ,erc_Normal                    NUMERIC(12,9)
-  ,pr                            NUMERIC(11,9)
-  ,tmmn                          NUMERIC(11,7)
-  ,tmmx                          NUMERIC(11,7)
-  ,rmin                          NUMERIC(12,9)
-  ,rmax                          NUMERIC(11,8)
-  ,sph                           NUMERIC(11,9)
-  ,vs                            NUMERIC(4,1)
+  ,erc_Normal                    NUMERIC(10,7)
+  ,pr                            NUMERIC(10,8)
+  ,tmmn                          NUMERIC(10,6)
+  ,tmmx                          NUMERIC(10,6)
+  ,rmin                          NUMERIC(10,8)
+  ,rmax                          NUMERIC(10,7)
+  ,sph                           NUMERIC(7,5)
+  ,vs                            NUMERIC(3,1)
   ,th                            INTEGER 
-  ,srad                          NUMERIC(11,8)
+  ,srad                          NUMERIC(10,6)
   ,etr                           NUMERIC(4,1)
   ,fm100                         NUMERIC(4,1)
   ,fm1000                        NUMERIC(4,1)
@@ -184,59 +184,59 @@ CREATE TABLE FPA_FOD_PLUS(
   ,tmmx_5D_mean                  NUMERIC(9,5)
   ,rmin_5D_mean                  NUMERIC(4,1)
   ,rmax_5D_mean                  NUMERIC(4,1)
-  ,sph_5D_mean                   NUMERIC(11,9)
-  ,vs_5D_mean                    NUMERIC(5,2)
+  ,sph_5D_mean                   NUMERIC(8,6)
+  ,vs_5D_mean                    NUMERIC(4,2)
   ,th_5D_mean                    NUMERIC(5,1)
-  ,srad_5D_mean                  NUMERIC(10,6)
+  ,srad_5D_mean                  NUMERIC(9,5)
   ,etr_5D_mean                   NUMERIC(5,2)
   ,fm100_5D_mean                 NUMERIC(4,1)
   ,fm1000_5D_mean                NUMERIC(4,1)
-  ,bi_5D_mean                    NUMERIC(5,1)
+  ,bi_5D_mean                    NUMERIC(4,1)
   ,vpd_5D_mean                   NUMERIC(4,2)
   ,erc_5D_mean                   NUMERIC(5,1)
-  ,pr_5D_min                     NUMERIC(4,1)
-  ,pr_5D_max                     NUMERIC(5,1)
+  ,pr_5D_min                     BIT 
+  ,pr_5D_max                     NUMERIC(4,1)
   ,tmmn_5D_max                   NUMERIC(5,1)
   ,tmmx_5D_max                   NUMERIC(5,1)
   ,rmin_5D_min                   NUMERIC(4,1)
   ,rmax_5D_min                   NUMERIC(9,6)
-  ,sph_5D_min                    NUMERIC(11,9)
-  ,vs_5D_max                     NUMERIC(4,1)
+  ,sph_5D_min                    NUMERIC(7,5)
+  ,vs_5D_max                     NUMERIC(3,1)
   ,th_5D_max                     INTEGER 
-  ,srad_5D_max                   NUMERIC(10,6)
+  ,srad_5D_max                   NUMERIC(9,5)
   ,etr_5D_max                    NUMERIC(4,1)
   ,fm100_5D_min                  NUMERIC(4,1)
   ,fm1000_5D_min                 NUMERIC(4,1)
   ,bi_5D_max                     INTEGER 
   ,vpd_5D_max                    NUMERIC(4,2)
   ,erc_5D_max                    INTEGER 
-  ,tmmn_Percentile               VARCHAR(20) 
-  ,tmmx_Percentile               VARCHAR(20) 
+  ,tmmn_Percentile               VARCHAR(4)
+  ,tmmx_Percentile               VARCHAR(4)
   ,sph_Percentile                VARCHAR(6)
   ,vs_Percentile                 VARCHAR(6)
   ,fm100_Percentile              VARCHAR(6)
   ,bi_Percentile                 VARCHAR(6)
   ,vpd_Percentile                VARCHAR(6)
   ,erc_Percentile                VARCHAR(6)
-  ,Ecoregion_US_L4CODE           VARCHAR(6)
-  ,Ecoregion_US_L3CODE           VARCHAR(6) 
-  ,Ecoregion_NA_L3CODE           VARCHAR(6) 
+  ,Ecoregion_US_L4CODE           VARCHAR(4)
+  ,Ecoregion_US_L3CODE           INTEGER 
+  ,Ecoregion_NA_L3CODE           DATE 
   ,Ecoregion_NA_L2CODE           NUMERIC(4,1)
-  ,Ecoregion_NA_L1CODE           VARCHAR(4) 
-  ,Aspect_1km                    NUMERIC(12,9)
+  ,Ecoregion_NA_L1CODE           INTEGER 
+  ,Aspect_1km                    NUMERIC(11,8)
   ,Aspect                        INTEGER 
-  ,Elevation_1km                 NUMERIC(13,9)
+  ,Elevation_1km                 NUMERIC(12,8)
   ,Elevation                     INTEGER 
-  ,Slope_1km                     NUMERIC(12,9)
+  ,Slope_1km                     NUMERIC(10,8)
   ,Slope                         INTEGER 
-  ,EVC_1km                       NUMERIC(12,9)
+  ,EVC_1km                       NUMERIC(10,7)
   ,EVC                           INTEGER 
-  ,EVH_1km                       NUMERIC(12,9)
+  ,EVH_1km                       NUMERIC(10,7)
   ,EVH                           INTEGER 
   ,EVT_1km                       VARCHAR(33)
   ,EVT                           INTEGER 
   ,Evacuation                    INTEGER 
-  ,FRG_1km                       VARCHAR(30)
+  ,FRG_1km                       VARCHAR(27)
   ,FRG                           INTEGER 
   ,No_FireStation_10km           INTEGER 
   ,No_FireStation_50km           INTEGER 
@@ -247,36 +247,36 @@ CREATE TABLE FPA_FOD_PLUS(
   ,GACC_New_fire                 INTEGER 
   ,GACC_New_LF                   INTEGER 
   ,GACC_Uncont_LF                INTEGER 
-  ,GACC_Type_1_IMTs              INTEGER 
+  ,GACC_Type_1_IMTs              BIT 
   ,GACC_Type_2_IMTs              INTEGER 
   ,GACC_NIMO_Teams               BIT 
   ,GACC_Area_Command_Teams       BIT 
   ,GACC_Fire_Use_Teams           VARCHAR(30)
   ,Mang_Type                     VARCHAR(4)
-  ,Mang_Name                     VARCHAR(5)
+  ,Mang_Name                     VARCHAR(4)
   ,Des_Tp                        VARCHAR(5)
   ,GAP_Sts                       INTEGER 
   ,GAP_Prity                     INTEGER 
   ,GDP                           NUMERIC(9,3)
-  ,GHM                           NUMERIC(9,6)
-  ,MOD_NDVI_12m                  VARCHAR(74)
-  ,MOD_EVI_12m                   VARCHAR(74)
-  ,NDVI1day                      NUMERIC(5,2)
-  ,NDVI_min                      VARCHAR(176)
-  ,NDVI_max                      VARCHAR(150)
-  ,NDVI_mean                     VARCHAR(172)
+  ,GHM                           NUMERIC(4,2)
+  ,MOD_NDVI_12m                  VARCHAR(71)
+  ,MOD_EVI_12m                   VARCHAR(71)
+  ,NDVI1day                      NUMERIC(4,2)
+  ,NDVI_min                      VARCHAR(166)
+  ,NDVI_max                      VARCHAR(143)
+  ,NDVI_mean                     VARCHAR(164)
   ,Land_Cover_1km                VARCHAR(27)
   ,Land_Cover                    INTEGER 
   ,NPL                           INTEGER 
   ,Popo_1km                      NUMERIC(7,4)
-  ,Population                    NUMERIC(10,4)
+  ,Population                    NUMERIC(8,4)
   ,NAME                          VARCHAR(58)
   ,road_county_dis               NUMERIC(4,1)
-  ,road_interstate_dis           NUMERIC(4,1)
-  ,road_common_name_dis          NUMERIC(5,1)
+  ,road_interstate_dis           VARCHAR(30)
+  ,road_common_name_dis          NUMERIC(4,1)
   ,road_other_dis                NUMERIC(4,1)
   ,road_state_dis                NUMERIC(4,1)
-  ,road_US_dis                   NUMERIC(4,1)
+  ,road_US_dis                   VARCHAR(30)
   ,SDI                           NUMERIC(4,2)
   ,TRACT                         INTEGER 
   ,RPL_THEMES                    NUMERIC(8,4)
@@ -300,7 +300,7 @@ CREATE TABLE FPA_FOD_PLUS(
   ,EPL_NOVEH                     NUMERIC(8,4)
   ,EPL_GROUPQ                    NUMERIC(8,4)
   ,TPI_1km                       NUMERIC(5,2)
-  ,TPI                           NUMERIC(7,3)
+  ,TPI                           NUMERIC(6,3)
   ,TRI_1km                       NUMERIC(6,3)
   ,TRI                           NUMERIC(6,3)
 );
