@@ -15,11 +15,12 @@ def index(request):
 @api_view(['GET'])
 def heat_map(request):
     if request.method == 'GET':
-        # get just the ones with fire codes
-        # this is just for testing to limit number of items returned
-        # Filter out any broken latitude / longitude fields
+        # limit to august fires 
         data = Data.objects.filter(
-            DISCOVERY_DOY__lte=20
+            FIRE_YEAR=2018,
+            DISCOVERY_DOY__lte=243,
+            DISCOVERY_DOY__gte=213
+        # Filter out any broken latitude / longitude fields
         ).exclude(
             LATITUDE=0
         ).exclude(
