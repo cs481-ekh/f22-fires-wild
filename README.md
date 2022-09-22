@@ -71,7 +71,7 @@ Below are the general steps to import data into the sql container. Failing to fo
   - `USE [name]`
  
 - Run the create table script
-  - `mysql> source /var/lib/mysql-files/[sql_script].sql
+  - `mysql> source /var/lib/mysql-files/[sql_script].sql`
   
 - Import the data from the CSV file
   - `mysql> LOAD DATA INFILE '/var/lib/mysql-files/[csv_name].csv' IGNORE INTO TABLE [table_name] FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';`
