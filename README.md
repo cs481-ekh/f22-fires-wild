@@ -34,16 +34,18 @@
 
 ## Clean install (or clean refresh)
 
+When you make changes to the project, you will need to re-build the docker containers before your changes will be reflected in the docker project.
+
 From the root project directory:
 
-- `$ docker-compose down -v`
-  - this will kill any currently running instances of this project and DELETE their associated volumes
-  - this is neccesary because as mysql configuration changes, it will not be reflected until volumes are removed and re-created
+- `$ docker-compose down`
+  - this will stop the currently running insance of the project. This will not delete associated app volumes.
+    - if you would like to delete the volumes (INCLUDING THE DB AND ALL DATA), you may add the `-v` paramter.
 - `$ docker-compose build`
   - this will build the project
   - output from this command contains information useful for debugging
-- `$ docker-compose up`
-  - this will start the project
+- `$ docker-compose up -d`
+  - this will start the project without locking up your console
 - You should now see the containers running in docker, and be able to access the website from localhost.
 
 ## Troubleshooting
