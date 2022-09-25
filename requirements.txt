@@ -4,9 +4,6 @@ certifi==2022.6.15.1
 cffi==1.15.1
 distlib==0.3.6
 Django==4.1.1
-django-cors-headers==3.13.0
-djangorestframework==3.14.0
-#djangorestframework-gis==1.0
 filelock==3.8.0
 mysql-connector-python==8.0.30
 mysqlclient==2.1.1
