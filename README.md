@@ -74,7 +74,7 @@ Below are the general steps to import data into the sql container. Failing to fo
   - `mysql> source /var/lib/mysql-files/[sql_script].sql`
   
 - Import the data from the CSV file
-  - `mysql> LOAD DATA INFILE '/var/lib/mysql-files/[csv_name].csv' IGNORE INTO TABLE [table_name] FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';`
+  - `mysql> LOAD DATA INFILE '/var/lib/mysql-files/[csv_name].csv' IGNORE INTO TABLE [table_name] FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 LINES SET CONT_DATE = date_format(str_to_date(CONT_DATE, '%m/%d/%Y %T'), '%Y-%m-%d %T');`
   - A message showing number of records created, deleted, or skipped will show when done.
   - `SHOW WARNINGS;` can be done to show any warnings generated
   
