@@ -11,17 +11,3 @@ class HeatMapSerializer(serializers.ModelSerializer):
         fields = ('LATITUDE', 'LONGITUDE')
 
 # TODO: something like https://stackoverflow.com/a/72902487/16610401
-
-class VariableListSearializer(serializers.Serializer):
-
-        
-    variableList = serializers.SerializerMethodField()
-    
-    data = serializers.DictField(
-        child=serializers.CharField()
-    )
-        
-    def get_variableList():
-       
-        return self.data
-    
