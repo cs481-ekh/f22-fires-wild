@@ -21,4 +21,5 @@ urlpatterns = [
     #path('data/', include('FPA_FOD_PLUS.urls')),
     path('admin/', admin.site.urls),
     re_path(r'^api/heatmap/$', views.heat_map),
+    re_path(r'^api/variable_list/$', views.variable_list),
 ]
