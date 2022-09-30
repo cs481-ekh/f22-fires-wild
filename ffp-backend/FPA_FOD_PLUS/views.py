@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .serializers import HeatMapSerializer
+from .serializers import HeatMapSerializer, VariableListSearializer
 from django.db.models import Q
 
 
@@ -39,6 +39,12 @@ def heat_map(request):
 
     #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def variable_list(request):
+    if request.method == 'GET':
+        serializer = VariableListSearializer()
+        return Response(serializer.data)
+    
 
 def results(request):
     query_results = Data.objects.filter(NWCG_REPORTING_UNIT_ID='USCACDF')
