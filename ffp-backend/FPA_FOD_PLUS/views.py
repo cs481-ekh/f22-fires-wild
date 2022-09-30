@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .serializers import HeatMapSerializer, VariableListSearializer
+from .serializers import HeatMapSerializer, VariableListSerializer, DistinctYearsSerializer,DistinctStateSerializer
 from django.db.models import Q
 
 
@@ -42,9 +42,20 @@ def heat_map(request):
 @api_view(['GET'])
 def variable_list(request):
     if request.method == 'GET':
-        serializer = VariableListSearializer()
+        serializer = VariableListSerializer()
         return Response(serializer.data)
-    
+  
+@api_view(['GET'])
+def distinct_years_list(request):
+    if request.method == 'GET':
+        serializer = DistinctYearsSerializer()
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def distinct_states_list(request):
+    if request.method == 'GET':
+        serializer = DistinctStateSerializer()
+        return Response(serializer.data)
 
 def results(request):
     query_results = Data.objects.filter(NWCG_REPORTING_UNIT_ID='USCACDF')
