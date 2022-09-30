@@ -12,7 +12,7 @@ class HeatMapSerializer(serializers.ModelSerializer):
 
 # TODO: something like https://stackoverflow.com/a/72902487/16610401
 
-class VariableListSearializer(serializers.Serializer):
+class VariableListSerializer(serializers.Serializer):
 
     variableList = serializers.SerializerMethodField()
     
@@ -40,3 +40,67 @@ class VariableListSearializer(serializers.Serializer):
        
         return self.data
     
+class DistinctYearsSerializer(serializers.Serializer):
+
+    distinctYearsList = serializers.SerializerMethodField()
+    
+    fireYears = []
+    
+    data = serializers.ListField(
+        child = serializers.IntegerField()
+    ) 
+    
+    fetched_fire_years = Data.objects.values('FIRE_YEAR').distinct()
+    
+    for row in fetched_fire_years:
+        fireYears.append(str(row['FIRE_YEAR']))
+    
+    data = fireYears
+    
+    def get_variableList():
+       
+        return self.data
+
+class DistinctStateSerializer(serializers.Serializer):
+
+    distinctStatesList = serializers.SerializerMethodField()
+    
+    states = []
+    
+    data = serializers.ListField(
+        child = serializers.CharField()
+    ) 
+    
+    fetched_states = Data.objects.values('STATE').distinct()
+    
+    for row in fetched_states:
+        states.append(str(row['STATE']))
+    
+    data = states
+    
+    def get_variableList():
+       
+        return self.data
+
+       
+    #class Meta:
+        #model = Data
+        
+        #fields = [
+            #'FIRE_YEAR', 
+            #'DISCOVERY_DATE',
+            #'DISCOVERY_DOY',
+            #'DISCOVERY_TIME',
+            #'CONT_DATE',
+            #'CONT_DOY',
+            #'CONT_DATE',
+            #'CONT_DOY',
+            #'CONT_TIME',
+            #'STATE',
+            #'COUNTY',
+            #'Ecoregion_US_L4CODE',
+            #'Ecoregion_US_L3CODE',
+            #'Ecoregion_NA_L3CODE',
+            #'Ecoregion_NA_L2CODE',
+            #'Ecoregion_NA_L1CODE'
+        #]
