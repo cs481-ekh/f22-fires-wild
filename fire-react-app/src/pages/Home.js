@@ -10,7 +10,7 @@ const Home = () => {
 
     useEffect(() => {
         // heatmap data will not change between page loads, don't reload it
-        if(heatMapData.length == 0){
+        if(heatMapData.length === 0){
             refreshHeatMap();
         }
     },

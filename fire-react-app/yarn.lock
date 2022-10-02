@@ -1549,10 +1549,10 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@react-leaflet/core@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-2.0.1.tgz#19d4bb7c83525fab786982e5750a3f53a4bb0168"
-  integrity sha512-XGmx01DovDt0IWsW4tqeuSYifpY19aUn9NYCqTBI3KNtjbCjj0pfiWa7krNsnJ6l2oQbv4Nt0/BabLbIvT4ocA==
+"@react-leaflet/core@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-1.1.1.tgz#827fd05bb542cf874116176d8ef48d5b12163f81"
+  integrity sha512-7PGLWa9MZ5x/cWy8EH2VzI4T8q5WpuHbixzCDXqixP/WyqwIrg5NDUPgYuFnB4IEIZF+6nA265mYzswFo/h1Pw==
 
 "@remix-run/router@1.0.0":
   version "1.0.0"
@@ -7083,13 +7083,14 @@ react-dev-utils@^12.0.1:
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
-react-dom@^18.2.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
-  integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
+react-dom@^17.0.1:
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
+  integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
   dependencies:
     loose-envify "^1.1.0"
-    scheduler "^0.23.0"
+    object-assign "^4.1.1"
+    scheduler "^0.20.2"
 
 react-error-overlay@^6.0.11:
   version "6.0.11"
@@ -7111,12 +7112,19 @@ react-is@^18.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
-react-leaflet@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-4.0.2.tgz#ffa3d8dde9859459e3dc91436f84ffd56f39ec57"
-  integrity sha512-pDyIf50Ek/LZ0p4Qxw2D9LMOx+LytQs2R+MY3mhTUPGzubrpP4QAgbCv2qc0L9y0qVRgx7dHavWuPFkc/WCJCw==
+react-leaflet-heatmap-layer-v3@^3.0.3-beta-1:
+  version "3.0.3-beta-1"
+  resolved "https://registry.yarnpkg.com/react-leaflet-heatmap-layer-v3/-/react-leaflet-heatmap-layer-v3-3.0.3-beta-1.tgz#4c4fa264a6fdef23d5ab4565be6553b72c5b47d5"
+  integrity sha512-oNv6ul6JHxMIuBXqaGc5P/VM/P6bpiUYAeg1CMCmyeYxWkHfl2YiT4m8VdaJC4TjSxVoi/Ry2ChRTFjF5UsPsg==
   dependencies:
-    "@react-leaflet/core" "^2.0.1"
+    simpleheat "^0.4.0"
+
+react-leaflet@3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.2.5.tgz#bec0bfab9dd8c2b030ea630f7a0687a60322ca7d"
+  integrity sha512-Z3KZ+4SijsRbbrt2I1a3ZDY6+V6Pm91eYTdxTN18G6IOkFRsJo1BuSPLFnyFrlF3WDjQFPEcTPkEgD1VEeAoBg==
+  dependencies:
+    "@react-leaflet/core" "^1.1.1"
 
 react-refresh@^0.11.0:
   version "0.11.0"
@@ -7192,12 +7200,13 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-react@^18.2.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
-  integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
+react@17.0.2:
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
+  integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
   dependencies:
     loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 read-cache@^1.0.0:
   version "1.0.0"
@@ -7472,12 +7481,13 @@ saxes@^5.0.1:
   dependencies:
     xmlchars "^2.2.0"
 
-scheduler@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.23.0.tgz#ba8041afc3d30eb206a487b6b384002e4e61fdfe"
-  integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
+scheduler@^0.20.2:
+  version "0.20.2"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.20.2.tgz#4baee39436e34aa93b4874bddcbf0fe8b8b50e91"
+  integrity sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==
   dependencies:
     loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 schema-utils@2.7.0:
   version "2.7.0"
@@ -7636,6 +7646,11 @@ signal-exit@^3.0.2, signal-exit@^3.0.3:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
+
+simpleheat@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/simpleheat/-/simpleheat-0.4.0.tgz#e2de8d4548fcf1a6960b636bfa939d05bcd49a7b"
+  integrity sha512-tdg3I1NvzMdPKscWBrHbF0LBf+VWuBBazzGUPtFJjG5Q12VQX6gPY8jLy9hx5CbgAIVc5nfnePwJvAYK6z1rAA==
 
 sisteransi@^1.0.5:
   version "1.0.5"
