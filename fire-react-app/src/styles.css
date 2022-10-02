@@ -54,3 +54,10 @@ body {
 .nav li:hover {
     background-color: royalblue;
 }
+
+.center {
+    margin: auto;
+    width: 90%;
+    height: 500px;
+    padding: 10px;
+  }

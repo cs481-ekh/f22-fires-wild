@@ -4,7 +4,7 @@ import Home from "./pages/Home"
 import About from "./pages/About"
 import Admin from "./pages/Admin"
 import Data from "./pages/Data"
-import axios from 'axios'; 
+// import axios from 'axios'; 
 import "./styles.css"
 import { Route, Routes } from "react-router-dom"
 
@@ -13,24 +13,10 @@ class App extends Component  {
       super(props);
     
     this.state = {
-      heatMapData: []
+      // heatMapData: []
     }
   }
 
-  componentDidMount() {
-    this.refreshHeatMap();
-  }
-
-  refreshHeatMap = () => {
-    const headers = {
-      'Accept': 'application/json',
-    };
-    axios   //Axios to send and receive HTTP requests
-      .get("http://localhost:8000/api/heatmap/", {headers})
-      //.then(res => this.setState({ heatMapData: res.data }))
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err));
-  };
 
   render() {
     return (
