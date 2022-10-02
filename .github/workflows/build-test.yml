@@ -1,4 +1,4 @@
-name: Build Phase
+name: Build and Test
 
 on:
   push:
@@ -17,3 +17,5 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run build script
         run: ./build.sh
+      - name: Run test script
+        run: ./test.sh
