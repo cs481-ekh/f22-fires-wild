@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from 'react-leaflet';
+import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import axios from 'axios'; 
-import "./Data.css";
 import "./../styles.css";
 
 const Home = () => {
@@ -20,6 +20,7 @@ const Home = () => {
 
     async function refreshHeatMap() {
         try{
+            // django could return html if it wanted, request json specifically
             const headers = {
                 'Accept': 'application/json',
             };
@@ -37,14 +38,39 @@ const Home = () => {
     };
 
     return (
-        <div className="center">
-            <MapContainer center={[35, -100]} zoom={4}scrollWheelZoom={true}>
+        <div className="home_map">
+            <MapContainer 
+                style={
+                    {
+                        width:'90%',
+                        //height:'99%',
+                        margin: "auto"
+                    }
+                }
+                center={[39, -98]} 
+                zoom={4.5} 
+                zoomSnap={0.5}
+                scrollWheelZoom={true}
+            >
+                <HeatmapLayer
+                    //fitBoundsOnLoad
+                    max={5}
+                    radius={20}
+                    useLocalExtrema
+                    fitBoundsOnUpdate
+                    points={heatMapData}
+                    longitudeExtractor={point => point.LONGITUDE}
+                    latitudeExtractor={point => point.LATITUDE}
+                    // using intensity of 1 per point as we don't have an aggregate or "badness" number
+                    // could change to size or amount of time burned maybe?
+                    intensityExtractor={point => 1} 
+                />
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
             </MapContainer>
-        </div>
+       </div>
     );
 }
 

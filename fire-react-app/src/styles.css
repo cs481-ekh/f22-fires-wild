@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    overflow-y:hidden;
+    overflow-y:scroll;
 }
 
 .page_container {
@@ -55,9 +55,13 @@ body {
     background-color: royalblue;
 }
 
-.center {
+.home_map {
+    height: calc(100% - 60px);
     margin: auto;
-    width: 90%;
-    height: 500px;
-    padding: 10px;
-  }
+}
+
+.leaflet-container {
+    overflow-y:hidden;
+    width: 100%;
+    height: 90vh;
+}
