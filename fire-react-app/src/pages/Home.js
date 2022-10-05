@@ -53,17 +53,17 @@ const Home = () => {
                 scrollWheelZoom={true}
             >
                 <HeatmapLayer
-                    //fitBoundsOnLoad
-                    max={5}
-                    radius={20}
+                    //our intensity is fire size which can be far larger than default of 30 i think
+                    max={Number.MAX_SAFE_INTEGER}
+                    // mess with radius for how detailed / full the heatmap will look
+                    radius={25}
+                    // this makes sure you always see more detail as you zoom
                     useLocalExtrema
                     fitBoundsOnUpdate
                     points={heatMapData}
                     longitudeExtractor={point => point.LONGITUDE}
                     latitudeExtractor={point => point.LATITUDE}
-                    // using intensity of 1 per point as we don't have an aggregate or "badness" number
-                    // could change to size or amount of time burned maybe?
-                    intensityExtractor={point => 1} 
+                    intensityExtractor={point => parseFloat(point.FIRE_SIZE)} 
                 />
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

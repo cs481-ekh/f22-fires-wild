@@ -18,14 +18,15 @@ def heat_map(request):
         # limit to august fires 
         data = Data.objects.filter(
             FIRE_YEAR=2018,
-            DISCOVERY_DOY__lte=243,
-            DISCOVERY_DOY__gte=213
+            # DISCOVERY_DOY__lte=243,
+            # DISCOVERY_DOY__gte=100,
+            FIRE_SIZE__gte=1,
         # Filter out any broken latitude / longitude fields
         ).exclude(
             LATITUDE=0
         ).exclude(
             LONGITUDE=0
-        )
+        ).values('LATITUDE', 'LONGITUDE', 'FIRE_SIZE')
 
         serializer = HeatMapSerializer(data, context={'request': request}, many=True)
 

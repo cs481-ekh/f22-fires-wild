@@ -6,9 +6,7 @@ class HeatMapSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Data
-        # TODO: figure out which fields need to be in the serializer... I would think all of them unfortunately
-        # initially I'm putting the super neccesary ones
-        fields = ('LATITUDE', 'LONGITUDE')
+        fields = ('LATITUDE', 'LONGITUDE', 'FIRE_SIZE')
 
 # TODO: something like https://stackoverflow.com/a/72902487/16610401
 
