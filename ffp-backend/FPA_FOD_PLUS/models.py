@@ -31,7 +31,7 @@ class Data(models.Model):
     CONT_DATE = models.CharField(max_length=11, null=True)
     CONT_DOY = models.IntegerField(null=True)
     CONT_TIME = models.IntegerField(null=True)
-    FIRE_SIZE = models.DecimalField(max_digits=8,decimal_places=3, null=True)
+    FIRE_SIZE = models.DecimalField(max_digits=12,decimal_places=5, null=True)
     FIRE_SIZE_CLASS = models.CharField(max_length=1, null=True)
     LATITUDE = models.DecimalField(max_digits=10,decimal_places=7, null=True)
     LONGITUDE = models.DecimalField(max_digits=10,decimal_places=6, null=True)
