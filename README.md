@@ -57,26 +57,31 @@ Below are the general steps to import data into the sql container. Failing to fo
 
 - Build and run the docker container outlned in the Clean install section of this README
 - First: Upload create table statement and csv file into the sql container:
-  - `$ docker cp file_path ffp-mysql:./var/lib/mysql-files/`
-  - Run this command for both the csv and sql file
+  - `$ docker cp ./sql/createtable.sql ffp-mysql:./var/lib/mysql-files/`
+  - `$ docker cp ./sql/sample_create_insert_statements.sql ffp-mysql:./var/lib/mysql-files/`
   
 - Second: Enter the mySQL CLI and login as the root user (This can be done in Docker Desktop)
   - `$ mysql -u root -p -h localhost`
   - Enter the password when prompted
 
-- Create or use an existing database:
-  - `CREATE DATABASE [name]`
-  - `USE [name]`
+- Use existing database created by docker-compose file:
+  - `USE ffp-mysql-db`
  
 - Run the create table script
-  - `mysql> source /var/lib/mysql-files/[sql_script].sql`
+  - `mysql> source /var/lib/mysql-files/createtable.sql`
   
-- Import the data from the CSV file
-  - `mysql> LOAD DATA INFILE '/var/lib/mysql-files/[csv_name].csv' IGNORE INTO TABLE [table_name] FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 LINES SET CONT_DATE = date_format(str_to_date(CONT_DATE, '%m/%d/%Y %T'), '%Y-%m-%d %T');`
-  - A message showing number of records created, deleted, or skipped will show when done.
-  - `SHOW WARNINGS;` can be done to show any warnings generated
+- Import data from the CSV file OR run insert statement script
+  
+  - Import the data from the CSV file
+    - `mysql> LOAD DATA INFILE '/var/lib/mysql-files/[csv_name].csv' IGNORE INTO TABLE [table_name] FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 LINES SET CONT_DATE = date_format(str_to_date(CONT_DATE, '%m/%d/%Y %T'), '%Y-%m-%d %T');`
+    - A message showing number of records created, deleted, or skipped will show when done.
+    - `SHOW WARNINGS;` can be done to show any warnings generated
+
+  - Import using insert statement script
+    - source /var/lib/mysql-files/sample_create_insert_statements.sql
   
 - Troubleshooting
+  - You may need to restart the ffp-django container to establish connection to the database
   - If you can't run the `LOAD DATA INFILE` command, try running `mysql> SELECT @@GLOBAL.secure_file_priv;` command and try again.
 
 # Attributions:
