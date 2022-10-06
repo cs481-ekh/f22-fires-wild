@@ -26,9 +26,7 @@
 
 # Project Health
 
-[![Build Phase](https://github.com/cs481-ekh/f22-fires-wild/actions/workflows/build.yml/badge.svg)](https://github.com/cs481-ekh/f22-fires-wild/actions/workflows/build.yml)
-
-[![Test Phase](https://github.com/cs481-ekh/f22-fires-wild/actions/workflows/test.yml/badge.svg)](https://github.com/cs481-ekh/f22-fires-wild/actions/workflows/test.yml)
+[![Build and Test](https://github.com/cs481-ekh/f22-fires-wild/actions/workflows/build-test.yml/badge.svg)](https://github.com/cs481-ekh/f22-fires-wild/actions/workflows/build-test.yml)
 
 # Build & Run
 
