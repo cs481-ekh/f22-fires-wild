@@ -1,4 +1,4 @@
-CREATE TABLE mytable(
+CREATE TABLE FPA_FOD_PLUS(
    FOD_ID                        INTEGER  NOT NULL PRIMARY KEY 
   ,FPA_ID                        VARCHAR(55)
   ,SOURCE_SYSTEM_TYPE            VARCHAR(15)
