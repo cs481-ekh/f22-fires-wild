@@ -8,6 +8,15 @@ class HeatMapSerializer(serializers.ModelSerializer):
         model = Data
         fields = ('LATITUDE', 'LONGITUDE', 'FIRE_SIZE')
 
+
+class searchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Data
+        fields = ['LATITUDE', 'LONGITUDE', 'FIRE_YEAR', 'DISCOVERY_DATE', 'DISCOVERY_DOY', 'DISCOVERY_TIME', 'CONT_DATE', 'CONT_DOY', 'CONT_TIME', 'STATE', 'COUNTY',
+                'Ecoregion_US_L4CODE', 'Ecoregion_US_L3CODE', 'Ecoregion_NA_L3CODE', 'Ecoregion_NA_L2CODE', 'Ecoregion_NA_L1CODE']
+
+
+
 # TODO: something like https://stackoverflow.com/a/72902487/16610401
 
 class VariableListSerializer(serializers.Serializer):

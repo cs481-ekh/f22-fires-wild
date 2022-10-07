@@ -2,11 +2,14 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .serializers import HeatMapSerializer, VariableListSerializer, DistinctYearsSerializer,DistinctStateSerializer
+from .serializers import *
 from django.db.models import Q
 
 
 from .models import Data
+
+all_fields = ['LATITUDE', 'LONGITUDE', 'FIRE_YEAR', 'DISCOVERY_DATE', 'DISCOVERY_DOY', 'DISCOVERY_TIME', 'CONT_DATE', 'CONT_DOY', 'CONT_TIME', 'STATE', 'COUNTY',
+                'Ecoregion_US_L4CODE', 'Ecoregion_US_L3CODE', 'Ecoregion_NA_L3CODE', 'Ecoregion_NA_L2CODE', 'Ecoregion_NA_L1CODE']
 
 def index(request):
     
@@ -39,6 +42,36 @@ def heat_map(request):
     #         return Response(status=status.HTTP_201_CREATED)
 
     #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def perform_search(request):
+    
+    if request.method == 'GET':
+        # limit to august fires
+        queryset = Data.objects.all()
+
+        requested_fields = []
+        for f in all_fields:
+            value = request.query_params.get(f,None)
+            if value:
+                # if we have a value for field as param
+                # add column to filtering
+                # todo handle the .filter based on the actual value of the param
+
+                # todo only last ran .values() is working 
+                requested_fields.append(f);
+                # if f == 'FIRE_YEAR':
+                #     queryset=queryset.filter(f'{f}={value}')
+
+                # if f == 'STATE':
+                #     queryset=queryset.filter(f'{f}={value}')                
+
+                # queryset=queryset.filter(f'{f}={value}')
+        queryset=queryset.values(", ". join(f'\'{requested_fields}\''))
+
+        serializer = searchSerializer(queryset, context={'request': request}, many=True)
+
+        return Response(serializer.data)
 
 @api_view(['GET'])
 def variable_list(request):
