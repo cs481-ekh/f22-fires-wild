@@ -304,3 +304,5 @@ CREATE TABLE FPA_FOD_PLUS(
   ,TRI_1km                       NUMERIC(10,3)
   ,TRI                           NUMERIC(10,3)
 );
+CREATE INDEX fpa_fod_index
+ON FPA_FOD_PLUS (FIRE_YEAR, DISCOVERY_DATE, DISCOVERY_DOY, STATE, COUNTY);
