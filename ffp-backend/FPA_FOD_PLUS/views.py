@@ -71,23 +71,9 @@ def results(request):
 @api_view(['GET'])
 def distinct_counties_list(request):
     if request.method == 'GET':
-        state = request.query_params.get('STATE', None)
-        if state:
-            counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
-        #for row in fetched_states:
-        #    states.append(str(row['STATE']))
-            serializer = DistinctCountySerializer(counties, context={'request': request}, many=True)
-        #, context={'request': request}, many=True)
-        #state = request.query_params.get('STATE')
-        #states = []
-        #counties = []
-        #states.append(state) #TESTING PURPOSES
-        #for row in fetched_states:
-        #    states.append(str(row['STATE']))
-        
-        #if state in states:
-            
-        #serializer = DistinctStateSerializer(fetched_states)
+        state = request.query_params.get('STATE')
+        counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
+        serializer = DistinctCountySerializer(counties, context={'request': request}, many=True)
         
         return Response(counties)
     
