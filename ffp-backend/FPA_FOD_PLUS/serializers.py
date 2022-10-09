@@ -79,7 +79,31 @@ class DistinctStateSerializer(serializers.Serializer):
     def get_variableList():
        
         return self.data
+        
+class DistinctCountySerializer(serializers.Serializer):
 
+    class Meta:
+        model = Data
+        fields = ('COUNTY')
+    
+    #distinctCountyList = serializers.SerializerMethodField()
+    
+    #counties = []
+    
+    #data = serializers.ListField(
+    #    child = serializers.CharField()
+    #) 
+    
+    #fetched_counties = Data.objects.values('COUNTY').distinct()
+    
+    #for row in fetched_counties:
+    #    counties.append(str(row['COUNTY']))
+    #
+    #data = counties
+    
+    #def get_variableList():
+       
+    #    return self.data
        
     #class Meta:
         #model = Data

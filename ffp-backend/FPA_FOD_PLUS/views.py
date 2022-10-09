@@ -68,5 +68,28 @@ def results(request):
     
     return HttpResponse(response)
     
+@api_view(['GET'])
+def distinct_counties_list(request):
+    if request.method == 'GET':
+        state = request.query_params.get('STATE', None)
+        if state:
+            counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
+        #for row in fetched_states:
+        #    states.append(str(row['STATE']))
+            serializer = DistinctCountySerializer(counties, context={'request': request}, many=True)
+        #, context={'request': request}, many=True)
+        #state = request.query_params.get('STATE')
+        #states = []
+        #counties = []
+        #states.append(state) #TESTING PURPOSES
+        #for row in fetched_states:
+        #    states.append(str(row['STATE']))
+        
+        #if state in states:
+            
+        #serializer = DistinctStateSerializer(fetched_states)
+        
+        return Response(counties)
+    
 def administrator(request):
     return HttpResponse("Hello you are looking at the administrator page.")
