@@ -24,4 +24,5 @@ urlpatterns = [
     re_path(r'^api/variable_list/$', views.variable_list),
     re_path(r'^api/distinct_years_list/$', views.distinct_years_list),
     re_path(r'^api/distinct_states_list/$', views.distinct_states_list),
+    re_path(r'^api/distinct_counties_list', views.distinct_counties_list),
 ]

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .serializers import HeatMapSerializer, VariableListSerializer, DistinctYearsSerializer,DistinctStateSerializer
+from .serializers import HeatMapSerializer, VariableListSerializer, DistinctYearsSerializer,DistinctStateSerializer, DistinctCountySerializer
 from django.db.models import Q
 
 
@@ -67,6 +67,15 @@ def results(request):
         response += " NAME: " + str(row.NAME) + "\n"
     
     return HttpResponse(response)
+    
+@api_view(['GET'])
+def distinct_counties_list(request):
+    if request.method == 'GET':
+        state = request.query_params.get('STATE')
+        counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
+        serializer = DistinctCountySerializer(counties, context={'request': request}, many=True)
+        
+        return Response(counties)
     
 def administrator(request):
     return HttpResponse("Hello you are looking at the administrator page.")
