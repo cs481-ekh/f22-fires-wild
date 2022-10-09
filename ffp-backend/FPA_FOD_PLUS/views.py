@@ -1,3 +1,4 @@
+from dataclasses import field
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -8,7 +9,7 @@ from django.db.models import Q
 
 from .models import Data
 
-all_fields = ['LATITUDE', 'LONGITUDE', 'FIRE_YEAR', 'DISCOVERY_DATE', 'DISCOVERY_DOY', 'DISCOVERY_TIME', 'CONT_DATE', 'CONT_DOY', 'CONT_TIME', 'STATE', 'COUNTY',
+all_query_params = ['LATITUDE', 'LONGITUDE','FIRE_SIZE', 'FIRE_YEAR', 'DISCOVERY_DATE', 'DISCOVERY_DOY', 'DISCOVERY_TIME', 'CONT_DATE', 'CONT_DOY', 'CONT_TIME', 'STATE', 'COUNTY',
                 'Ecoregion_US_L4CODE', 'Ecoregion_US_L3CODE', 'Ecoregion_NA_L3CODE', 'Ecoregion_NA_L2CODE', 'Ecoregion_NA_L1CODE']
 
 def index(request):
@@ -45,32 +46,28 @@ def heat_map(request):
 
 @api_view(['GET'])
 def perform_search(request):
-    
     if request.method == 'GET':
-        # limit to august fires
-        queryset = Data.objects.all()
-
-        requested_fields = []
-        for f in all_fields:
-            value = request.query_params.get(f,None)
+        requested_fields = {}
+        # grab query params
+        for p in all_query_params:
+            # if we have a value for field as param
+            # then add to requested_fields
+            value = request.query_params.get(p,None)
             if value:
-                # if we have a value for field as param
-                # add column to filtering
-                # todo handle the .filter based on the actual value of the param
+                requested_fields[p] = value
 
-                # todo only last ran .values() is working 
-                requested_fields.append(f);
-                # if f == 'FIRE_YEAR':
-                #     queryset=queryset.filter(f'{f}={value}')
+        # todo: handle gte, lte, etc. i.e, greater than x fire_size, discover date, after year, after time
 
-                # if f == 'STATE':
-                #     queryset=queryset.filter(f'{f}={value}')                
+        # always return values for latitude, longitude, and fire size to be able to map
+        columns = list(requested_fields.keys())
+        columns.append("LATITUDE")
+        columns.append("LONGITUDE")
+        # if no gte or lte or doesnt already exist, then append
+        columns.append("FIRE_SIZE")
 
-                # queryset=queryset.filter(f'{f}={value}')
-        queryset=queryset.values(", ". join(f'\'{requested_fields}\''))
-
+        # now construct queryset using requested_fields dictionary
+        queryset = Data.objects.filter(**requested_fields).values(*columns)
         serializer = searchSerializer(queryset, context={'request': request}, many=True)
-
         return Response(serializer.data)
 
 @api_view(['GET'])
