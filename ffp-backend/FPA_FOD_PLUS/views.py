@@ -1,9 +1,12 @@
 from django.http import HttpResponse
+from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from .serializers import HeatMapSerializer, VariableListSerializer, DistinctYearsSerializer,DistinctStateSerializer, DistinctCountySerializer
 from django.db.models import Q
+from django.shortcuts import render
+import json
 
 
 from .models import Data
@@ -76,6 +79,21 @@ def distinct_counties_list(request):
         serializer = DistinctCountySerializer(counties, context={'request': request}, many=True)
         
         return Response(counties)
+
+@api_view(['Get'])
+def geojson_list(request):
+    if request.method == 'GET':
+        queryset = Data.objects.values().filter(STATE='TX')
+        mydict = []
+        results = list(queryset)
+        for result in results:
+            rec = {}
+            rec["type"] = "Feature"
+            rec["geometry"] = json.loads(result["FPA_ID"])
+            rec["properties"] = {"name":result["name"]}
+            mydict.append(rec)
+        data_geojson = json.dumps(mydict)
+        return render(request, {"mynames" :data_geojson})
     
 def administrator(request):
     return HttpResponse("Hello you are looking at the administrator page.")
