@@ -60,12 +60,17 @@ body {
     margin: auto;
 }
 
-.data_map {
-    width: 80vw;
-    float:right;
-    height: 100vh;
-    margin: 1rem;
+.data_container {
+    display: flex;
+    text-align: center;
 }
+
+.data_sidebar {
+box-sizing: border-box;
+  padding: 2em;
+  width: 20vw;
+}
+
 
 .leaflet-container {
     overflow-y:hidden;
