@@ -123,5 +123,14 @@ def results(request):
     
     return HttpResponse(response)
     
+@api_view(['GET'])
+def distinct_counties_list(request):
+    if request.method == 'GET':
+        state = request.query_params.get('STATE')
+        counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
+        serializer = DistinctCountySerializer(counties, context={'request': request}, many=True)
+        
+        return Response(counties)
+    
 def administrator(request):
     return HttpResponse("Hello you are looking at the administrator page.")

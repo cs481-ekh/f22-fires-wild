@@ -60,6 +60,13 @@ body {
     margin: auto;
 }
 
+.data_map {
+    width: 80vw;
+    float:right;
+    height: 100vh;
+    margin: 1rem;
+}
+
 .leaflet-container {
     overflow-y:hidden;
     width: 100%;

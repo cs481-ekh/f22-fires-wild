@@ -89,10 +89,12 @@ class DistinctStateSerializer(serializers.Serializer):
     def get_variableList():
        
         return self.data
+        
+class DistinctCountySerializer(serializers.Serializer):
 
-       
-    #class Meta:
-        #model = Data
+    class Meta:
+        model = Data
+        fields = ('COUNTY')
         
         #fields = [
             #'FIRE_YEAR', 
