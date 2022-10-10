@@ -1,9 +1,11 @@
 from django.http import HttpResponse
+from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from .serializers import *
 from django.db.models import Q
+from django.shortcuts import render
 
 
 from .models import Data
@@ -130,6 +132,42 @@ def distinct_counties_list(request):
         serializer = DistinctCountySerializer(counties, context={'request': request}, many=True)
         
         return Response(counties)
+
+@api_view(['Get'])
+def geojson_list(request):
+    if request.method == 'GET':
+        # queryset = Data.objects.filter(STATE='TX').values('STATE', 'LATITUDE', 'LONGITUDE')
+        # serialized = json.dumps(list(queryset), cls=DjangoJSONEncoder)
+        #return Response(serialize('geojson', Data.objects.filter(STATE='TX').values(), geometry_field='point', fields=('name',)))
+        #return Response(serialize)
+        fod_id = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('FOD_ID', flat=True)
+        fire_name = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('FIRE_NAME', flat=True)
+        fyear = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('DISCOVERY_DATE', flat=True)
+        fcause = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('NWCG_GENERAL_CAUSE', flat=True)
+        fcont = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('CONT_DATE', flat=True)
+        fsize = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('FIRE_SIZE', flat=True)
+        lat = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('LATITUDE', flat=True)
+        long = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('LONGITUDE', flat=True)
+        fstate = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('STATE', flat=True)
+        fcounty = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('FIPS_NAME', flat=True)
+
+        geo_json = [ {"type": "Feature",
+                    "properties": {
+                        "id":  ident,
+                        "popupContent":  "id=%s" % (ident,),
+                        "name":  fname,
+                        "Discovery_Date": ffyear,
+                        "Containment_Date": ffcont,
+                        "Cause": ffcause,
+                        "State": ffstate,
+                        "County": ffcounty,
+                        "Size": ffsize
+                        },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [lon,lat] }}
+                    for ident,fname,ffyear,ffcont,ffcause,ffstate,ffcounty,ffsize,lon,lat in zip(fod_id,fire_name,fyear,fcont,fcause,fstate,fcounty,fsize,long,lat) ]
+        return Response(geo_json)
     
 def administrator(request):
     return HttpResponse("Hello you are looking at the administrator page.")
