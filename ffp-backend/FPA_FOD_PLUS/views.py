@@ -16,7 +16,6 @@ all_query_params = ['LATITUDE', 'LONGITUDE','FIRE_SIZE','FIRE_SIZE__gte','FIRE_S
                      'COUNTY','Ecoregion_US_L4CODE', 'Ecoregion_US_L3CODE', 'Ecoregion_NA_L3CODE', 'Ecoregion_NA_L2CODE','Ecoregion_NA_L1CODE']
 
 def index(request):
-
     return HttpResponse("Hello, world. You're at the FPA-FOD-Plus index page.")
     
 @api_view(['GET'])
