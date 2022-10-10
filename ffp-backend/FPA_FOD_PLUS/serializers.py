@@ -12,8 +12,9 @@ class HeatMapSerializer(serializers.ModelSerializer):
 class searchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Data
-        fields = ['LATITUDE', 'LONGITUDE','FIRE_SIZE', 'FIRE_YEAR', 'DISCOVERY_DATE', 'DISCOVERY_DOY', 'DISCOVERY_TIME', 'CONT_DATE', 'CONT_DOY', 'CONT_TIME', 'STATE', 'COUNTY',
-                'Ecoregion_US_L4CODE', 'Ecoregion_US_L3CODE', 'Ecoregion_NA_L3CODE', 'Ecoregion_NA_L2CODE', 'Ecoregion_NA_L1CODE']
+        fields = ['LATITUDE', 'LONGITUDE','FIRE_SIZE', 'FIRE_YEAR', 'DISCOVERY_DATE', 'DISCOVERY_DOY', 'DISCOVERY_TIME',
+                  'CONT_DATE', 'CONT_DOY', 'CONT_TIME', 'STATE', 'COUNTY','Ecoregion_US_L4CODE', 'Ecoregion_US_L3CODE',
+                  'Ecoregion_NA_L3CODE', 'Ecoregion_NA_L2CODE', 'Ecoregion_NA_L1CODE']
 
 
 
