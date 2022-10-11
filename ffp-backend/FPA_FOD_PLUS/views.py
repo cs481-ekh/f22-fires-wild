@@ -128,7 +128,14 @@ def results(request):
 def distinct_counties_list(request):
     if request.method == 'GET':
         state = request.query_params.get('STATE')
-        counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
+        fetched_counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
+        counties = []
+        
+        for row in fetched_counties:
+            if str(row['COUNTY']) != "None":
+                #if str(row['COUNTY']) != "None":
+                counties.append(str(row['COUNTY']))
+        
         serializer = DistinctCountySerializer(counties, context={'request': request}, many=True)
         
         return Response(counties)
