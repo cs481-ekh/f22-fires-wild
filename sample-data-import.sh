@@ -21,13 +21,9 @@ echo "creating table and importing data"
 docker exec -i ffp-mysql mysql -uroot -pmysql-root-password  <<< "use ffp-mysql-db; source /var/lib/mysql-files/createtable.sql; source /var/lib/mysql-files/sample_create_insert_statements.sql;"
 
 # req'd because it takes time to run the command that isn't reflected here, admittedly inaccurate :(
-sleep 2
+sleep 5
 echo "data import complete"
 
 echo "restarting django container to re-initialize connection"
 # here we have to restart the django container to re-init the conne
 docker restart ffp-django
-
-# trying this to ensure that django is ready for connections b4 tests, not sure if this is the problem
-sleep 2
-echo "restart complete"
