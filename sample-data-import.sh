@@ -8,8 +8,13 @@ docker cp ./sql/sample_create_insert_statements.sql ffp-mysql:./var/lib/mysql-fi
 
 echo "transfer complete."
 
-# req'd to wait for sql container to initialize :(
-sleep 2
+# we need to wait for the db connection to be open before we can run the import
+# chose this solution because it is self-contained (didn't want to create a healthcheck on the container for this)
+# https://stackoverflow.com/a/48703384/16610401
+while ! docker exec -i ffp-mysql mysql -uroot -pmysql-root-password -e "status" &> /dev/null ; do
+    echo "waiting for database connection..."
+    sleep 5
+done   
 
 echo "creating table and importing data"
 # https://stackoverflow.com/a/39720988/16610401
