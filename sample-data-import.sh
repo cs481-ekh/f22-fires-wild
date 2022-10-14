@@ -8,11 +8,14 @@ docker cp ./sql/sample_create_insert_statements.sql ffp-mysql:./var/lib/mysql-fi
 
 echo "transfer complete."
 
+# req'd to wait for sql container to initialize :(
+sleep 2
+
 echo "creating table and importing data"
 # https://stackoverflow.com/a/39720988/16610401
 docker exec -i ffp-mysql mysql -uroot -pmysql-root-password  <<< "use ffp-mysql-db; source /var/lib/mysql-files/createtable.sql; source /var/lib/mysql-files/sample_create_insert_statements.sql;"
 
-# req'd because it takes time to run the command that isn't reflected here, admittedly inaccurate
+# req'd because it takes time to run the command that isn't reflected here, admittedly inaccurate :(
 sleep 2
 echo "data import complete"
 
