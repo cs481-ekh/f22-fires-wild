@@ -8,9 +8,27 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+
+// fields -  fields we are requesting
+// resObj -  response object from endpoint
+// this wont work at the moment because there are some null values in the DB. Still a good example of a 'custom command' in Cypress,
+// these can be used across test files.
+Cypress.Commands.add("nullFieldValidator", (fields, resObj) => {
+  for (var property in resObj) {
+    if (
+      property in fields ||
+      property == "LATITUDE" ||
+      property == "LONGITUDE" ||
+      property == "DISCOVERY_DATE" ||
+      property == "CONT_DATE" ||
+      property == "FIRE_SIZE"
+    ) {
+      expect(resObj[property]).to.not.be.null;
+    } else {
+      expect(resObj[property]).to.be.null;
+    }
+  }
+});
 //
 //
 // -- This is a child command --
