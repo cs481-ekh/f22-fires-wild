@@ -27,3 +27,7 @@ echo "data import complete"
 echo "restarting django container to re-initialize connection"
 # here we have to restart the django container to re-init the conne
 docker restart ffp-django
+
+# trying this to ensure that django is ready for connections b4 tests, not sure if this is the problem
+sleep 2
+echo "restart complete"
