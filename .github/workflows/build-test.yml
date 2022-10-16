@@ -29,6 +29,6 @@ jobs:
          config-file: 'functional-testing/cypress.config.js'
          command: 'yarn cypress run'
          install-command: 'yarn'
-         wait-on: 'http://localhost:8000'
+#          wait-on: 'http://localhost:8000'
          working-directory: 'functional-testing/'
          
