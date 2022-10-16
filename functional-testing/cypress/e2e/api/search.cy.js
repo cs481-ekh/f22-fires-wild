@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const url = "http://127.0.0.1:8000/api/search/";
+const url = "http://localhost:8000/api/search/";
 
 describe("Proof of concept test using the state of our application at 9/20/2022.", () => {
   // GTE, LTE, & range tests
