@@ -19,21 +19,21 @@ jobs:
         run: ./build.sh
       - name: Run import script
         run: ./sample-data-import.sh
-#       - name: Run test script
-#         run: ./test.sh
-      - name: Find Docker Host IP
-        uses: addnab/docker-run-action@v1
-        with:
-          image: alpine:latest
-          run: apk update > /dev/null && apk add iproute2 > /dev/null && ip -4 route show default | cut -d' ' -f3
-      - name: Cypress.io
-        # You may pin to the exact commit or the version.
-        # uses: cypress-io/github-action@30008f1458a5a2c97054bfe118fe33d75976c482
-        uses: cypress-io/github-action@v4.2.0
-        with:
-         config-file: 'functional-testing/cypress.config.js'
-         command: 'yarn cypress run'
-         install-command: 'yarn'
-#          wait-on: 'http://localhost:8000'
-         working-directory: 'functional-testing/'
+      - name: Run test script
+        run: ./test.sh
+      # - name: Find Docker Host IP
+      #   uses: addnab/docker-run-action@v1
+      #   with:
+      #     image: alpine:latest
+      #     run: apk update > /dev/null && apk add iproute2 > /dev/null && ip -4 route show default | cut -d' ' -f3
+      # - name: Cypress.io
+      #   # You may pin to the exact commit or the version.
+      #   # uses: cypress-io/github-action@30008f1458a5a2c97054bfe118fe33d75976c482
+      #   uses: cypress-io/github-action@v4.2.0
+      #   with:
+      #    config-file: 'functional-testing/cypress.config.js'
+      #    command: 'yarn cypress run'
+      #    install-command: 'yarn'
+      #    wait-on: 'http://localhost:8000'
+      #    working-directory: 'functional-testing/'
          
