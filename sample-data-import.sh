@@ -29,4 +29,4 @@ echo "restarting django container to re-initialize connection"
 docker restart ffp-django
 
 # HACK test what's going on with the containers
-docker-machine inspect default | grep IPAddress
+docker port ffp-django
