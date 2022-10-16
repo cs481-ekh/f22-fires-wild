@@ -6,7 +6,7 @@ from rest_framework import status
 from .serializers import *
 from django.db.models import Q
 from django.shortcuts import render
-
+import csv
 
 from .models import Data
 
@@ -175,6 +175,24 @@ def geojson_list(request):
                         "coordinates": [lon,lat] }}
                     for ident,fname,ffyear,ffcont,ffcause,ffstate,ffcounty,ffsize,lon,lat in zip(fod_id,fire_name,fyear,fcont,fcause,fstate,fcounty,fsize,long,lat) ]
         return Response(geo_json)
+
+@api_view(['Get'])
+def csv_view(request):
+    if request.method == 'GET':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="fires.csv"'
+
+        writer = csv.writer(response)
+        fire_rows = Data._meta.fields
+
+        fire_columns = [f.name for f in Data._meta.fields]
+
+        writer.writerow(fire_columns)
+
+        fires = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list()
+        for fire in fires:
+            writer.writerow(fire)
+        return response
     
 def administrator(request):
     return HttpResponse("Hello you are looking at the administrator page.")
