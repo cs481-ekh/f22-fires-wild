@@ -27,3 +27,6 @@ echo "data import complete"
 echo "restarting django container to re-initialize connection"
 # here we have to restart the django container to re-init the conne
 docker restart ffp-django
+
+# HACK test what's going on with the containers
+docker-machine inspect default | grep IPAddress
