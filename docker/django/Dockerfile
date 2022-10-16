@@ -6,3 +6,4 @@ WORKDIR /ffp-backend
 COPY requirements.txt /ffp-backend/
 RUN pip install -r requirements.txt
 COPY . /ffp-backend/
+EXPOSE 8000
