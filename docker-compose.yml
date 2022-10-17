@@ -14,6 +14,7 @@ services:
       - 3308
     ports:
       - "3308:3308"
+    network_mode: "host" 
     networks:
     - ffp-network
 
@@ -34,6 +35,7 @@ services:
     ports:
       - "8000:8000"
     command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
+    network_mode: "host" 
     networks:
     - ffp-network 
 
@@ -49,6 +51,7 @@ services:
     stdin_open: true
     depends_on:
       - ffp-django
+    network_mode: "host" 
     networks:
       - ffp-network
 
