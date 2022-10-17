@@ -36,10 +36,10 @@ docker network ls
 echo "docker ps:"
 docker ps -a   
 
-# HACK try curl to the heatmap endpoint
+echo "docker inspect -f:"
+docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
 
-echo "GET 172.17.0.1:8000 heatmap"
-curl -XGET 'http://172.17.0.1:8000/api/heatmap/' -v
+# HACK try curl to the heatmap endpoint
 
 echo "GET localhost:8000 heatmap"
 curl -XGET 'http://localhost:8000/api/heatmap/' -v
