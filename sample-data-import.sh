@@ -16,6 +16,9 @@ while ! docker exec -i ffp-mysql mysql -uroot -pmysql-root-password -e "status" 
     sleep 5
 done   
 
+echo "editing mysql bind address"
+docker exec -i ffp-mysql sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/my.cnf
+
 echo "creating table and importing data"
 # https://stackoverflow.com/a/39720988/16610401
 docker exec -i ffp-mysql mysql -uroot -pmysql-root-password  <<< "use ffp-mysql-db; source /var/lib/mysql-files/createtable.sql; source /var/lib/mysql-files/sample_create_insert_statements.sql;"
@@ -24,7 +27,15 @@ docker exec -i ffp-mysql mysql -uroot -pmysql-root-password  <<< "use ffp-mysql-
 sleep 5
 echo "data import complete"
 
-echo "restarting django container to re-initialize connection"
+echo "restarting mysql and django containers to re-initialize connection"
+# here we have to restart the mysql container because of change to bind address
+docker restart ffp-mysql
+
+while ! docker exec -i ffp-mysql mysql -uroot -pmysql-root-password -e "status" &> /dev/null ; do
+    echo "waiting for database connection..."
+    sleep 5
+done 
+
 # here we have to restart the django container to re-init the conne
 docker restart ffp-django
 
