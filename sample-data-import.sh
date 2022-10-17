@@ -44,4 +44,8 @@ docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}
 echo "GET localhost:8000 heatmap"
 curl -XGET 'http://localhost:8000/api/heatmap/' -v
 
+echo "GET 172.18.0.3:8000 heatmap"
+curl -XGET 'http://172.18.0.3:8000/api/heatmap/' -v
+
+172.18.0.3
 
