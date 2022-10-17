@@ -12,11 +12,11 @@ services:
     env_file: env_vars
     expose:
       - 3308
-    # ports:
-    #   - "3308:3308"
+    ports:
+      - "3308:3308"
     network_mode: "host" 
-    # networks:
-    # - ffp-network
+    networks:
+    - ffp-network
 
   ffp-django:
     container_name: ffp-django
@@ -32,12 +32,12 @@ services:
     working_dir: "/ffp-backend/"
     expose:
       - 8000
-    # ports:
-    #   - "8000:8000"
+    ports:
+      - "8000:8000"
     command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
     network_mode: "host" 
-    # networks:
-    # - ffp-network 
+    networks:
+    - ffp-network 
 
   ffp-react:
     restart: always
@@ -46,8 +46,8 @@ services:
     build:
       context: ./fire-react-app/
       dockerfile: ../docker/react/Dockerfile
-    # ports:
-    #   - "3000:3000"
+    ports:
+      - "3000:3000"
     stdin_open: true
     depends_on:
       - ffp-django
