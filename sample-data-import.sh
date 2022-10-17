@@ -58,12 +58,6 @@ curl -XGET 'http://localhost:8000/api/heatmap/' -v
 echo "GET 127.0.0.1:8000 heatmap"
 curl -XGET 'http://127.0.0.1:8000/api/heatmap/' -v
 
-echo "GET 0.0.0.1:8000 heatmap"
-curl -XGET 'http://0.0.0.1:8000/api/heatmap/' -v
-
-echo "GET 0.0.0.0:8000 heatmap"
-curl -XGET 'http://0.0.0.0:8000/api/heatmap/' -v
-
 echo "mysql logs"
 docker logs ffp-mysql
 
