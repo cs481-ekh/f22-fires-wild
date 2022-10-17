@@ -36,7 +36,6 @@ services:
     command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
     networks:
     - ffp-network 
-    - default
 
   ffp-react:
     restart: always
@@ -52,7 +51,6 @@ services:
       - ffp-django
     networks:
       - ffp-network
-      - default
 
 volumes:
   ffp-web:

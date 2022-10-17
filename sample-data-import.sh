@@ -29,6 +29,7 @@ echo "restarting django container to re-initialize connection"
 docker restart ffp-django
 
 # HACK test what's going on with the containers
+sleep 10
 echo "networks:"
 docker network ls
 
@@ -36,7 +37,6 @@ echo "docker ps:"
 docker ps -a   
 
 # HACK try curl to the heatmap endpoint
-sleep 10
 echo "GET localhost:8000 heatmap"
 curl -XGET 'http://localhost:8000/api/heatmap/'
 
