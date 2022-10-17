@@ -41,8 +41,11 @@ docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}
 
 # HACK try curl to the heatmap endpoint
 
-echo "GET localhost:8000 heatmap"
-curl -XGET 'http://localhost:8000/api/heatmap/' -v
+# echo "GET localhost:8000 heatmap"
+# curl -XGET 'http://localhost:8000/api/heatmap/' -v
 
-echo "docker logs"
+echo "mysql logs"
+docker logs ffp-mysql
+
+echo "django logs"
 docker logs ffp-django
