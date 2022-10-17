@@ -16,8 +16,8 @@ while ! docker exec -i ffp-mysql mysql -uroot -pmysql-root-password -e "status" 
     sleep 5
 done   
 
-echo "editing mysql bind address"
-docker exec -i ffp-mysql sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/my.cnf
+# echo "editing mysql bind address"
+# docker exec -i ffp-mysql sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/my.cnf
 
 echo "creating table and importing data"
 # https://stackoverflow.com/a/39720988/16610401
@@ -40,26 +40,26 @@ done
 docker restart ffp-django
 
 # HACK test what's going on with the containers
-sleep 10
-echo "networks:"
-docker network ls
+# sleep 10
+# echo "networks:"
+# docker network ls
 
-echo "docker ps:"
-docker ps -a   
+# echo "docker ps:"
+# docker ps -a   
 
-echo "docker inspect -f:"
-docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+# echo "docker inspect -f:"
+# docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
 
 # HACK try curl to the heatmap endpoint
 
-echo "GET localhost:8000 heatmap"
-curl -XGET 'http://localhost:8000/api/heatmap/' -v
+# echo "GET localhost:8000 heatmap"
+# curl -XGET 'http://localhost:8000/api/heatmap/' -v
 
-echo "GET 127.0.0.1:8000 heatmap"
-curl -XGET 'http://127.0.0.1:8000/api/heatmap/' -v
+# echo "GET 127.0.0.1:8000 heatmap"
+# curl -XGET 'http://127.0.0.1:8000/api/heatmap/' -v
 
-echo "mysql logs"
-docker logs ffp-mysql
+# echo "mysql logs"
+# docker logs ffp-mysql
 
-echo "django logs"
-docker logs ffp-django
+# echo "django logs"
+# docker logs ffp-django
