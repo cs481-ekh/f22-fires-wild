@@ -11,9 +11,9 @@ services:
     restart: unless-stopped
     env_file: env_vars
     expose:
-      - 3308
+      - 3306
     ports:
-      - "3308:3308"
+      - "3308:3306"
     networks:
     - ffp-network
 
@@ -59,4 +59,3 @@ volumes:
 networks:
   ffp-network:
     driver: bridge
-    

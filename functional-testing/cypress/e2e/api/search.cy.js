@@ -4,7 +4,7 @@ const url = "http://localhost:8000/api/search/";
 
 describe("Proof of concept test using the state of our application at 9/20/2022.", () => {
   // GTE, LTE, & range tests
-  it.skip("Should validate FIRE_SIZE GTE functionality", () => {
+  it("Should validate FIRE_SIZE GTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -23,7 +23,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate FIRE_SIZE LTE functionality", () => {
+  it("Should validate FIRE_SIZE LTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -38,7 +38,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate FIRE_SIZE range functionality", () => {
+  it("Should validate FIRE_SIZE range functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -53,7 +53,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate FIRE_YEAR GTE functionality", () => {
+  it("Should validate FIRE_YEAR GTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -68,7 +68,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate FIRE_YEAR LTE functionality", () => {
+  it("Should validate FIRE_YEAR LTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -83,7 +83,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate FIRE_YEAR range functionality", () => {
+  it("Should validate FIRE_YEAR range functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -147,7 +147,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate DISCOVERY_DOY GTE functionality", () => {
+  it("Should validate DISCOVERY_DOY GTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -162,7 +162,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate DISCOVERY_DOY LTE functionality", () => {
+  it("Should validate DISCOVERY_DOY LTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -177,7 +177,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate DISCOVERY_DOY range functionality", () => {
+  it("Should validate DISCOVERY_DOY range functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -192,7 +192,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate DISCOVERY_TIME GTE functionality", () => {
+  it("Should validate DISCOVERY_TIME GTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -207,7 +207,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate DISCOVERY_TIME LTE functionality", () => {
+  it("Should validate DISCOVERY_TIME LTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -222,7 +222,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate DISCOVERY_TIME range functionality", () => {
+  it("Should validate DISCOVERY_TIME range functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -287,7 +287,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate CONT_DOY GTE functionality", () => {
+  it("Should validate CONT_DOY GTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -302,7 +302,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate CONT_DOY LTE functionality", () => {
+  it("Should validate CONT_DOY LTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -317,7 +317,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate CONT_DOY range functionality", () => {
+  it("Should validate CONT_DOY range functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -332,7 +332,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate CONT_TIME GTE functionality", () => {
+  it("Should validate CONT_TIME GTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -347,7 +347,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate CONT_TIME LTE functionality", () => {
+  it("Should validate CONT_TIME LTE functionality", () => {
     cy.request({
       method: "GET",
       url,
@@ -362,7 +362,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  it.skip("Should validate CONT_TIME range functionality", () => {
+  it("Should validate CONT_TIME range functionality", () => {
     cy.request({
       method: "GET",
       url,
