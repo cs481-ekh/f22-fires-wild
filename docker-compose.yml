@@ -14,8 +14,8 @@ services:
       - 3308
     ports:
       - "3308:3308"
-    networks:
-    - ffp-network
+    # networks:
+    # - ffp-network
 
   ffp-django:
     container_name: ffp-django
@@ -34,8 +34,8 @@ services:
     ports:
       - "8000:8000"
     command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
-    networks:
-    - ffp-network 
+    # networks:
+    # - ffp-network
 
   ffp-react:
     restart: always
@@ -49,14 +49,18 @@ services:
     stdin_open: true
     depends_on:
       - ffp-django
-    networks:
-      - ffp-network
+    # networks:
+    #   - ffp-network
 
 volumes:
   ffp-web:
   ffp-mysql:
 
+# networks:
+#   ffp-network:
+#     driver: bridge
+
 networks:
-  ffp-network:
-    driver: bridge
-    
+ default: 
+  external: 
+    name: ffp-network
