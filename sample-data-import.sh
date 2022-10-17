@@ -34,3 +34,7 @@ docker network ls
 
 echo "docker ps:"
 docker ps -a   
+
+# HACK try curl to the heatmap endpoint
+sleep 10
+curl -XGET 'http://localhost:8000/api/heatmap/'
