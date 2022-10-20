@@ -29,7 +29,7 @@ const Data = () => {
             };
             //Axios to send and receive HTTP requests
             console.log("requesting variable list");
-            const response = await axios.get("http://localhost:8000/api/variable_list/", { headers });
+            const response = await axios.get(process.env.REACT_APP_API_URL+"/variable_list/", { headers });
             const data = await response.data;
             //DEBUG            
             console.log("variable_list:");

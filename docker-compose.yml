@@ -9,11 +9,11 @@ services:
     volumes:
       - ffp-mysql:/var/lib/mysql
     restart: unless-stopped
-    env_file: env_vars
+    env_file: .env
     expose:
       - 3306
-    ports:
-      - "3308:3306"
+    # ports:
+    #   - "3308:3306"
     networks:
     - ffp-network
 
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/django/Dockerfile
-    env_file: env_vars
+    env_file: .env
     restart: always
     volumes:
       - ffp-web:/app/
@@ -32,7 +32,7 @@ services:
     expose:
       - 8000
     ports:
-      - "8000:8000"
+      - "${HOST_API_PORT}:8000"
     command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
     networks:
     - ffp-network 
@@ -44,8 +44,17 @@ services:
     build:
       context: ./fire-react-app/
       dockerfile: ../docker/react/Dockerfile
+    environment:
+      # not using .env here so that secrets aren't exposed to frontend env
+      # Fixes webpack problems of diff ports
+      # https://stackoverflow.com/a/70618837/16610401
+      - WDS_SOCKET_PORT=0
+
+        # This is used in the react app for routing to api from clients
+        # This should match the DJANGO API URL of the deployed env (or localhost for dev)
+      -  REACT_APP_API_URL=http://localhost:8000/api
     ports:
-      - "3000:3000"
+      - "${HOST_WEB_PORT}:3000"
     stdin_open: true
     depends_on:
       - ffp-django

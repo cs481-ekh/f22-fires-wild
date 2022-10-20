@@ -5,7 +5,7 @@ import axios from 'axios';
 import "./../styles.css";
 
 const Home = () => {
-
+    
     const [heatMapData, setHeatMapData] = useState([]);
 
     useEffect(() => {
@@ -25,7 +25,10 @@ const Home = () => {
                 'Accept': 'application/json',
             };
             //Axios to send and receive HTTP requests
-            const response = await axios.get("http://localhost:8000/api/heatmap/", {headers});
+            const response = await axios.get(
+                process.env.REACT_APP_API_URL+"/heatmap/",
+                {headers}
+            );
             console.log("requesting");
             const data = await response.data;
             console.log(data);
