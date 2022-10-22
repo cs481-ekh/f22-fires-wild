@@ -18,7 +18,7 @@ const variables = [
 	];
 
 describe("variable_list.cy.js", () => {
-	it("should visit", () => {
+	it("should be visitable", () => {
 		cy.visit(url);
 	})
 	it("serializer should match list given", () => {
@@ -27,14 +27,12 @@ describe("variable_list.cy.js", () => {
 			url,
 		}).then((response) => {
 			let variable_list = response.body;
-			let key_index = 0;
 			for(const [key, value] of Object.entries(variable_list)){
-				expect(key).to.equal(variables[key_index]);
-				key_index++;
+				expect(key).to.be.oneOf(variables);
 			}
 		})
 	})
-	it("Variable name should not be null", () => {
+	it("variable name should not be null", () => {
 		cy.request({
 			method: "GET",
 			url,
@@ -56,4 +54,28 @@ describe("variable_list.cy.js", () => {
 			}
 		})
 	})
+	it("variable name should be string", () => {
+		cy.request({
+			method: "GET",
+			url,
+		}).then((response) => {
+			let variable_list = response.body;
+			for(const [key, value] of Object.entries(variable_list)){
+				expect(key).to.be.a("string");
+			}
+		})
+	})
+	it("variable description should be string", () => {
+		cy.request({
+			method: "GET",
+			url,
+		}).then((response) => {
+			let variable_list = response.body;
+			for(const [key, value] of Object.entries(variable_list)){
+				expect(value).to.be.a("string");
+			}
+		})
+	})
 })
+
+	
