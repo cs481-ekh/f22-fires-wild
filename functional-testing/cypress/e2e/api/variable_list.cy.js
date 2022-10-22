@@ -17,18 +17,43 @@ const variables = [
 	"Ecoregion_NA_L1CODE"
 	];
 
-describe("Proof of concept test for variable list.", () => {
-	it.skip("Should validate correct variables in variable_list API.", () => {
+describe("variable_list.cy.js", () => {
+	it("should visit", () => {
+		cy.visit(url);
+	})
+	it("serializer should match list given", () => {
 		cy.request({
 			method: "GET",
 			url,
 		}).then((response) => {
 			let variable_list = response.body;
-			key_index = 0;
+			let key_index = 0;
 			for(const [key, value] of Object.entries(variable_list)){
-				expect(key).to.equal(variables[i]);
+				expect(key).to.equal(variables[key_index]);
 				key_index++;
 			}
-		});
-	});
-)};
+		})
+	})
+	it("Variable name should not be null", () => {
+		cy.request({
+			method: "GET",
+			url,
+		}).then((response) => {
+			let variable_list = response.body;
+			for(const [key, value] of Object.entries(variable_list)){
+				expect(key).to.not.be.null;
+			}
+		})
+	})
+	it("description should not be null", () => {
+		cy.request({
+			method: "GET",
+			url,
+		}).then((response) => {
+			let variable_list = response.body;
+			for(const [key, value] of Object.entries(variable_list)){
+				expect(value).to.not.be.null;
+			}
+		})
+	})
+})
