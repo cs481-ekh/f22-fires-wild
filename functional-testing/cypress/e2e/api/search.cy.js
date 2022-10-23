@@ -98,55 +98,6 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  // todo
-  it.skip("Should validate DISCOVERY_DATE GTE functionality", () => {
-    cy.request({
-      method: "GET",
-      url,
-      qs: {
-        DISCOVERY_DATE__gte: "0007-05-18",
-      },
-    }).then((response) => {
-      let returnedList = response.body;
-      returnedList.forEach((obj) => {
-        cy.log(JSON.stringify(obj));
-        // expect(Number(obj.DISCOVERY_DATE)).to.be.gte(Date("0007 - 05 - 18"));
-      });
-    });
-  });
-
-  // todo
-  it.skip("Should validate DISCOVERY_DATE LTE functionality", () => {
-    cy.request({
-      method: "GET",
-      url,
-      qs: {
-        DISCOVERY_DATE__lte: 2019,
-      },
-    }).then((response) => {
-      let returnedList = response.body;
-      returnedList.forEach((obj) => {
-        expect(Number(obj.DISCOVERY_DATE)).to.be.lte(2019);
-      });
-    });
-  });
-
-  // todo
-  it.skip("Should validate DISCOVERY_DATE range functionality", () => {
-    cy.request({
-      method: "GET",
-      url,
-      qs: {
-        DISCOVERY_DATE__range: "2018->2019",
-      },
-    }).then((response) => {
-      let returnedList = response.body;
-      returnedList.forEach((obj) => {
-        expect(Number(obj.DISCOVERY_DATE)).to.be.within(2018, 2019);
-      });
-    });
-  });
-
   it("Should validate DISCOVERY_DOY GTE functionality", () => {
     cy.request({
       method: "GET",
@@ -237,52 +188,112 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     });
   });
 
-  //todo
-  it.skip("Should validate CONT_DATE GTE functionality", () => {
+  it("Should validate DISCOVERY_DATE GTE functionality", () => {
+    let queryDate = "2018-07-05";
     cy.request({
       method: "GET",
       url,
       qs: {
-        CONT_DATE__gte: "7/4/18 0:00",
+        DISCOVERY_DATE__gte: queryDate,
       },
     }).then((response) => {
       let returnedList = response.body;
       returnedList.forEach((obj) => {
-        cy.log(JSON.stringify(obj));
-        //something like this
-        // expect(Date(obj.CONT_DATE)).to.be.gte(Date("7/4/18 0:00"));
+        var retDate = new Date(obj.DISCOVERY_DATE).valueOf();
+        expect(retDate.valueOf()).to.be.gte(new Date(queryDate).valueOf());
       });
     });
   });
 
-  //todo
-  it.skip("Should validate CONT_DATE LTE functionality", () => {
+  it("Should validate DISCOVERY_DATE LTE functionality", () => {
+    let queryDate = "2018-07-05";
     cy.request({
       method: "GET",
       url,
       qs: {
-        CONT_DATE__lte: 1600,
+        DISCOVERY_DATE__lte: queryDate,
       },
     }).then((response) => {
       let returnedList = response.body;
       returnedList.forEach((obj) => {
-        expect(Number(obj.CONT_DATE)).to.be.lte(1600);
+        var retDate = new Date(obj.DISCOVERY_DATE).valueOf();
+        expect(retDate.valueOf()).to.be.lte(new Date(queryDate).valueOf());
       });
     });
   });
 
-  //todo
-  it.skip("Should validate CONT_DATE range functionality", () => {
+  it("Should validate DISCOVERY_DATE range functionality", () => {
+    let dateLow = "2018-07-05";
+    let dateHigh = "2018-08-01";
     cy.request({
       method: "GET",
       url,
       qs: {
-        CONT_DATE__range: "1500->1600",
+        DISCOVERY_DATE__range: `${dateLow}->${dateHigh}`,
       },
     }).then((response) => {
       let returnedList = response.body;
       returnedList.forEach((obj) => {
-        expect(Number(obj.CONT_DATE)).to.be.within(1500, 1600);
+        var retDate = new Date(obj.DISCOVERY_DATE).valueOf();
+        expect(retDate.valueOf()).to.be.within(
+          new Date(dateLow).valueOf(),
+          new Date(dateHigh).valueOf()
+        );
+      });
+    });
+  });
+
+  it("Should validate CONT_DATE GTE functionality", () => {
+    let queryDate = "2018-07-05";
+    cy.request({
+      method: "GET",
+      url,
+      qs: {
+        CONT_DATE__gte: queryDate,
+      },
+    }).then((response) => {
+      let returnedList = response.body;
+      returnedList.forEach((obj) => {
+        var retDate = new Date(obj.CONT_DATE.split(" ")[0]);
+        expect(retDate.valueOf()).to.be.gte(new Date(queryDate).valueOf());
+      });
+    });
+  });
+
+  it("Should validate CONT_DATE LTE functionality", () => {
+    let queryDate = "2018-07-05";
+    cy.request({
+      method: "GET",
+      url,
+      qs: {
+        CONT_DATE__lte: queryDate,
+      },
+    }).then((response) => {
+      let returnedList = response.body;
+      returnedList.forEach((obj) => {
+        var retDate = new Date(obj.CONT_DATE);
+        expect(retDate.valueOf()).to.be.lte(new Date(queryDate).valueOf());
+      });
+    });
+  });
+
+  it("Should validate CONT_DATE range functionality", () => {
+    let dateLow = "2018-07-05";
+    let dateHigh = "2018-08-01";
+    cy.request({
+      method: "GET",
+      url,
+      qs: {
+        CONT_DATE__range: `${dateLow}->${dateHigh}`,
+      },
+    }).then((response) => {
+      let returnedList = response.body;
+      returnedList.forEach((obj) => {
+        var retDate = new Date(obj.CONT_DATE.split(" ")[0]);
+        expect(retDate.valueOf()).to.be.within(
+          new Date(dateLow).valueOf(),
+          new Date(dateHigh).valueOf()
+        );
       });
     });
   });
