@@ -224,7 +224,7 @@ class Data(models.Model):
     erc_Percentile = models.CharField(max_length=6, null=True)
     Ecoregion_US_L4CODE = models.CharField(max_length=4, null=True)
     Ecoregion_US_L3CODE = models.IntegerField(null=True)
-    Ecoregion_NA_L3CODE = models.DateField(null=True)
+    Ecoregion_NA_L3CODE = models.CharField(max_length=10, null=True)
     Ecoregion_NA_L2CODE = models.DecimalField(max_digits=4,decimal_places=1, null=True)
     Ecoregion_NA_L1CODE  = models.IntegerField(null=True)
     Aspect_1km = models.DecimalField(max_digits=11,decimal_places=8, null=True)
