@@ -1,4 +1,4 @@
-const url = "localhost:8000/api/variable_list/";
+const url = "localhost:8000/variable_list/";
 
 const variables = [
 	"FIRE_YEAR",

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const url = "http://localhost:8000/api/search/";
+const url = "http://localhost:8000/search/";
 
 describe("API test suite for the /search endpoint", () => {
   it("Should perform specific search, return all values specified by query params", () => {

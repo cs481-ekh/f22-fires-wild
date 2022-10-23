@@ -1,4 +1,4 @@
-const url = "localhost:8000/api/distinct_states_list/";
+const url = "localhost:8000/distinct_states_list/";
 
 const possible_states = [
 	'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC','FL', 'GA', 'HI',
