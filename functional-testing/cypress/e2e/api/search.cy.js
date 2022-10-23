@@ -2,7 +2,79 @@
 
 const url = "http://localhost:8000/api/search/";
 
-describe("Proof of concept test using the state of our application at 9/20/2022.", () => {
+describe("API test suite for the /search endpoint", () => {
+  it("Should perform specific search, return all values specified by query params", () => {
+    let queryDate = "2018-07-05";
+    let qs = {
+      FIRE_YEAR__gte: 2018,
+      FIRE_SIZE__gte: 0.1,
+      DISCOVERY_DOY__gte: 185,
+      DISCOVERY_TIME__gte: 1500,
+      DISCOVERY_DATE__gte: queryDate,
+      CONT_DATE__gte: queryDate,
+      CONT_DOY__gte: 185,
+      CONT_TIME__gte: 1500,
+      STATE: "AZ",
+      COUNTY: "Maricopa",
+      Ecoregion_US_L3CODE: 81,
+      Ecoregion_US_L4CODE: "81n",
+      Ecoregion_NA_L3CODE: "10.2.2",
+      Ecoregion_NA_L2CODE: "10.2",
+      Ecoregion_NA_L1CODE: 10,
+    };
+    cy.request({
+      method: "GET",
+      url,
+      qs,
+    }).then((response) => {
+      let returnedList = response.body;
+      returnedList.forEach((obj) => {
+        expect(obj.LATITUDE).to.not.be.null;
+        expect(obj.LONGITUDE).to.not.be.null;
+        expect(obj.FIRE_YEAR).to.be.gte(qs.FIRE_YEAR__gte);
+        expect(Number(obj.FIRE_SIZE)).to.be.gte(Number(qs.FIRE_SIZE__gte));
+        expect(obj.DISCOVERY_DOY).to.be.gte(qs.DISCOVERY_DOY__gte);
+        expect(obj.DISCOVERY_TIME).to.be.gte(qs.DISCOVERY_TIME__gte);
+        expect(new Date(obj.DISCOVERY_DATE).valueOf()).to.be.gte(
+          new Date(queryDate).valueOf()
+        );
+        expect(new Date(obj.CONT_DATE).valueOf()).to.be.gte(
+          new Date(queryDate).valueOf()
+        );
+        expect(obj.CONT_DOY).to.be.gte(qs.CONT_DOY__gte);
+        expect(obj.CONT_TIME).to.be.gte(qs.CONT_TIME__gte);
+        expect(obj.Ecoregion_US_L3CODE).to.be.eq(qs.Ecoregion_US_L3CODE);
+        expect(obj.Ecoregion_US_L4CODE).to.be.eq(qs.Ecoregion_US_L4CODE);
+        expect(obj.Ecoregion_NA_L2CODE).to.be.eq(qs.Ecoregion_NA_L2CODE);
+        expect(obj.Ecoregion_NA_L1CODE).to.be.eq(qs.Ecoregion_NA_L1CODE);
+        expect(obj.Ecoregion_NA_L3CODE).to.be.eq(qs.Ecoregion_NA_L3CODE);
+      });
+    });
+  });
+
+  it("Should return null values if not a 'default' value when no query params are provided", () => {
+    cy.request({
+      method: "GET",
+      url,
+    }).then((response) => {
+      let returnedList = response.body;
+      returnedList.forEach((obj) => {
+        expect(obj.FIRE_YEAR).to.be.null;
+        expect(obj.DISCOVERY_DOY).to.be.null;
+        expect(obj.DISCOVERY_TIME).to.be.null;
+        expect(obj.CONT_DOY).to.be.null;
+        expect(obj.CONT_TIME).to.be.null;
+        expect(obj.STATE).to.be.null;
+        expect(obj.COUNTY).to.be.null;
+        expect(obj.Ecoregion_US_L4CODE).to.be.null;
+        expect(obj.Ecoregion_US_L3CODE).to.be.null;
+        expect(obj.Ecoregion_NA_L3CODE).to.be.null;
+        expect(obj.Ecoregion_NA_L2CODE).to.be.null;
+        expect(obj.Ecoregion_NA_L1CODE).to.be.null;
+      });
+    });
+  });
+
   // GTE, LTE, & range tests
   it("Should validate FIRE_SIZE GTE functionality", () => {
     cy.request({
