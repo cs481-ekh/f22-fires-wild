@@ -2,6 +2,7 @@
 
 <img src="img/ffp_logo.png" width="40%"></img>
 <img src="img/ffp_logo_dark.png" width="40%"></img>
+<img src="img/sdp_logo_fire.png" width="20%"></img>
 
 ## Team: Fires Wild
 
