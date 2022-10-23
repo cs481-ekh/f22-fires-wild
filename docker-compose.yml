@@ -12,6 +12,7 @@ services:
     env_file: .env
     expose:
       - 3306
+    # Uncomment below to expose mysql to localhost:3308 for use with mysql workbench if needed
     # ports:
     #   - "3308:3306"
     networks:
@@ -51,8 +52,7 @@ services:
       - WDS_SOCKET_PORT=0
 
         # This is used in the react app for routing to api from clients
-        # This should match the DJANGO API URL of the deployed env (or localhost for dev)
-      -  REACT_APP_API_URL=http://localhost:8000/api
+      -  REACT_APP_DJANGO_API_URL=${DJANGO_API_URL}
     ports:
       - "${HOST_WEB_PORT}:3000"
     stdin_open: true

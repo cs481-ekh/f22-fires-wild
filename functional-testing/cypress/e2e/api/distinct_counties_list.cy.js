@@ -1,4 +1,4 @@
-let url = "localhost:8000/api/distinct_counties_list/";
+let url = "localhost:8000/distinct_counties_list/";
 
 const possible_states = [
 	'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC','FL', 'GA', 'HI',

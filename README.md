@@ -39,12 +39,9 @@ From the root project directory:
 - `$ docker-compose down`
   - this will stop the currently running insance of the project. This will not delete associated app volumes.
     - if you would like to delete the volumes (INCLUDING THE DB AND ALL DATA), you may add the `-v` paramter.
-- `$ docker-compose build`
-  - this will build the project
-  - output from this command contains information useful for debugging
-- `$ docker-compose up -d`
-  - this will start the project without locking up your console
-- You should now see the containers running in docker, and be able to access the website from localhost.
+
+- `./build.sh`
+  - this will re-build the context and run the docker stack detached from the console
 
 ## Troubleshooting
 
@@ -53,7 +50,17 @@ From the root project directory:
 
 ## Importing Data
 
-Below are the general steps to import data into the sql container. Failing to follow the following steps can prevent data from being successfully imported. 
+### Automatically
+
+- To import data as csv:
+    `./csv-data-import.sh <name-of-csv-file>.csv`
+
+- To import sample sql statements
+    `./sample-data-import.sh`
+
+### Manually
+
+Below are the manual steps to import data into the sql container. Failing to follow the following steps can prevent data from being successfully imported. 
 
 - Build and run the docker container outlned in the Clean install section of this README
 

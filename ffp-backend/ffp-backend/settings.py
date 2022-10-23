@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# ROOT URL
+ROOT_URL = os.environ.get('DJANGO_API_URL', 'http://localhost:8000/api')
 
 # Application definition
 

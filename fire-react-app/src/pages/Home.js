@@ -26,7 +26,7 @@ const Home = () => {
             };
             //Axios to send and receive HTTP requests
             const response = await axios.get(
-                process.env.REACT_APP_API_URL+"/heatmap/",
+                process.env.REACT_APP_DJANGO_API_URL+"/heatmap/",
                 {headers}
             );
             console.log("requesting");
