@@ -52,7 +52,7 @@ From the root project directory:
 
 ### Automatically
 
-- To import data as csv:
+- To import data as csv (please note the .csv file MUST be located in the /sql/ folder):
     `./csv-data-import.sh <name-of-csv-file>.csv`
 
 - To import sample sql statements
