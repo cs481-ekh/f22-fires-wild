@@ -1,0 +1,9 @@
+{
+    "elements": {
+        "navDataButton": "[data-cy='nav-data-page']",
+        "navAboutButton": "[data-cy='nav-about-page']",
+        "navAdminButton": "[data-cy='nav-admin-page']",
+        "navHomeButton": "[data-cy='nav-home-button']",
+        "stateDropdown": "[data-cy='state-selection-sidebar']"
+    }
+}
