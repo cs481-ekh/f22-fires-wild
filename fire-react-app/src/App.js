@@ -17,17 +17,16 @@ class App extends Component  {
     }
   }
 
-
   render() {
     return (
       <>
         <Navbar />
         <div className="page_container">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/Data" element={<Data />} />
-            <Route path="/About" element={<About />} />
-            <Route path="/Admin" element={<Admin />} />
+            <Route path={process.env.REACT_APP_WEB_ROUTE+"/"} element={<Home />} />
+            <Route path={process.env.REACT_APP_WEB_ROUTE+"/Data"} element={<Data />} />
+            <Route path={process.env.REACT_APP_WEB_ROUTE+"/About"} element={<About />} />
+            <Route path={process.env.REACT_APP_WEB_ROUTE+"/Admin"} element={<Admin />} />
           </Routes>
         </div>
         </>
