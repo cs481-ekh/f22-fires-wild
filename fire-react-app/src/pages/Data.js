@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
+import Select from "react-select";
 //import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import axios from "axios";
 import "./../styles.css";
 
+
 const Data = () => {
-  const [MapData, setMapData] = useState([]);
-  //dropdown usestate and state change
-  const [dd_state, setdd_state] = React.useState("none");
+  const [stateChoice, setStateChoice] = useState(null);
+  const [county, setCounty] = useState(null);
+  const [countyList, setCountyList] = useState([]);
+  const [list, setList] = useState([]);
 
   useEffect(
     () => {
       // data will not change between page loads, don't reload it
-      if (MapData.length === 0) {
-        refreshList();
+      if (list.length === 0) {
+        refreshList(list);
       }
     },
     /* This makes sure we run this once */
     []
   );
 
-  async function refreshList() {
+  async function refreshList(alist) {
     try {
       // django could return html if it wanted, request json specifically
       const headers = {
@@ -29,14 +32,25 @@ const Data = () => {
       //Axios to send and receive HTTP requests
       console.log("requesting variable list");
       const response = await axios.get(
-        process.env.REACT_APP_DJANGO_API_URL + "/variable_list/",
+        process.env.REACT_APP_DJANGO_API_URL + "distinct_states_list/",
         { headers }
       );
-      const data = await response.data;
-      //DEBUG
-      console.log("variable_list:");
-      console.log(data);
-      setMapData(data);
+      
+      let names = await response.data;
+    names.forEach((item) => {
+      alist.push(item);
+    });
+    
+    const mList = alist.map((item) => {
+      var newm = <li
+                  label={item}
+                  value={item}
+                  />
+      return newm});
+    console.log(mList);
+    setList(mList);
+    console.log(list);
+
     } catch (e) {
       //DEBUG
       console.log("error requesting variable list");
@@ -44,23 +58,36 @@ const Data = () => {
     }
   }
 
-  //handle state selection of "State" Dropdown
-  const handleddStateSelection = (event) => {
-    setdd_state(event.target.value);
+  const handleStateChange = (obj) => {
+    setStateChoice(obj);
+    setCountyList(obj);
+    setCounty(null);
+  };
+ 
+  // handle change event of the language dropdown
+  const handleCountyChange = (obj) => {
+    setCounty(obj);
   };
 
   return (
     <div className="data_container">
       <div className="data_sidebar">
-        <Dropdown
-          label="Pick a State"
-          options={[
-            { label: "Alabama", value: "alabama" },
-            { label: "Arkansas", value: "arkansas" },
-            { label: "Xyxyxyxyxyxyxyxyx", value: "test" },
-          ]}
-          value={dd_state}
-          onChange={handleddStateSelection}
+        <Select
+          placeholder="-Select State-"
+          value={stateChoice}
+          options={list}
+          onChange={handleStateChange}
+          //getOptionLabel={x => x.label}
+          //getOptionValue={x => x.value}
+        />
+        <br />
+        <Select
+          placeholder="-Select County-"
+          value={county}
+          options={countyList}
+          onChange={handleCountyChange}
+         // getOptionLabel={x => x.name}
+          //getOptionValue={x => x.code}
         />
       </div>
       <MapContainer
