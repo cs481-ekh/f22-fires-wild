@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const url = "http://localhost:3000/";
+const url = "http://localhost:3000/f22-fires-wild/";
 
 describe("Proof of concept test using the state of our application at 9/20/2022.", () => {
   beforeEach(() => {
