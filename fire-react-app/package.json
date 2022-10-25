@@ -2,7 +2,6 @@
   "name": "fire-react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
   "dependencies": {
     "axios": "^0.27.2",
     "heatmap.js": "^2.0.5",
