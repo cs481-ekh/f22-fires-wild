@@ -53,6 +53,9 @@ services:
 
         # This is used in the react app for routing to api from clients
       -  REACT_APP_DJANGO_API_URL=${DJANGO_API_URL}
+
+        # This adds the route as homepage
+      -  PUBLIC_URL=${REACT_WEB_ROUTE}
     ports:
       - "${HOST_WEB_PORT}:3000"
     stdin_open: true
