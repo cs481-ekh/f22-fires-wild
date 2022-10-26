@@ -42,11 +42,11 @@ const Data = () => {
     });
     
     const mList = alist.map((item) => {
-              var nitem={
-                  label: item,
-                  value: item
-              }
-      return nitem})
+      var nitem={
+        label: item,
+        value: item
+    }
+  return nitem})
 
     console.log(mList);
     setList(mList);
