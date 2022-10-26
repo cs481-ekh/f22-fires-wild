@@ -6,7 +6,7 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 export default function Navbar() {
   return (
     <nav className="nav">
-      <Link to="/">
+      <Link to={`${process.env.REACT_APP_WEB_ROUTE}`}>
         <img
           alt="[LOGO]"
           className="logo"
@@ -15,13 +15,22 @@ export default function Navbar() {
         />
       </Link>
       <ul>
-        <CustomLink to="/Data" data-cy="nav-data-page">
+        <CustomLink
+          to={`${process.env.REACT_APP_WEB_ROUTE}/Data`}
+          data-cy="nav-data-page"
+        >
           Data
         </CustomLink>
-        <CustomLink to="/About" data-cy="nav-about-page">
+        <CustomLink
+          to={`${process.env.REACT_APP_WEB_ROUTE}/About`}
+          data-cy="nav-about-page"
+        >
           About
         </CustomLink>
-        <CustomLink to="/Admin" data-cy="nav-admin-page">
+        <CustomLink
+          to={`${process.env.REACT_APP_WEB_ROUTE}/Admin`}
+          data-cy="nav-admin-page"
+        >
           Admin
         </CustomLink>
       </ul>
