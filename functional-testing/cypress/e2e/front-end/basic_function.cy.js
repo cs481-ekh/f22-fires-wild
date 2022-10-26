@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import { elements } from "../../fixtures/data-cy.json";
-const url = "http://localhost:3000/";
+const url = "http://localhost:3000/f22-fires-wild";
 
 describe("Proof of concept test using the state of our application at 9/20/2022.", () => {
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
       .and("contain.text", "Admin");
   });
 
-  it("Should verify the state selection dropdown exists and functions", () => {
+  it.skip("Should verify the state selection dropdown exists and functions --Skipped not worth running while WIP", () => {
     cy.get(elements.navDataButton)
       .should("be.visible")
       .and("contain.text", "Data")
