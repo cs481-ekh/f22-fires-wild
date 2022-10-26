@@ -7,23 +7,23 @@ import "./../styles.css";
 
 
 const Data = () => {
-  const [stateChoice, setStateChoice] = useState(null);
+  const [stateChoice, setStateChoice] = useState({});
   const [county, setCounty] = useState(null);
   const [countyList, setCountyList] = useState([]);
-  const [list, setList] = useState([]);
+  const [stateList, setList] = useState([]);
 
   useEffect(
     () => {
       // data will not change between page loads, don't reload it
-      if (list.length === 0) {
-        refreshList(list);
+      if (stateList.length === 0) {
+        refreshList(stateList, "distinct_states_list/", "s");
       }
     },
     /* This makes sure we run this once */
     []
   );
 
-  async function refreshList(alist) {
+  async function refreshList(alist, aroute, w) {
     try {
       // django could return html if it wanted, request json specifically
       const headers = {
@@ -32,25 +32,39 @@ const Data = () => {
       //Axios to send and receive HTTP requests
       console.log("requesting variable list");
       const response = await axios.get(
-        process.env.REACT_APP_DJANGO_API_URL + "distinct_states_list/",
+        process.env.REACT_APP_DJANGO_API_URL + aroute,
         { headers }
       );
-      
+      alist=[];
       let names = await response.data;
     names.forEach((item) => {
       alist.push(item);
     });
     
-    const mList = alist.map((item) => {
-      var nitem={
-        label: item,
-        value: item
+    //s indicates we want a state list to update
+    if (w==="s") {
+      const sList = alist.map((item) => {
+        var nitem={
+          label: item,
+          value: item
+        }
+      return nitem})
+      setList(sList);
     }
-  return nitem})
-
-    console.log(mList);
-    setList(mList);
-    console.log(list);
+    //county list update
+    else {
+      const sList = alist.map((item) => {
+        var nitem={
+          label: item,
+          value: item
+        }
+      return nitem})
+      setCountyList(sList);
+    }
+    //why is useState showing one state change behind in console???
+    ///HELP??
+    console.log(stateList);
+    console.log(countyList);
 
     } catch (e) {
       //DEBUG
@@ -63,6 +77,9 @@ const Data = () => {
     setStateChoice(obj);
     setCountyList(obj);
     setCounty(null);
+    refreshList(stateList, "distinct_counties_list/?STATE="+obj.label, "c");
+    console.log(stateChoice);
+    console.log(stateList);
   };
  
   // handle change event of the language dropdown
@@ -76,7 +93,7 @@ const Data = () => {
         <Select
           placeholder="-Select State-"
           value={stateChoice}
-          options={list}
+          options={stateList}
           onChange={handleStateChange}
           getOptionLabel={x => x.label}
           getOptionValue={x => x.value}
@@ -87,8 +104,8 @@ const Data = () => {
           value={county}
           options={countyList}
           onChange={handleCountyChange}
-         // getOptionLabel={x => x.name}
-          //getOptionValue={x => x.code}
+          getOptionLabel={x => x.label}
+          getOptionValue={x => x.value}
         />
       </div>
       <MapContainer
