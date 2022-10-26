@@ -42,11 +42,12 @@ const Data = () => {
     });
     
     const mList = alist.map((item) => {
-      var newm = <li
-                  label={item}
-                  value={item}
-                  />
-      return newm});
+      var nitem={
+        label: item,
+        value: item
+    }
+  return nitem})
+
     console.log(mList);
     setList(mList);
     console.log(list);
@@ -77,8 +78,8 @@ const Data = () => {
           value={stateChoice}
           options={list}
           onChange={handleStateChange}
-          //getOptionLabel={x => x.label}
-          //getOptionValue={x => x.value}
+          getOptionLabel={x => x.label}
+          getOptionValue={x => x.value}
         />
         <br />
         <Select
