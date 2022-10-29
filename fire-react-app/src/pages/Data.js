@@ -11,6 +11,7 @@ const Data = () => {
   const [county, setCounty] = useState(null);
   const [countyList, setCountyList] = useState([]);
   const [stateList, setList] = useState([]);
+  const [variableList, setVariableList] = useState([]);
 
   useEffect(
     () => {
@@ -18,6 +19,9 @@ const Data = () => {
       if (stateList.length === 0) {
         refreshList(stateList, "distinct_states_list/", "s");
       }
+	  if(variableList.length === 0){
+		refreshVariableList(variableList, "variable_list/");
+	  }
     },
     /* This makes sure we run this once */
     []
@@ -30,7 +34,7 @@ const Data = () => {
         Accept: "application/json",
       };
       //Axios to send and receive HTTP requests
-      console.log("requesting variable list");
+	  console.log("requesting state list");
       const response = await axios.get(
         process.env.REACT_APP_DJANGO_API_URL + aroute,
         { headers }
@@ -68,11 +72,35 @@ const Data = () => {
 
     } catch (e) {
       //DEBUG
-      console.log("error requesting variable list");
+      console.log("error requesting state/county list");
       console.log(e);
     }
   }
 
+  async function refreshVariableList(alist, aroute){
+	try {
+	  const headers = {
+		Accept: "application/json",  
+	  };
+	  console.log("requesting variable list");
+	  const response = await axios.get(
+        process.env.REACT_APP_DJANGO_API_URL + aroute,
+        { headers }
+      );
+	  alist=[];
+      let names = await response.data;
+	  for(const [key, description] of Object.entries(names)){
+		var item = {label: key, value: description}
+		alist.push(item);
+	  }
+	  const vList = alist;
+	  console.log(vList);
+	  setVariableList(vList);
+	} catch (e) {
+	  console.log("error requesting variable list");
+      console.log(e);
+	}
+  }
   const handleStateChange = (obj) => {
     setStateChoice(obj);
     setCountyList(obj);
@@ -86,10 +114,20 @@ const Data = () => {
   const handleCountyChange = (obj) => {
     setCounty(obj);
   };
-
+  
   return (
     <div className="data_container">
       <div className="data_sidebar">
+	    <div title="Calendar year in which the fire was discovered or confirmed to exist">
+		  YEAR:
+		</div>
+		<Select
+		  placeholder="-Select Year-"
+		/>
+		<br />
+		<div title="Two-letter alphabetic code for the state in which the fire burned (or originated), based on the nominal designation in the fire report">
+		  STATE: 
+		</div>
         <Select
           placeholder="-Select State-"
           value={stateChoice}
@@ -99,6 +137,9 @@ const Data = () => {
           getOptionValue={x => x.value}
         />
         <br />
+		<div title="County, or equivalent, in which the fire burned (or originated), based on nominal designation in the fire report"> 
+		  COUNTY: 
+		</div>
         <Select
           placeholder="-Select County-"
           value={county}
