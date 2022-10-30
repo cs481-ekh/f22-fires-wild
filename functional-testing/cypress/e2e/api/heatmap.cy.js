@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const url = "http://localhost:8000/heatmap/";
+const url = "http://localhost:8000/f22-fires-wild/api/heatmap/";
 
 describe("API test suite for the /heatmap endpoint", () => {
   it("Expect that each fire returned has 3 required properties for mapping", () => {
