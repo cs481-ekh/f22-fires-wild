@@ -114,6 +114,14 @@ p {
 	height: 76px;
 	width: auto;
 }
+.sdpLogoLeft {
+	position: fixed;
+	left: 12px;
+	bottom: 12px;
+	float: right;
+	height: 76px;
+	width: auto;
+}
 .diagram {
 	width: 95%;
 	height: auto;
