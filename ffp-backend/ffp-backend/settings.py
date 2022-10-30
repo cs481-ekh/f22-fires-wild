@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@-iius16of+@5pwvkgv3uq!e7f6bktpz(vd!6#u7mnnd+$!e0j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'sdp.boisestate.edu']
 
 # ROOT URL
 ROOT_URL = os.environ.get('DJANGO_API_URL', 'http://localhost:8000/api')
