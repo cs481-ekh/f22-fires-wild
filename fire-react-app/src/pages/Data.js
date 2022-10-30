@@ -4,7 +4,7 @@ import Select from "react-select";
 //import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import axios from "axios";
 import "./../styles.css";
-
+import logo from "./../components/sdp_logo_fire.png";
 
 const Data = () => {
   const [stateChoice, setStateChoice] = useState({});
@@ -148,6 +148,11 @@ const Data = () => {
           getOptionLabel={x => x.label}
           getOptionValue={x => x.value}
         />
+		<img
+			alt="[LOGO]"
+			className="sdpLogoLeft"
+			src={logo}
+		/>
       </div>
       <MapContainer
         style={{
