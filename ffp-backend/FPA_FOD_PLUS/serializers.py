@@ -16,18 +16,18 @@ class searchSerializer(serializers.ModelSerializer):
                   'CONT_DATE', 'CONT_DOY', 'CONT_TIME', 'STATE', 'COUNTY','Ecoregion_US_L4CODE', 'Ecoregion_US_L3CODE',
                   'Ecoregion_NA_L3CODE', 'Ecoregion_NA_L2CODE', 'Ecoregion_NA_L1CODE']
 
-    def to_representation(self, instance):
-        return {
-            'instance': instance
-            # 'type': 'Feature',
-            # 'geometry': {
-            #     'type': 'Point',
-            #     'coordinates': [instance.LATITUDE, instance.LONGITUDE]
-            # },
-            # 'properties': {
-            #     'name': 'Dinagat Islands'
-            # }
-        }
+    # def to_representation(self, instance):
+    #     return {
+    #         'instance': instance
+    #         # 'type': 'Feature',
+    #         # 'geometry': {
+    #         #     'type': 'Point',
+    #         #     'coordinates': [instance.LATITUDE, instance.LONGITUDE]
+    #         # },
+    #         # 'properties': {
+    #         #     'name': 'Dinagat Islands'
+    #         # }
+    #     }
 
 
 
