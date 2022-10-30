@@ -28,8 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'sdp.boisestate.edu']
 
-# ROOT URL
-ROOT_URL = os.environ.get('DJANGO_API_URL', 'http://localhost:8000/api')
+# Base path
+DJANGO_API_ROUTE = os.environ.get('DJANGO_API_ROUTE', 'f22-fires-wild/api/')
 
 # Application definition
 
