@@ -97,6 +97,20 @@ def perform_search(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
+def fire_by_id(request):
+    if request.method == 'GET':
+        # we always want all fire variables/columns from DB
+        columns = ['FOD_ID','LATITUDE', 'LONGITUDE','FIRE_SIZE', 'FIRE_YEAR', 'DISCOVERY_DATE', 'DISCOVERY_DOY', 'DISCOVERY_TIME',
+                  'CONT_DATE', 'CONT_DOY', 'CONT_TIME', 'STATE', 'COUNTY','Ecoregion_US_L4CODE', 'Ecoregion_US_L3CODE',
+                  'Ecoregion_NA_L3CODE', 'Ecoregion_NA_L2CODE', 'Ecoregion_NA_L1CODE']
+        id = request.query_params.get("FOD_ID",None)
+
+        # now construct queryset using id
+        queryset = Data.objects.filter(FOD_ID = id).values(*columns)
+        serializer = fireByIdSerializer(queryset, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
 def variable_list(request):
     if request.method == 'GET':
         serializer = VariableListSerializer()
