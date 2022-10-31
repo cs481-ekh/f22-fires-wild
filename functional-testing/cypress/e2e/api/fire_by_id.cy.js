@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const url = "http://localhost:8000/fire/";
+const url = "http://localhost:8000/f22-fires-wild/api/fire/";
 const FOD_IDs = [
   400380344, 400329801, 400300259, 400302416, 400315562, 400307606,
 ];
