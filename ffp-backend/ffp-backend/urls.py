@@ -23,6 +23,7 @@ urlpatterns = [
         path('admin/', admin.site.urls),
         re_path(r'^heatmap/$', views.heat_map),
         re_path(r'^search/$', views.perform_search),
+        re_path(r'^fire/$', views.fire_by_id),
         re_path(r'^variable_list/$', views.variable_list),
         re_path(r'^distinct_years_list/$', views.distinct_years_list),
         re_path(r'^distinct_states_list/$', views.distinct_states_list),

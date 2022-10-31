@@ -100,6 +100,16 @@ def perform_search(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
+def fire_by_id(request):
+    if request.method == 'GET':
+        id = request.query_params.get("FOD_ID",None)
+        
+        # now construct queryset using id
+        queryset = Data.objects.filter(FOD_ID = id).all()
+        serializer = fireByIdSerializer(queryset, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
 def variable_list(request):
     if request.method == 'GET':
         serializer = VariableListSerializer()

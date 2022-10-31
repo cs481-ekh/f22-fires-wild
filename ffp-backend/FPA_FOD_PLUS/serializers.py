@@ -30,6 +30,11 @@ class searchSerializer(serializers.ModelSerializer):
     #     }
 
 
+class fireByIdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Data
+        fields = '__all__'
+
 
 # TODO: something like https://stackoverflow.com/a/72902487/16610401
 
