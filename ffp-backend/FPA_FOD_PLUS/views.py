@@ -82,6 +82,9 @@ def perform_search(request):
         columns = list(map(lambda s: remove_filter(s), requested_fields.keys()))
         columns.append("LATITUDE")
         columns.append("LONGITUDE")
+        columns.append("FIRE_NAME")
+        columns.append("FOD_ID")
+        columns.append("FPA_ID")
         
         # still return these values if not requested
         if "DISCOVERY_DATE" not in columns:

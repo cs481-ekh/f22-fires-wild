@@ -52,7 +52,7 @@ services:
       - WDS_SOCKET_PORT=${HOST_WEB_PORT}
 
         # This is used in the react app for routing to api from clients
-      -  REACT_APP_DJANGO_API_URL=${DJANGO_API_URL}
+      -  REACT_APP_DJANGO_API_URL=${DJANGO_API_URL}${DJANGO_API_ROUTE}
 
         # This adds the route as homepage
       -  PUBLIC_URL=${REACT_WEB_ROUTE}

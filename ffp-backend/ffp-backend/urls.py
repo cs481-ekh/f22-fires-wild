@@ -16,17 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from FPA_FOD_PLUS import views
+from django.conf import settings
 
 urlpatterns = [
-    #path('data/', include('FPA_FOD_PLUS.urls')),
-    path('admin/', admin.site.urls),
-    re_path(r'^heatmap/$', views.heat_map),
-    re_path(r'^search/$', views.perform_search),
-    re_path(r'^fire/$', views.fire_by_id),
-    re_path(r'^variable_list/$', views.variable_list),
-    re_path(r'^distinct_years_list/$', views.distinct_years_list),
-    re_path(r'^distinct_states_list/$', views.distinct_states_list),
-    re_path(r'^distinct_counties_list', views.distinct_counties_list),
-    re_path(r'^geojson_list', views.geojson_list),
-    re_path(r'^csv', views.csv_view),
+    path(settings.DJANGO_API_ROUTE, include([
+        path('admin/', admin.site.urls),
+        re_path(r'^heatmap/$', views.heat_map),
+        re_path(r'^search/$', views.perform_search),
+        re_path(r'^fire/$', views.fire_by_id),
+        re_path(r'^variable_list/$', views.variable_list),
+        re_path(r'^distinct_years_list/$', views.distinct_years_list),
+        re_path(r'^distinct_states_list/$', views.distinct_states_list),
+        re_path(r'^distinct_counties_list', views.distinct_counties_list),
+        re_path(r'^geojson_list', views.geojson_list),
+        re_path(r'^csv', views.csv_view),
+    ]
+    ))
 ]

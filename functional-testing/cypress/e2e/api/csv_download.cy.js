@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const url = "http://localhost:8000/csv/";
+const url = "http://localhost:8000/f22-fires-wild/api/csv/";
 
 describe("API test suite for the endpoint handling csv conversion", () => {
   const filename = "fires.csv";
