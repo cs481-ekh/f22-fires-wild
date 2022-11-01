@@ -31,6 +31,22 @@
 
 # Build & Run
 
+## Environment Variables
+Contained in the `.env` file are environment variables used for building the project. `.env` naming is what docker compose expects. The following variables should be set within in order for your environment to work:
+
+- HOST_API_PORT - This needs to be an open port on the host machine. The API container will recieve requests on this port.
+- HOST_WEB_PORT - This needs to be an open port on the host machine. The web container will recieve requests on this port.
+- MYSQL_DATABASE - should be `ffp-mysql-db`
+- MYSQL_USER - username for the API. default is `mysql-user`. No real reason to change this.
+- MYSQL_PASSWORD - :warning: SECRET VALUE :warning: - Set this to a strong password and store it somewhere safe. This is the password used to access the MySQL database by the API
+- MYSQL_ROOT_PASSWORD - :warning: SECRET VALUE :warning: - Set this to a strong password and store it somewhere safe. This is the password used to access the MySQL database by Docker, and YOU, if need be.
+- MYSQL_DATABASE_HOST - should be `ffp-mysql`
+- MYSQL_DATABASE_PORT - should be `3306`. any access from the host machine is managed by port mapping and NOT environment variables.
+- MYSQL_TCP_PORT - should be `3306`. any access from the host machine is managed by port mapping and NOT environment variables.
+- DJANGO_API_ROUTE - the API container's root web path. default is `f22-fires-wild/api/` (which is what cypress expects)
+- DJANGO_API_URL - the fully qualified URL of the API container WITHOUT the route above. Locally this MUST be `http://localhost:<HOST_API_PORT>/`
+- REACT_WEB_ROUTE - base web path for the website (no trailing `/`). this can be blanked out to have the website hosted at `/`
+
 ## Clean install (or clean refresh)
 
 When you make changes to the project, you will need to re-build the docker containers before your changes will be reflected in the docker project.
