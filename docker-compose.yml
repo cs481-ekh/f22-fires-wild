@@ -64,7 +64,7 @@ services:
       - "${HOST_WEB_PORT}:3000"
     stdin_open: true
     volumes:
-    - ./fire-react-app:/app/frontend
+    - ./fire-react-app/:/app/frontend
     depends_on:
       - ffp-django
     networks:
