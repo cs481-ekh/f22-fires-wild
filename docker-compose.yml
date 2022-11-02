@@ -57,9 +57,14 @@ services:
         # This adds the route as homepage
       -  PUBLIC_URL=${REACT_WEB_ROUTE}
       -  REACT_APP_WEB_ROUTE=${REACT_WEB_ROUTE}
+      -  CHOKIDAR_USEPOLLING="true"
+      -  WATCHPACK_POLLING=true
+      -  FAST_REFRESH=false
     ports:
       - "${HOST_WEB_PORT}:3000"
     stdin_open: true
+    volumes:
+    - ./fire-react-app:/app/frontend
     depends_on:
       - ffp-django
     networks:

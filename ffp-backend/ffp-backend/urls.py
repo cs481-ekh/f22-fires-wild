@@ -21,7 +21,7 @@ from django.conf import settings
 urlpatterns = [
     path(settings.DJANGO_API_ROUTE, include([
         path('admin/', admin.site.urls),
-        re_path(r'^heatmap/$', views.heat_map),
+        # re_path(r'^heatmap/$', views.heat_map),
         re_path(r'^search/$', views.perform_search),
         re_path(r'^fire/$', views.fire_by_id),
         re_path(r'^variable_list/$', views.variable_list),

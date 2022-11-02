@@ -26,11 +26,18 @@ const Home = () => {
             };
             //Axios to send and receive HTTP requests
             const response = await axios.get(
-                process.env.REACT_APP_DJANGO_API_URL+"heatmap/",
-                {headers}
+                process.env.REACT_APP_DJANGO_API_URL+"search/",
+                { params: 
+                    {
+                     FIRE_YEAR: 2020,
+                     FIRE_SIZE__gte: 1,
+                    },
+                  headers: headers
+                },
             );
             console.log("requesting");
             const data = await response.data;
+            console.log(response);
             console.log(data);
             setHeatMapData(data);
             
