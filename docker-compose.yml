@@ -63,8 +63,9 @@ services:
     ports:
       - "${HOST_WEB_PORT}:3000"
     stdin_open: true
-    volumes:
-    - ./fire-react-app/:/app/frontend
+    # uncomment these lines to enable hot reload ;)
+    # volumes:
+    # - ./fire-react-app/:/app/frontend
     depends_on:
       - ffp-django
     networks:
