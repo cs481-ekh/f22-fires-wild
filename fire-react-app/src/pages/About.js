@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./../components/sdp_logo_fire.png";
 import diagram from "./../components/fires-wild-diagram.png";
 import "./../styles.css";
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 export default function About() {
     return <div className="aboutSection">
@@ -344,10 +345,12 @@ export default function About() {
 					</p>
 				</div>
 			</div>
-		<img
-			alt="[LOGO]"
-			className="sdpLogo"
-			src={logo}
+	  <Link to={'/'}>
+        <img
+          alt="[LOGO]"
+          className="sdpLogoLeft"
+          src={logo}
         />
+      </Link>
 		</div>
 }

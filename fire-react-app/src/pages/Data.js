@@ -6,10 +6,11 @@ import NumericInput from 'react-numeric-input';
 import axios from "axios";
 import "./../styles.css";
 import logo from "./../components/sdp_logo_fire.png";
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 const Data = () => {
   const [stateChoice, setStateChoice] = useState();
-  const [county, setCounty] = useState();
+  const [countyChoice, setCountyChoice] = useState();
   const [yearChoice, setYearChoice] = useState();
   const [countyList, setCountyList] = useState([]);
   const [stateList, setList] = useState([]);
@@ -18,6 +19,8 @@ const Data = () => {
   const [viewType, setViewType] = useState([]);
   const [doyChoiceLTE, setDoyChoiceLTE] = useState(366);
   const [doyChoiceGTE, setDoyChoiceGTE] = useState(1);
+  const [sizeChoiceLTE, setSizeChoiceLTE] = useState();
+  const [sizeChoiceGTE, setSizeChoiceGTE] = useState();
   const [results, setResults] = useState([]);
 
   useEffect(
@@ -130,7 +133,7 @@ const Data = () => {
  
   // handle change event of the language dropdown
   const handleCountyChange = (obj) => {
-    setCounty(obj);
+    setCountyChoice(obj);
   };
 
   const handleYearChoiceChange = (obj) => {
@@ -153,15 +156,13 @@ const Data = () => {
           'Accept': 'application/json',
       };
       const params = {
-        // FIRE_YEAR: yearChoice.value,
-        // DISCOVERY_DOY__lte: doyChoiceLTE,
-        // DISCOVERY_DOY__gte: doyChoiceGTE,
-        // STATE: stateChoice.value
         ...(yearChoice && {FIRE_YEAR: yearChoice.value}),
         ...(doyChoiceGTE && {DISCOVERY_DOY__gte: doyChoiceGTE}),
         ...(doyChoiceLTE && {DISCOVERY_DOY__lte: doyChoiceLTE}),
-        ...(stateChoice && {STATE: stateChoice.value})
-        //(someCondition && {b: 5})
+        ...(stateChoice && {STATE: stateChoice.value}),
+        ...(countyChoice && {COUNTY: countyChoice.value}),
+        ...(sizeChoiceGTE && {FIRE_SIZE__gte: sizeChoiceGTE}),
+        ...(sizeChoiceLTE && {FIRE_SIZE__lte: sizeChoiceLTE}),
       }
       console.log("params:");
       console.log(params);
@@ -191,6 +192,7 @@ const Data = () => {
 		  </div>
 		<Select
 		  placeholder="-Select Year-"
+      isClearable={true}
       value={yearChoice}
       options={yearsList}
       onChange={handleYearChoiceChange}
@@ -201,13 +203,6 @@ const Data = () => {
     <div title="Day of year on which the fire was discovered or confirmed to exist">
 		  DISCOVERY DAY OF YEAR:
 		</div>
-      {/* <div onChange={e => {
-        setDoyEqChoice(e.target.value);
-      }}>
-        <input type="radio" value="gte" name="doyEQ" /> Greater Than or Equal to
-        <br/>
-        <input type="radio" value="lte" name="doyEQ" /> Less Than or Equal to
-      </div> */}
         GREATER THAN OR EQUAL TO:
         <NumericInput
           min={1}
@@ -228,12 +223,35 @@ const Data = () => {
           }
         }
         />
+    <div title="The estimate of acres within the final perimeter of the fire">
+		  FIRE SIZE:
+		</div>
+        GREATER THAN OR EQUAL TO:
+        <NumericInput
+          min={0}
+          max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
+          value={sizeChoiceGTE ? sizeChoiceGTE: 0}
+          onChange={n => {
+            setSizeChoiceGTE(n);
+          }
+        }
+        />
+        LESS THAN OR EQUAL TO:
+        <NumericInput
+          min={sizeChoiceGTE ? sizeChoiceGTE : 0}
+          value={sizeChoiceLTE ? sizeChoiceLTE : 0}
+          onChange={n => {
+            setSizeChoiceLTE(n);
+          }
+        }
+        />
 		<br />
 		<div title="Two-letter alphabetic code for the state in which the fire burned (or originated), based on the nominal designation in the fire report">
 		  STATE: 
 		</div>
         <Select
           placeholder="-Select State-"
+          isClearable={true}
           value={stateChoice}
           options={stateList}
           onChange={handleStateChange}
@@ -246,7 +264,8 @@ const Data = () => {
 		</div>
         <Select
           placeholder="-Select County-"
-          value={county}
+          isClearable={true}
+          value={countyChoice}
           options={countyList}
           onChange={handleCountyChange}
           getOptionLabel={x => x.label}
@@ -255,11 +274,13 @@ const Data = () => {
     <button onClick={handleSearch}>
       Search
     </button>
-		<img
-			alt="[LOGO]"
-			className="sdpLogoLeft"
-			src={logo}
-		/>
+    <Link to={'/'}>
+        <img
+          alt="[LOGO]"
+          className="sdpLogoLeft"
+          src={logo}
+        />
+      </Link>
       </div>
       <MapContainer
         style={{
@@ -287,7 +308,13 @@ const Data = () => {
               <Popup>
                 FOD ID: {fire.FOD_ID}
                 <br />
+                FPA ID: {fire.FPA_ID}
+                <br />
                 FIRE NAME: {fire.FIRE_NAME}
+                <br />
+                <Link to={'/'}>
+                  details (coming soon)
+                </Link>
               </Popup>
             </Circle>
           )

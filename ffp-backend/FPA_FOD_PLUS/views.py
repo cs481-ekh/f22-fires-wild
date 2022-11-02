@@ -95,7 +95,7 @@ def perform_search(request):
             columns.append("FIRE_SIZE")
 
         # now construct queryset using requested_fields dictionary
-        queryset = Data.objects.filter(**requested_fields).values(*columns)
+        queryset = Data.objects.filter(**requested_fields).values(*columns).order_by('FIRE_SIZE')
         serializer = searchSerializer(queryset, context={'request': request}, many=True)
         return Response(serializer.data)
 
