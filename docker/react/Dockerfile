@@ -3,6 +3,6 @@ WORKDIR /app/frontend
 
 COPY package.json yarn.lock ./
 RUN yarn install
-#RUN yarn add react-scripts@3.4.1 -g 
+RUN yarn global add react-scripts
 COPY . ./
 EXPOSE 3000
