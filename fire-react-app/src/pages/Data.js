@@ -6,7 +6,9 @@ import NumericInput from "react-numeric-input";
 import axios from "axios";
 import "./../styles.css";
 import logo from "./../components/sdp_logo_fire.png";
-import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { Link } from "react-router-dom";
+import JSPopup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 const Data = () => {
   const [stateChoice, setStateChoice] = useState();
@@ -22,6 +24,7 @@ const Data = () => {
   const [sizeChoiceLTE, setSizeChoiceLTE] = useState();
   const [sizeChoiceGTE, setSizeChoiceGTE] = useState();
   const [results, setResults] = useState([]);
+  const [isWarningExpanded, setWarningExpanded] = useState(false);
 
   useEffect(
     () => {
@@ -182,9 +185,26 @@ const Data = () => {
     }
   }
 
+  const toggleWarning = () => {
+    setWarningExpanded(!isWarningExpanded);
+  };
+
   return (
     <div className="data_container">
       <div className="data_sidebar">
+        {/* <a onClick={toggleWarning}></a> */}
+        <JSPopup
+          trigger={<Link>⚠️ A Word of Warning ⚠️</Link>}
+          position="bottom center"
+        >
+          <div>
+            Results with more than 10,000 fires on the map at a time causes poor
+            browser performance. For the best experience, filter your search to
+            be as detailed as possible.
+          </div>
+        </JSPopup>
+        <br />
+        <br />
         <div title="Calendar year in which the fire was discovered or confirmed to exist">
           YEAR:
         </div>

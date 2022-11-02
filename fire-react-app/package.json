@@ -14,7 +14,8 @@
     "react-numeric-input": "^2.2.3",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
-    "react-select": "^5.5.9"
+    "react-select": "^5.5.9",
+    "reactjs-popup": "^2.0.5"
   },
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-scripts start ",
