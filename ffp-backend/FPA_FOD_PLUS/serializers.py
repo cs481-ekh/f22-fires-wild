@@ -97,7 +97,7 @@ class DistinctStateSerializer(serializers.Serializer):
         child = serializers.CharField()
     ) 
     
-    fetched_states = Data.objects.values('STATE').distinct()
+    fetched_states = Data.objects.values('STATE').distinct().order_by('STATE')
     
     for row in fetched_states:
         states.append(str(row['STATE']))

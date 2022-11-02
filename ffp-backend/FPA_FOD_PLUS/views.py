@@ -142,7 +142,7 @@ def results(request):
 def distinct_counties_list(request):
     if request.method == 'GET':
         state = request.query_params.get('STATE')
-        fetched_counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
+        fetched_counties = Data.objects.filter(STATE=state).values('COUNTY').distinct().order_by('COUNTY')
         counties = []
         
         for row in fetched_counties:
