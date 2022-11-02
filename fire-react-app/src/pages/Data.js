@@ -199,8 +199,10 @@ const Data = () => {
         >
           <div>
             Results with more than 10,000 fires on the map at a time causes poor
-            browser performance. For the best experience, filter your search to
-            be as detailed as possible.
+            browser performance.
+            <br />
+            For the best experience, filter your search to be as detailed as
+            possible.
           </div>
         </JSPopup>
         <br />
