@@ -16,8 +16,8 @@ const Data = () => {
   const [variableList, setVariableList] = useState([]);
   const [yearsList, setYearsList] = useState([]);
   const [viewType, setViewType] = useState([]);
-  const [doyChoice, setDoyChoice] = useState();
-  const [doyEqChoice, setDoyEqChoice] = useState();
+  const [doyChoiceLTE, setDoyChoiceLTE] = useState(366);
+  const [doyChoiceGTE, setDoyChoiceGTE] = useState(1);
   const [results, setResults] = useState([]);
 
   useEffect(
@@ -137,20 +137,38 @@ const Data = () => {
     setYearChoice(obj);
   };
 
+  const acresToMetersRadius = (acres) => {
+    //r = √(A / π)
+    return Math.sqrt(
+      // acres to sq meters (approx)
+      (acres*4046)
+      /3
+    );
+  }
+
   async function handleSearch() {
     try{
       // django could return html if it wanted, request json specifically
       const headers = {
           'Accept': 'application/json',
       };
+      const params = {
+        // FIRE_YEAR: yearChoice.value,
+        // DISCOVERY_DOY__lte: doyChoiceLTE,
+        // DISCOVERY_DOY__gte: doyChoiceGTE,
+        // STATE: stateChoice.value
+        ...(yearChoice && {FIRE_YEAR: yearChoice.value}),
+        ...(doyChoiceGTE && {DISCOVERY_DOY__gte: doyChoiceGTE}),
+        ...(doyChoiceLTE && {DISCOVERY_DOY__lte: doyChoiceLTE}),
+        ...(stateChoice && {STATE: stateChoice.value})
+        //(someCondition && {b: 5})
+      }
+      console.log("params:");
+      console.log(params);
       //Axios to send and receive HTTP requests
       const response = await axios.get(
           process.env.REACT_APP_DJANGO_API_URL+"search/",
-          { params: 
-              {
-               FIRE_YEAR: 2020,
-               FIRE_SIZE__gte: 500,
-              },
+          { params: params,
             headers: headers
           },
       );
@@ -181,21 +199,32 @@ const Data = () => {
 		/>
     <br />
     <div title="Day of year on which the fire was discovered or confirmed to exist">
-		  DAY OF YEAR:
+		  DISCOVERY DAY OF YEAR:
 		</div>
-      <div onChange={e => {
+      {/* <div onChange={e => {
         setDoyEqChoice(e.target.value);
       }}>
         <input type="radio" value="gte" name="doyEQ" /> Greater Than or Equal to
         <br/>
         <input type="radio" value="lte" name="doyEQ" /> Less Than or Equal to
-      </div>
+      </div> */}
+        GREATER THAN OR EQUAL TO:
         <NumericInput
           min={1}
-          max={366} //leap years?
-          value={doyChoice ? doyChoice : 0}
+          max={doyChoiceLTE ? doyChoiceLTE : 366} //leap years?
+          value={doyChoiceGTE ? doyChoiceGTE: 1}
           onChange={n => {
-            setDoyChoice(n);
+            setDoyChoiceGTE(n);
+          }
+        }
+        />
+        LESS THAN OR EQUAL TO:
+        <NumericInput
+          min={doyChoiceGTE ? doyChoiceGTE : 1}
+          max={366} //leap years?
+          value={doyChoiceLTE ? doyChoiceLTE: 366}
+          onChange={n => {
+            setDoyChoiceLTE(n);
           }
         }
         />
@@ -247,24 +276,18 @@ const Data = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {/* <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. 
-            <br />
-            Easily customizable.
-          </Popup>
-        </Marker> */}
         {results.map(
           (fire) => (
             <Circle
               center={[fire.LATITUDE, fire.LONGITUDE]}
               key={fire.FOD_ID}
-              radius={Math.sqrt((fire.FIRE_SIZE*4046)/3.14)}
+              color={"#ed2626"}
+              radius={acresToMetersRadius(fire.FIRE_SIZE)}
             >
               <Popup>
-                {fire.FOD_ID}
+                FOD ID: {fire.FOD_ID}
                 <br />
-                Easily customizable.
+                FIRE NAME: {fire.FIRE_NAME}
               </Popup>
             </Circle>
           )
