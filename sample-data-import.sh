@@ -89,5 +89,5 @@ docker restart ffp-django
 # echo "django logs"
 # docker logs ffp-django
 
-echo "react logs"
-docker logs ffp-react
+# echo "react logs"
+# docker logs ffp-react

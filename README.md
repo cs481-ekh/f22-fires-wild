@@ -31,6 +31,20 @@
 
 # Build & Run
 
+## React hot reload for developing locally
+
+Volume mapping causes failure on the react container in github actions. To re-enable (which also enables hot reload) uncomment the following in `docker-compose.yml`:
+```yml
+
+ffp-react:
+    ...
+    # uncomment these lines to enable hot reload ;)
+    # volumes:
+    # - ./fire-react-app/:/app/frontend
+    ...
+
+```
+
 ## Environment Variables
 Contained in the `.env` file are environment variables used for building the project. `.env` naming is what docker compose expects. The following variables should be set within in order for your environment to work:
 
