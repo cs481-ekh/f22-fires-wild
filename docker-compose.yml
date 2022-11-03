@@ -26,7 +26,7 @@ services:
     env_file: .env
     restart: always
     volumes:
-      - ffp-web:/app/
+      - .:/app/
     depends_on:
       - ffp-mysql
     working_dir: "/ffp-backend/"
@@ -57,9 +57,15 @@ services:
         # This adds the route as homepage
       -  PUBLIC_URL=${REACT_WEB_ROUTE}
       -  REACT_APP_WEB_ROUTE=${REACT_WEB_ROUTE}
+      -  CHOKIDAR_USEPOLLING="true"
+      -  WATCHPACK_POLLING=true
+      -  FAST_REFRESH=false
     ports:
       - "${HOST_WEB_PORT}:3000"
     stdin_open: true
+    # uncomment these lines to enable hot reload ;)
+    # volumes:
+    # - ./fire-react-app/:/app/frontend
     depends_on:
       - ffp-django
     networks:

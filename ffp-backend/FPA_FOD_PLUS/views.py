@@ -20,25 +20,25 @@ all_query_params = ['LATITUDE', 'LONGITUDE','FIRE_SIZE','FIRE_SIZE__gte','FIRE_S
 def index(request):
     return HttpResponse("Hello, world. You're at the FPA-FOD-Plus index page.")
     
-@api_view(['GET'])
-def heat_map(request):
-    if request.method == 'GET':
-        # limit to august fires 
-        data = Data.objects.filter(
-            FIRE_YEAR=2018,
-            # DISCOVERY_DOY__lte=243,
-            # DISCOVERY_DOY__gte=100,
-            FIRE_SIZE__gte=1,
-        # Filter out any broken latitude / longitude fields
-        ).exclude(
-            LATITUDE=0
-        ).exclude(
-            LONGITUDE=0
-        ).values('LATITUDE', 'LONGITUDE', 'FIRE_SIZE')
+# @api_view(['GET'])
+# def heat_map(request):
+#     if request.method == 'GET':
+#         # limit to august fires 
+#         data = Data.objects.filter(
+#             FIRE_YEAR=2018,
+#             # DISCOVERY_DOY__lte=243,
+#             # DISCOVERY_DOY__gte=100,
+#             FIRE_SIZE__gte=1,
+#         # Filter out any broken latitude / longitude fields
+#         ).exclude(
+#             LATITUDE=0
+#         ).exclude(
+#             LONGITUDE=0
+#         ).values('LATITUDE', 'LONGITUDE', 'FIRE_SIZE')
 
-        serializer = HeatMapSerializer(data, context={'request': request}, many=True)
+#         serializer = HeatMapSerializer(data, context={'request': request}, many=True)
 
-        return Response(serializer.data)
+#         return Response(serializer.data)
 
     # elif request.method == 'POST':
     #     serializer = StudentSerializer(data=request.data)
@@ -95,9 +95,10 @@ def perform_search(request):
             columns.append("FIRE_SIZE")
 
         # now construct queryset using requested_fields dictionary
-        queryset = Data.objects.filter(**requested_fields).values(*columns)
+        queryset = Data.objects.filter(**requested_fields).values(*columns).order_by('FIRE_SIZE')
         serializer = searchSerializer(queryset, context={'request': request}, many=True)
         return Response(serializer.data)
+
 
 @api_view(['GET'])
 def fire_by_id(request):
@@ -141,7 +142,7 @@ def results(request):
 def distinct_counties_list(request):
     if request.method == 'GET':
         state = request.query_params.get('STATE')
-        fetched_counties = Data.objects.filter(STATE=state).values('COUNTY').distinct()
+        fetched_counties = Data.objects.filter(STATE=state).values('COUNTY').distinct().order_by('COUNTY')
         counties = []
         
         for row in fetched_counties:
