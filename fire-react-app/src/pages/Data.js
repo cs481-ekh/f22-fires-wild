@@ -25,7 +25,8 @@ const Data = () => {
   const [sizeChoiceGTE, setSizeChoiceGTE] = useState();
   const [results, setResults] = useState([]);
   const [isWarningExpanded, setWarningExpanded] = useState(false);
-
+  const [searchCount, setSearchCount] = useState(0);
+  const [searchTime, setSearchTime] = useState(0);
   useEffect(
     () => {
       // data will not change between page loads, don't reload it
@@ -154,6 +155,8 @@ const Data = () => {
   };
 
   async function handleSearch() {
+    setSearchTime(0);
+    var startTime = performance.now();
     try {
       // django could return html if it wanted, request json specifically
       const headers = {
@@ -179,10 +182,14 @@ const Data = () => {
       const data = await response.data;
       console.log(response);
       console.log(data);
+      setSearchCount(data.length);
       setResults(data);
     } catch (e) {
       console.log(e);
     }
+    var endTime = performance.now();
+    var timeDiff = (endTime-startTime)/1000;
+    setSearchTime(timeDiff);
   }
 
   const toggleWarning = () => {
@@ -292,6 +299,8 @@ const Data = () => {
         <br />
         <br />
         <button onClick={handleSearch}>Search</button>
+        <br />
+        <div>Showing {searchCount} results ({searchTime} seconds)</div>
         <Link to={"/"}>
           <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
         </Link>
@@ -333,21 +342,5 @@ const Data = () => {
     </div>
   );
 };
-//user defined Dropdown component
-const Dropdown = ({ label, value, options, onChange }) => {
-  return (
-    <label>
-      {label}
-      <select
-        value={value}
-        onChange={onChange}
-        data-cy="state-selection-sidebar"
-      >
-        {options.map((option) => (
-          <option value={option.value}>{option.label}</option>
-        ))}
-      </select>
-    </label>
-  );
-};
+
 export default Data;
