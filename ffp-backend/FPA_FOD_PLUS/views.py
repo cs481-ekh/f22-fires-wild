@@ -161,16 +161,16 @@ def geojson_list(request):
         # serialized = json.dumps(list(queryset), cls=DjangoJSONEncoder)
         #return Response(serialize('geojson', Data.objects.filter(STATE='TX').values(), geometry_field='point', fields=('name',)))
         #return Response(serialize)
-        fod_id = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('FOD_ID', flat=True)
-        fire_name = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('FIRE_NAME', flat=True)
-        fyear = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('DISCOVERY_DATE', flat=True)
-        fcause = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('NWCG_GENERAL_CAUSE', flat=True)
-        fcont = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('CONT_DATE', flat=True)
-        fsize = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('FIRE_SIZE', flat=True)
-        lat = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('LATITUDE', flat=True)
-        long = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('LONGITUDE', flat=True)
-        fstate = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('STATE', flat=True)
-        fcounty = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list('FIPS_NAME', flat=True)
+        fod_id = Data.objects.values_list('FOD_ID', flat=True)
+        fire_name = Data.objects.values_list('FIRE_NAME', flat=True)
+        fyear = Data.objects.values_list('DISCOVERY_DATE', flat=True)
+        fcause = Data.objects.values_list('NWCG_GENERAL_CAUSE', flat=True)
+        fcont = Data.objects.values_list('CONT_DATE', flat=True)
+        fsize = Data.objects.values_list('FIRE_SIZE', flat=True)
+        lat = Data.objects.values_list('LATITUDE', flat=True)
+        long = Data.objects.values_list('LONGITUDE', flat=True)
+        fstate = Data.objects.values_list('STATE', flat=True)
+        fcounty = Data.objects.values_list('FIPS_NAME', flat=True)
 
         geo_json = [ {"type": "Feature",
                     "properties": {
@@ -203,7 +203,7 @@ def csv_view(request):
 
         writer.writerow(fire_columns)
 
-        fires = Data.objects.filter(STATE='ID').filter(FIRE_YEAR='2018').values_list()
+        fires = Data.objects.values_list()
         for fire in fires:
             writer.writerow(fire)
         return response
