@@ -267,6 +267,8 @@ CREATE TABLE FPA_FOD_PLUS(
   ,NDVI_mean                     VARCHAR(225)
   ,Land_Cover_1km                VARCHAR(75)
   ,Land_Cover                    INTEGER 
+  ,rpms				             INTEGER
+  ,rpms_1km                      NUMERIC(12,8)
   ,NPL                           INTEGER 
   ,Popo_1km                      NUMERIC(8,4)
   ,Population                    NUMERIC(12,4)

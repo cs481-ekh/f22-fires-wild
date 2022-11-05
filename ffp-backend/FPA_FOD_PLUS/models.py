@@ -1,3 +1,4 @@
+import decimal
 from django.db import models
 from django.utils import timezone
 
@@ -271,6 +272,8 @@ class Data(models.Model):
     NDVI_mean = models.CharField(max_length=164, null=True)
     Land_Cover_1km = models.CharField(max_length=27, null=True)
     Land_Cover = models.IntegerField(null=True)
+    rpms = models.IntegerField(null=True)
+    rpms_1km = models.DecimalField(max_digits=10,decimal_places=2, null=True)
     NPL = models.IntegerField(null=True)
     Popo_1km = models.DecimalField(max_digits=7,decimal_places=4, null=True)
     Population = models.DecimalField(max_digits=8,decimal_places=4, null=True)
