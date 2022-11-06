@@ -53,7 +53,7 @@ services:
 
         # This is used in the react app for routing to api from clients
       -  REACT_APP_DJANGO_API_URL=${DJANGO_API_URL}${DJANGO_API_ROUTE}
-
+      -  REACT_APP_DJANGO_ADMIN_URL=localhost:8000/${DJANGO_API_ROUTE}
         # This adds the route as homepage
       -  PUBLIC_URL=${REACT_WEB_ROUTE}
       -  REACT_APP_WEB_ROUTE=${REACT_WEB_ROUTE}
