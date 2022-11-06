@@ -35,10 +35,10 @@ class App extends Component {
               path={process.env.REACT_APP_WEB_ROUTE + "/About"}
               element={<About />}
             />
-            <Route
+            {/* <Route
               path={process.env.REACT_APP_WEB_ROUTE + "/Admin"}
               element={<Admin />}
-            />
+            /> */}
           </Routes>
         </div>
       </>
