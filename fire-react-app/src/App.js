@@ -16,6 +16,12 @@ const darkTheme = createTheme({
   },
 });
 
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +35,7 @@ class App extends Component {
     return (
       <>
         <Navbar />
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={lightTheme}>
           <CssBaseline />
           <div className="page_container">
             <Routes>

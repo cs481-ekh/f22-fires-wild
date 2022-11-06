@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
 import Select from "react-select";
+//import Select from '@mui/material/Select'
+import Slider from '@mui/material/Slider'
 import NumericInput from "react-numeric-input";
 //import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import axios from "axios";
@@ -9,6 +11,14 @@ import logo from "./../components/sdp_logo_fire.png";
 import { Link } from "react-router-dom";
 import JSPopup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import MuiInput from '@mui/material/Input';
+import { styled } from '@mui/material/styles';
+
+
+
 
 const Data = () => {
   const [stateChoice, setStateChoice] = useState();
@@ -25,6 +35,32 @@ const Data = () => {
   const [sizeChoiceGTE, setSizeChoiceGTE] = useState();
   const [results, setResults] = useState([]);
   const [isWarningExpanded, setWarningExpanded] = useState(false);
+
+  const Input = styled(MuiInput)`
+  width: 42px;
+  `;
+  const [value, setValue] = React.useState(1);
+  const handleSliderChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const handleSliderChangeGTE = (event, newValue) => {
+    setValue(newValue);
+    setDoyChoiceGTE(Number(event.target.value));
+  };
+  const handleBlur = () => {
+    if (value < 0) {
+      setValue(0);
+    } else if (value > 366) {
+      setValue(366);
+    }
+  };
+  const handleInputChange = (event) => {
+    setValue(event.target.value === '' ? '' : Number(event.target.value));
+  };
+  const handleInputChangeGTE = (event) => {
+    setValue(event.target.value === '' ? '' : Number(event.target.value));
+    setDoyChoiceGTE(Number(event.target.value));
+  };
 
   useEffect(
     () => {
@@ -258,6 +294,56 @@ const Data = () => {
             setDoyChoiceGTE(n);
           }}
         />
+{/*        <Slider
+          aria-label="DOY"
+          defaultValue={1}
+          min={1}
+          max={366}
+        />*/}
+
+
+
+
+<Box sx={{ width: 400 }}>
+      <Typography id="input-slider" gutterBottom>
+        DDOY Greater than or equal to
+      </Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+
+        </Grid>
+        <Grid item xs>
+          <Slider
+            value={typeof value === 'number' ? value : 0}
+            onChange={handleSliderChangeGTE}
+            min={1}
+            max={366}
+            aria-labelledby="input-slider"
+          />
+        </Grid>
+        <Grid item>
+          <Input
+            value={value}
+            size="small"
+            onChange={handleInputChangeGTE}
+            onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: 1,
+              max: 366,
+              type: 'number',
+              'aria-labelledby': 'input-slider',
+            }}
+          />
+        </Grid>
+      </Grid>
+    </Box>
+
+
+
+
+
+
         Less than or Equal to:
         <NumericInput
           min={doyChoiceGTE ? doyChoiceGTE : 1}

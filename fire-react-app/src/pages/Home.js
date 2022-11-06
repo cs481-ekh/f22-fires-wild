@@ -3,6 +3,8 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import axios from 'axios'; 
 import "./../styles.css";
+import logo from "./../components/sdp_logo_fire.png";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     
@@ -80,6 +82,9 @@ const Home = () => {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
             </MapContainer>
+            <Link to={"/"}>
+                <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
+            </Link>
        </div>
     );
 }
