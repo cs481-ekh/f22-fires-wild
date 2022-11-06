@@ -28,11 +28,12 @@ export default function Navbar() {
           About
         </CustomLink>
         <CustomLink
-          to={`${process.env.REACT_APP_WEB_ROUTE}/Admin`}
+          to={`\\${process.env.REACT_APP_DJANGO_ADMIN_URL}admin`}
           data-cy="nav-admin-page"
         >
           Admin
         </CustomLink>
+	
       </ul>
     </nav>
   );
