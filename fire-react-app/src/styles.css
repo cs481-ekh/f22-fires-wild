@@ -76,17 +76,28 @@ box-sizing: border-box;
     width: 100%;
     height: 90vh;
 }
-h2 {
-	border-style: dotted;
-	border-width: 1px 1px 0px 0px;
-	margin: 5%;	
+.h2 {
+    font-size: large;
+	border-width: 1px;
+    text-align: center;
+    align-self: center;
 	padding: 2px;
+    width: fit-content;
+}
+.about_box {
+    background-color: '#cfe8fc'; 
+    height: '100vh';
+    width: '100vw';
+    margin: auto;
 }
 p {
 	text-align: left;
-	margin: 5%;
+    width:inherit;
+	margin: 20px;
+    border-color: blue;
+
 	border-style: solid;
-	border-width: 1px 1px 0px 0px;
+	border-width: 1px;
 	padding: 2px;
 }
 .aboutSection {

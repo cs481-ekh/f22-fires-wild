@@ -2,20 +2,21 @@ import React from "react";
 import logo from "./../components/sdp_logo_fire.png";
 import diagram from "./../components/fires-wild-diagram.png";
 import "./../styles.css";
+import { Container, Typography, Box, Stack } from '@mui/material';
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 export default function About() {
   return (
-    <div className="aboutSection">
-      <h1>
-        About<br></br>
+      <Box className="about_box">
+      <Stack spacing={2}>
+      <Typography variant='h2'>
         <br></br>
         2F+ Mapper<br></br>
         Wildfire Dataset Interactive Website<br></br>
         Current Version: 1.0.0
-      </h1>
-      <h2>
-        Sponsor:<br></br>
+        </Typography>
+      <Typography className="h2">
+      Sponsor:<br></br>
         Dr. Mojtaba Sadegh<br></br>
         Yavar Pourmohamad
         <br></br>
@@ -23,8 +24,8 @@ export default function About() {
         <b>Software Development Team:</b>
         <br></br>
         Fires Wild<br></br>
-      </h2>
-      <p>
+      </Typography>
+      <Typography className="p">
         <b>Brief:</b>
         <br></br>
         2F+ Mapper is an interactive website created as a part of a
@@ -40,19 +41,17 @@ export default function About() {
         Yavar Pourmohamad are from Boise State University. Dr. Eric Henderson
         has connected Dr. Mojtaba Sadegh & Yavar Pourmohamad with the team via a
         senior project in Computer Science in the fall of 2022.
-      </p>
-      <p>
+        </Typography>
+        <Typography className="p">
         <b>Utlities:</b>
         <br></br>
         The site currently gives the user the option to select the year of fire,
         the state of fire, and the county within that state to produce a map
         that marks where each fire occured. Fires Wild has also implemented a
         heatmap (no pun intended) where the size of the fire is considered and
-        mapped across the US. The site is also intended for the user to be able
-        to draw a poygon on the map and fires within that polygon are displayed
-        with hoverable information.
-      </p>
-      <p>
+        mapped across the US. 
+        </Typography>
+      <Typography className="p">
         <b>For future site administrators:</b>
         <br></br>
         For full details of the initial direction of the development project see
@@ -62,7 +61,8 @@ export default function About() {
           f22-fires-wild repository
         </a>
         &nbsp; and take the site to the next level.
-      </p>
+        </Typography>
+        </Stack>
       <h2>Fires Wild Project Proposal</h2>
       <h4>
         Fires Wild<br></br>
@@ -499,6 +499,6 @@ export default function About() {
       <Link to={"/"}>
         <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
       </Link>
-    </div>
+      </Box>
   );
 }
