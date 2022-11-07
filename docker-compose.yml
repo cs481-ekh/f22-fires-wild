@@ -34,7 +34,7 @@ services:
       - 8000
     ports:
       - "${HOST_API_PORT}:8000"
-    command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     networks:
     - ffp-network 
 
