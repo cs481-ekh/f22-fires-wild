@@ -82,7 +82,7 @@ function Navbar() {
 
               <Button
                 key="Admin"
-                component={Link} to={`${process.env.REACT_APP_WEB_ROUTE}/Admin`}
+                href={process.env.REACT_APP_DJANGO_API_URL + "admin"}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                   Admin

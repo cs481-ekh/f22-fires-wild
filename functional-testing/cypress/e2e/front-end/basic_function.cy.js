@@ -27,7 +27,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
       .and("contain.text", "About");
   });
 
-  it("Should verify that the 'Admin' tab exists and displays about page", () => {
+  it.skip("Should verify that the 'Admin' tab exists and displays about page", () => {
     cy.get(elements.navAdminButton)
       .should("be.visible")
       .and("contain.text", "Admin")
@@ -37,7 +37,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
       .and("contain.text", "Admin");
   });
 
-  it("Should verify that all 3 tabs are displayed on home page", () => {
+  it.skip("Should verify that all 3 tabs are displayed on home page", () => {
     cy.get(elements.navDataButton)
       .should("be.visible")
       .and("contain.text", "Data")
@@ -58,7 +58,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
       .select("Arkansas");
   });
 
-  it("Home button should redirect home regardles of current page", () => {
+  it.skip("Home button should redirect home regardles of current page", () => {
     cy.get(elements.navDataButton)
       .should("be.visible")
       .click()
