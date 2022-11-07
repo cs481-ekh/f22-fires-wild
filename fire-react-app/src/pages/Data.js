@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
 import Select from "react-select";
+//import Select from '@mui/material/Select'
+import Slider from '@mui/material/Slider'
 import NumericInput from "react-numeric-input";
 //import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import axios from "axios";
@@ -9,6 +11,14 @@ import logo from "./../components/sdp_logo_fire.png";
 import { Link } from "react-router-dom";
 import JSPopup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import MuiInput from '@mui/material/Input';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Button from '@mui/material/Button';
 
 const Data = () => {
   const [stateChoice, setStateChoice] = useState();
@@ -25,8 +35,60 @@ const Data = () => {
   const [sizeChoiceGTE, setSizeChoiceGTE] = useState();
   const [results, setResults] = useState([]);
   const [isWarningExpanded, setWarningExpanded] = useState(false);
+
+  const Input = styled(MuiInput)`
+  width: 42px;
+  `;
+  const [value, setValue] = React.useState(1);
+  const [valueLTE, setValueLTE] = React.useState(1);
+  const [doubleValue, setDoubleValue] = React.useState([1,366])
+  const handleSliderChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const handleSliderChangeGTE = (event, newValue) => {
+    setValue(newValue);
+    setDoyChoiceGTE(Number(event.target.value));
+  };
+  const handleSliderChangeLTE = (event, newValue) => {
+    setValueLTE(newValue);
+    setDoyChoiceLTE(Number(event.target.value));
+  };
+  const handleBlur = () => {
+    if (value < 0) {
+      setValue(0);
+    } else if (value > 366) {
+      setValue(366);
+    }
+  };
+  const testSliderChange = (event, newValue) => {
+    setDoubleValue(handleSliderChangeGTE, handleInputChangeLTE);
+  };
+  const handleInputChange = (event) => {
+    setValue(event.target.value === '' ? '' : Number(event.target.value));
+  };
+  const handleInputChangeGTE = (event) => {
+    setValue(event.target.value === '' ? '' : Number(event.target.value));
+    setDoyChoiceGTE(Number(event.target.value));
+  };
+
+  const handleInputChangeLTE = (event) => {
+    setValueLTE(event.target.value === '' ? '' : Number(event.target.value));
+    setDoyChoiceLTE(Number(event.target.value));
+  };
+
+  const setSizeChoiceGTEInput = (event) => {
+    //setValueLTE(event.target.value === '' ? '' : Number(event.target.value));
+    setSizeChoiceGTE(Number(event.target.value));
+  };
+
+  const setSizeChoiceLTEInput = (event) => {
+    //setValueLTE(event.target.value === '' ? '' : Number(event.target.value));
+    setSizeChoiceLTE(Number(event.target.value));
+  };
+
   const [searchCount, setSearchCount] = useState(0);
   const [searchTime, setSearchTime] = useState(0);
+
   useEffect(
     () => {
       // data will not change between page loads, don't reload it
@@ -256,7 +318,7 @@ const Data = () => {
         <div title="Day of year on which the fire was discovered or confirmed to exist">
           DISCOVERY DAY OF YEAR:
         </div>
-        Greater than or Equal to:
+{/*        Greater than or Equal to:
         <NumericInput
           min={1}
           max={doyChoiceLTE ? doyChoiceLTE : 366} //leap years?
@@ -264,8 +326,110 @@ const Data = () => {
           onChange={(n) => {
             setDoyChoiceGTE(n);
           }}
-        />
-        Less than or Equal to:
+        />*/}
+{/*        <Slider
+          aria-label="DOY"
+          defaultValue={1}
+          min={1}
+          max={366}
+        />*/}
+
+
+
+    <div>
+      Greater than or equal to:
+    </div>
+    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+{/*      <Typography id="input-slider" gutterBottom>
+        DDOY Greater than or equal to
+      </Typography> */}
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+
+        </Grid>
+        <Grid item xs>
+          <Slider
+            value={doyChoiceGTE ? doyChoiceGTE : 1}
+            onChange={handleSliderChangeGTE}
+            min={1}
+            max={doyChoiceLTE ? doyChoiceLTE : 366}
+            aria-labelledby="input-slider"
+          />
+        </Grid>
+        <Grid item>
+          <OutlinedInput
+            value={value}
+            size="small"
+            onChange={handleInputChangeGTE}
+            onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: 1,
+              max: doyChoiceLTE ? doyChoiceLTE : 366,
+              type: 'number',
+              'aria-labelledby': 'input-slider',
+            }}
+          />
+        </Grid>
+      </Grid>
+    </Box>
+
+    <div>
+      Less than or equal to:
+    </div>
+    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+{/*      <Typography id="input-slider" gutterBottom>
+        DDOY Greater than or equal to
+      </Typography> */}
+
+{/*      <Grid test>
+        <Slider
+          getAriaLabel={() => 'Minimum distance'}
+          value={[doyChoiceLTE ? doyChoiceLTE : 366, doyChoiceGTE ? doyChoiceGTE : 1]}
+          onChange={testSliderChange}
+          max={366}
+          min={1}
+          valueLabelDisplay="auto"
+          disableSwap
+          />
+    </Grid>*/}
+
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+        </Grid>
+        <Grid item xs>
+          <Slider
+            value={doyChoiceLTE ? doyChoiceLTE : 366}
+            onChange={handleSliderChangeLTE}
+            min={doyChoiceGTE ? doyChoiceGTE : 1}
+            max={366}
+            aria-labelledby="input-slider"
+          />
+        </Grid>
+        <Grid item>
+          <OutlinedInput
+            value={doyChoiceLTE ? doyChoiceLTE : 366}
+            size="small"
+            onChange={handleInputChangeLTE}
+            onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: doyChoiceGTE ? doyChoiceGTE : 1,
+              max: 366,
+              type: 'number',
+              'aria-labelledby': 'input-slider',
+            }}
+          />
+        </Grid>
+      </Grid>
+    </Box>
+
+
+
+
+
+
+{/*        Less than or Equal to:
         <NumericInput
           min={doyChoiceGTE ? doyChoiceGTE : 1}
           max={366} //leap years?
@@ -273,32 +437,88 @@ const Data = () => {
           onChange={(n) => {
             setDoyChoiceLTE(n);
           }}
-        />
+        />*/}
         <br />
         <br />
         <div title="The estimate of acres within the final perimeter of the fire">
           FIRE SIZE:
         </div>
-        Greater than or Equal to:
-        <NumericInput
+        <br />
+
+
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+          <Grid container spacing={2} alignItems="center" justifyContent="space-between">
+            <div>
+              Greater than or equal to:
+            </div>
+            <Grid gte alignItems="right">
+              <OutlinedInput
+                sx={{width: '3vw'}}
+                justifyContent="flex-end"
+                variant="outlined"
+                value={sizeChoiceGTE ? sizeChoiceGTE : 0}
+                size="small"
+                inputProps={{
+                  step: 1,
+                  min: 0,
+                  max: sizeChoiceLTE ? sizeChoiceLTE : 99999999,
+                  type: 'number',
+                  'aria-labelledby': 'input-slider',
+                }}
+                onChange={setSizeChoiceGTEInput}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+        <br />
+{/*        <NumericInput
           min={0}
           max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
           value={sizeChoiceGTE ? sizeChoiceGTE : 0}
-          onChange={(n) => {
-            setSizeChoiceGTE(n);
+          onChange={setSizeChoiceGTEInput}
+        />*/}
+
+
+{/*        <OutlinedInput
+          variant="outlined"
+          size="small" 
+          min={0}
+          max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
+          inputProps={{
+            step: 10,
+            min: doyChoiceGTE ? doyChoiceGTE : 1,
+            max: 366,
+            type: 'number',
+            'aria-labelledby': 'input-slider',
           }}
-        />
-        Less than or Equal to:
-        <NumericInput
-          min={sizeChoiceGTE ? sizeChoiceGTE : 0}
-          value={sizeChoiceLTE ? sizeChoiceLTE : 0}
-          onChange={(n) => {
-            setSizeChoiceLTE(n);
-          }}
-        />
+        />*/}
+
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+          <Grid container spacing={2} alignItems="center" justifyContent="space-between">
+            <div>
+              Less than  or  equal to:
+            </div>
+            <Grid gte alignItems="right">
+              <OutlinedInput
+                sx={{width: '3vw'}}
+                variant="outlined"
+                value={sizeChoiceLTE ? sizeChoiceLTE : 0}
+                size="small"
+                inputProps={{
+                  step: 1,
+                  min: sizeChoiceGTE ? sizeChoiceGTE : 0,
+                  type: 'number',
+                  'aria-labelledby': 'input-slider',
+                }}
+                onChange={setSizeChoiceLTEInput}
+                />
+            </Grid>
+          </Grid>
+        </Box>
         <br />
         <br />
-        <button onClick={handleSearch}>Search</button>
+        <Button variant="contained" onClick={handleSearch}>Search</Button>
+        <br />
         <br />
         <div>Showing {searchCount} results ({searchTime} seconds)</div>
         <Link to={"/"}>
