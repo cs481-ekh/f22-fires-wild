@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
 import Select from "react-select";
 //import Select from '@mui/material/Select'
-import Slider from '@mui/material/Slider'
+import Slider from "@mui/material/Slider";
 import NumericInput from "react-numeric-input";
 //import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import axios from "axios";
@@ -11,14 +11,27 @@ import logo from "./../components/sdp_logo_fire.png";
 import { Link } from "react-router-dom";
 import JSPopup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import MuiInput from '@mui/material/Input';
-import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Button from '@mui/material/Button';
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import MuiInput from "@mui/material/Input";
+import { styled } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+
+const modalStyle = {
+  position: "absolute",
+  top: "20%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Data = () => {
   const [stateChoice, setStateChoice] = useState();
@@ -36,12 +49,16 @@ const Data = () => {
   const [results, setResults] = useState([]);
   const [isWarningExpanded, setWarningExpanded] = useState(false);
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalData, setModalData] = useState([]);
+  const handleClose = () => setModalVisible(false);
+
   const Input = styled(MuiInput)`
-  width: 42px;
+    width: 42px;
   `;
   const [value, setValue] = React.useState(1);
   const [valueLTE, setValueLTE] = React.useState(1);
-  const [doubleValue, setDoubleValue] = React.useState([1,366])
+  const [doubleValue, setDoubleValue] = React.useState([1, 366]);
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -64,15 +81,15 @@ const Data = () => {
     setDoubleValue(handleSliderChangeGTE, handleInputChangeLTE);
   };
   const handleInputChange = (event) => {
-    setValue(event.target.value === '' ? '' : Number(event.target.value));
+    setValue(event.target.value === "" ? "" : Number(event.target.value));
   };
   const handleInputChangeGTE = (event) => {
-    setValue(event.target.value === '' ? '' : Number(event.target.value));
+    setValue(event.target.value === "" ? "" : Number(event.target.value));
     setDoyChoiceGTE(Number(event.target.value));
   };
 
   const handleInputChangeLTE = (event) => {
-    setValueLTE(event.target.value === '' ? '' : Number(event.target.value));
+    setValueLTE(event.target.value === "" ? "" : Number(event.target.value));
     setDoyChoiceLTE(Number(event.target.value));
   };
 
@@ -102,6 +119,24 @@ const Data = () => {
     /* This makes sure we run this once */
     []
   );
+
+  async function getFireDetails(id) {
+    const headers = {
+      Accept: "application/json",
+    };
+    console.log("fetching fire details");
+    const response = await axios.get(
+      `${process.env.REACT_APP_DJANGO_API_URL}fire/`,
+      {
+        params: {
+          FOD_ID: id,
+        },
+        headers: headers,
+      }
+    );
+    console.log(`HEREE ${JSON.stringify(response.data[0])}`);
+    setModalData(response.data[0]);
+  }
 
   async function refreshList(alist, aroute, w) {
     try {
@@ -250,7 +285,7 @@ const Data = () => {
       console.log(e);
     }
     var endTime = performance.now();
-    var timeDiff = (endTime-startTime)/1000;
+    var timeDiff = (endTime - startTime) / 1000;
     setSearchTime(timeDiff);
   }
 
@@ -318,7 +353,7 @@ const Data = () => {
         <div title="Day of year on which the fire was discovered or confirmed to exist">
           DISCOVERY DAY OF YEAR:
         </div>
-{/*        Greater than or Equal to:
+        {/*        Greater than or Equal to:
         <NumericInput
           min={1}
           max={doyChoiceLTE ? doyChoiceLTE : 366} //leap years?
@@ -327,62 +362,54 @@ const Data = () => {
             setDoyChoiceGTE(n);
           }}
         />*/}
-{/*        <Slider
+        {/*        <Slider
           aria-label="DOY"
           defaultValue={1}
           min={1}
           max={366}
         />*/}
 
-
-
-    <div>
-      Greater than or equal to:
-    </div>
-    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
-{/*      <Typography id="input-slider" gutterBottom>
+        <div>Greater than or equal to:</div>
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+          {/*      <Typography id="input-slider" gutterBottom>
         DDOY Greater than or equal to
       </Typography> */}
-      <Grid container spacing={2} alignItems="center">
-        <Grid item>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item></Grid>
+            <Grid item xs>
+              <Slider
+                value={doyChoiceGTE ? doyChoiceGTE : 1}
+                onChange={handleSliderChangeGTE}
+                min={1}
+                max={doyChoiceLTE ? doyChoiceLTE : 366}
+                aria-labelledby="input-slider"
+              />
+            </Grid>
+            <Grid item>
+              <OutlinedInput
+                value={value}
+                size="small"
+                onChange={handleInputChangeGTE}
+                onBlur={handleBlur}
+                inputProps={{
+                  step: 10,
+                  min: 1,
+                  max: doyChoiceLTE ? doyChoiceLTE : 366,
+                  type: "number",
+                  "aria-labelledby": "input-slider",
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Box>
 
-        </Grid>
-        <Grid item xs>
-          <Slider
-            value={doyChoiceGTE ? doyChoiceGTE : 1}
-            onChange={handleSliderChangeGTE}
-            min={1}
-            max={doyChoiceLTE ? doyChoiceLTE : 366}
-            aria-labelledby="input-slider"
-          />
-        </Grid>
-        <Grid item>
-          <OutlinedInput
-            value={value}
-            size="small"
-            onChange={handleInputChangeGTE}
-            onBlur={handleBlur}
-            inputProps={{
-              step: 10,
-              min: 1,
-              max: doyChoiceLTE ? doyChoiceLTE : 366,
-              type: 'number',
-              'aria-labelledby': 'input-slider',
-            }}
-          />
-        </Grid>
-      </Grid>
-    </Box>
-
-    <div>
-      Less than or equal to:
-    </div>
-    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
-{/*      <Typography id="input-slider" gutterBottom>
+        <div>Less than or equal to:</div>
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+          {/*      <Typography id="input-slider" gutterBottom>
         DDOY Greater than or equal to
       </Typography> */}
 
-{/*      <Grid test>
+          {/*      <Grid test>
         <Slider
           getAriaLabel={() => 'Minimum distance'}
           value={[doyChoiceLTE ? doyChoiceLTE : 366, doyChoiceGTE ? doyChoiceGTE : 1]}
@@ -394,42 +421,36 @@ const Data = () => {
           />
     </Grid>*/}
 
-      <Grid container spacing={2} alignItems="center">
-        <Grid item>
-        </Grid>
-        <Grid item xs>
-          <Slider
-            value={doyChoiceLTE ? doyChoiceLTE : 366}
-            onChange={handleSliderChangeLTE}
-            min={doyChoiceGTE ? doyChoiceGTE : 1}
-            max={366}
-            aria-labelledby="input-slider"
-          />
-        </Grid>
-        <Grid item>
-          <OutlinedInput
-            value={doyChoiceLTE ? doyChoiceLTE : 366}
-            size="small"
-            onChange={handleInputChangeLTE}
-            onBlur={handleBlur}
-            inputProps={{
-              step: 10,
-              min: doyChoiceGTE ? doyChoiceGTE : 1,
-              max: 366,
-              type: 'number',
-              'aria-labelledby': 'input-slider',
-            }}
-          />
-        </Grid>
-      </Grid>
-    </Box>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item></Grid>
+            <Grid item xs>
+              <Slider
+                value={doyChoiceLTE ? doyChoiceLTE : 366}
+                onChange={handleSliderChangeLTE}
+                min={doyChoiceGTE ? doyChoiceGTE : 1}
+                max={366}
+                aria-labelledby="input-slider"
+              />
+            </Grid>
+            <Grid item>
+              <OutlinedInput
+                value={doyChoiceLTE ? doyChoiceLTE : 366}
+                size="small"
+                onChange={handleInputChangeLTE}
+                onBlur={handleBlur}
+                inputProps={{
+                  step: 10,
+                  min: doyChoiceGTE ? doyChoiceGTE : 1,
+                  max: 366,
+                  type: "number",
+                  "aria-labelledby": "input-slider",
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Box>
 
-
-
-
-
-
-{/*        Less than or Equal to:
+        {/*        Less than or Equal to:
         <NumericInput
           min={doyChoiceGTE ? doyChoiceGTE : 1}
           max={366} //leap years?
@@ -445,15 +466,17 @@ const Data = () => {
         </div>
         <br />
 
-
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
-          <Grid container spacing={2} alignItems="center" justifyContent="space-between">
-            <div>
-              Greater than or equal to:
-            </div>
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+          <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <div>Greater than or equal to:</div>
             <Grid gte alignItems="right">
               <OutlinedInput
-                sx={{width: '3vw'}}
+                sx={{ width: "3vw" }}
                 justifyContent="flex-end"
                 variant="outlined"
                 value={sizeChoiceGTE ? sizeChoiceGTE : 0}
@@ -462,8 +485,8 @@ const Data = () => {
                   step: 1,
                   min: 0,
                   max: sizeChoiceLTE ? sizeChoiceLTE : 99999999,
-                  type: 'number',
-                  'aria-labelledby': 'input-slider',
+                  type: "number",
+                  "aria-labelledby": "input-slider",
                 }}
                 onChange={setSizeChoiceGTEInput}
               />
@@ -471,15 +494,14 @@ const Data = () => {
           </Grid>
         </Box>
         <br />
-{/*        <NumericInput
+        {/*        <NumericInput
           min={0}
           max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
           value={sizeChoiceGTE ? sizeChoiceGTE : 0}
           onChange={setSizeChoiceGTEInput}
         />*/}
 
-
-{/*        <OutlinedInput
+        {/*        <OutlinedInput
           variant="outlined"
           size="small" 
           min={0}
@@ -493,34 +515,41 @@ const Data = () => {
           }}
         />*/}
 
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
-          <Grid container spacing={2} alignItems="center" justifyContent="space-between">
-            <div>
-              Less than  or  equal to:
-            </div>
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+          <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <div>Less than or equal to:</div>
             <Grid gte alignItems="right">
               <OutlinedInput
-                sx={{width: '3vw'}}
+                sx={{ width: "3vw" }}
                 variant="outlined"
                 value={sizeChoiceLTE ? sizeChoiceLTE : 0}
                 size="small"
                 inputProps={{
                   step: 1,
                   min: sizeChoiceGTE ? sizeChoiceGTE : 0,
-                  type: 'number',
-                  'aria-labelledby': 'input-slider',
+                  type: "number",
+                  "aria-labelledby": "input-slider",
                 }}
                 onChange={setSizeChoiceLTEInput}
-                />
+              />
             </Grid>
           </Grid>
         </Box>
         <br />
         <br />
-        <Button variant="contained" onClick={handleSearch}>Search</Button>
+        <Button variant="contained" onClick={handleSearch}>
+          Search
+        </Button>
         <br />
         <br />
-        <div>Showing {searchCount} results ({searchTime} seconds)</div>
+        <div>
+          Showing {searchCount} results ({searchTime} seconds)
+        </div>
         <Link to={"/"}>
           <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
         </Link>
@@ -554,7 +583,42 @@ const Data = () => {
               <br />
               FIRE NAME: {fire.FIRE_NAME}
               <br />
-              <Link to={"/"}>details (coming soon)</Link>
+              <Button
+                onClick={() => {
+                  setModalVisible(true);
+                  getFireDetails(fire.FOD_ID);
+                }}
+              >
+                Additional Details
+              </Button>
+              <Modal
+                open={modalVisible}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                sx={{ overflow: "scroll", margin: "auto" }}
+              >
+                <Box sx={modalStyle}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Additional Details for fire: {modalData.FOD_ID}
+                  </Typography>
+                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <ul>
+                      {Object.entries(modalData).map((key, val) => {
+                        return (
+                          <li>
+                            {key}: {val}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </Typography>
+                </Box>
+              </Modal>
             </Popup>
           </Circle>
         ))}
