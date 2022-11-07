@@ -8,7 +8,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
     cy.visit(url, { failOnStatusCode: false });
   });
 
-  it("Should verify that the 'Data' tab exists and displays map along with drop down", () => {
+  it.skip("Should verify that the 'Data' tab exists and displays map along with drop down", () => {
     cy.get(elements.navDataButton)
       .should("be.visible")
       .and("contain.text", "Data")
@@ -17,7 +17,7 @@ describe("Proof of concept test using the state of our application at 9/20/2022.
       .should("be.visible");
   });
 
-  it("Should verify that the 'About' tab exists and displays about page", () => {
+  it.skip("Should verify that the 'About' tab exists and displays about page", () => {
     cy.get(elements.navAboutButton)
       .should("be.visible")
       .and("contain.text", "About")
