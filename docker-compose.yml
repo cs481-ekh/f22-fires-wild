@@ -21,8 +21,8 @@ services:
   ffp-django:
     container_name: ffp-django
     build:
-      context: .
-      dockerfile: ./docker/django/Dockerfile
+      context: ./ffp-backend/
+      dockerfile: ../docker/django/Dockerfile
     env_file: .env
     restart: always
     volumes:
@@ -34,7 +34,7 @@ services:
       - 8000
     ports:
       - "${HOST_API_PORT}:8000"
-    command: ["python", "ffp-backend/manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     networks:
     - ffp-network 
 
