@@ -9,6 +9,9 @@ import logo from "./../components/sdp_logo_fire.png";
 import { Link } from "react-router-dom";
 import JSPopup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Data = () => {
   const [stateChoice, setStateChoice] = useState();
@@ -27,6 +30,11 @@ const Data = () => {
   const [isWarningExpanded, setWarningExpanded] = useState(false);
   const [searchCount, setSearchCount] = useState(0);
   const [searchTime, setSearchTime] = useState(0);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalData, setModalData] = useState([]);
+  const handleClose = () => setModalVisible(false);
+
   useEffect(
     () => {
       // data will not change between page loads, don't reload it
@@ -188,7 +196,7 @@ const Data = () => {
       console.log(e);
     }
     var endTime = performance.now();
-    var timeDiff = (endTime-startTime)/1000;
+    var timeDiff = (endTime - startTime) / 1000;
     setSearchTime(timeDiff);
   }
 
@@ -300,7 +308,9 @@ const Data = () => {
         <br />
         <button onClick={handleSearch}>Search</button>
         <br />
-        <div>Showing {searchCount} results ({searchTime} seconds)</div>
+        <div>
+          Showing {searchCount} results ({searchTime} seconds)
+        </div>
         <Link to={"/"}>
           <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
         </Link>
@@ -334,7 +344,28 @@ const Data = () => {
               <br />
               FIRE NAME: {fire.FIRE_NAME}
               <br />
-              <Link to={"/"}>details (coming soon)</Link>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  setModalVisible(true);
+                  setModalData(fire);
+                }}
+              >
+                Additional Details
+              </Button>
+              <Modal show={modalVisible} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>
+                    Additional Details for fire: {modalData.FOD_ID}
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Add fire data here</Modal.Body>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={handleClose}>
+                    Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </Popup>
           </Circle>
         ))}
