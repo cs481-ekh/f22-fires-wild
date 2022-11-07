@@ -596,6 +596,7 @@ const Data = () => {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                sx={{ overflow: "scroll", margin: "auto" }}
               >
                 <Box sx={modalStyle}>
                   <Typography
