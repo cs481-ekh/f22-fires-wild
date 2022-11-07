@@ -67,6 +67,7 @@ function Navbar() {
               <Button
                 key="Data"
                 component={Link} to={`${process.env.REACT_APP_WEB_ROUTE}/Data`}
+                data-cy="nav-data-page"
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                   Data
@@ -75,6 +76,7 @@ function Navbar() {
               <Button
                 key="About"
                 component={Link} to={`${process.env.REACT_APP_WEB_ROUTE}/About`}
+                data-cy="nav-about-page"
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                   About
@@ -83,6 +85,7 @@ function Navbar() {
               <Button
                 key="Admin"
                 href={process.env.REACT_APP_DJANGO_API_URL + "admin"}
+                data-cy="nav-admin-page"
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                   Admin
