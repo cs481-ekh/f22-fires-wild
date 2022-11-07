@@ -120,6 +120,24 @@ const Data = () => {
     []
   );
 
+  async function getFireDetails(id) {
+    const headers = {
+      Accept: "application/json",
+    };
+    console.log("fetching fire details");
+    const response = await axios.get(
+      `${process.env.REACT_APP_DJANGO_API_URL}fire/`,
+      {
+        params: {
+          FOD_ID: id,
+        },
+        headers: headers,
+      }
+    );
+    console.log(`HEREE ${JSON.stringify(response.data[0])}`);
+    setModalData(response.data[0]);
+  }
+
   async function refreshList(alist, aroute, w) {
     try {
       // django could return html if it wanted, request json specifically
@@ -568,8 +586,7 @@ const Data = () => {
               <Button
                 onClick={() => {
                   setModalVisible(true);
-                  setModalData(fire);
-                  // write function that hits endpoint and sets modal data with EP data
+                  getFireDetails(fire.FOD_ID);
                 }}
               >
                 Additional Details
@@ -589,7 +606,15 @@ const Data = () => {
                     Additional Details for fire: {modalData.FOD_ID}
                   </Typography>
                   <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Add fire data here
+                    <ul>
+                      {Object.entries(modalData).map((key, val) => {
+                        return (
+                          <li>
+                            {key}: {val}
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </Typography>
                 </Box>
               </Modal>
