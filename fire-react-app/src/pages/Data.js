@@ -17,9 +17,8 @@ import Typography from '@mui/material/Typography';
 import MuiInput from '@mui/material/Input';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-
-
-
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Button from '@mui/material/Button';
 
 const Data = () => {
   const [stateChoice, setStateChoice] = useState();
@@ -75,6 +74,16 @@ const Data = () => {
   const handleInputChangeLTE = (event) => {
     setValueLTE(event.target.value === '' ? '' : Number(event.target.value));
     setDoyChoiceLTE(Number(event.target.value));
+  };
+
+  const setSizeChoiceGTEInput = (event) => {
+    //setValueLTE(event.target.value === '' ? '' : Number(event.target.value));
+    setSizeChoiceGTE(Number(event.target.value));
+  };
+
+  const setSizeChoiceLTEInput = (event) => {
+    //setValueLTE(event.target.value === '' ? '' : Number(event.target.value));
+    setSizeChoiceLTE(Number(event.target.value));
   };
 
   const [searchCount, setSearchCount] = useState(0);
@@ -330,7 +339,7 @@ const Data = () => {
     <div>
       Greater than or equal to:
     </div>
-    <Box sx={{ width: 400 }}>
+    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
 {/*      <Typography id="input-slider" gutterBottom>
         DDOY Greater than or equal to
       </Typography> */}
@@ -348,7 +357,7 @@ const Data = () => {
           />
         </Grid>
         <Grid item>
-          <Input
+          <OutlinedInput
             value={value}
             size="small"
             onChange={handleInputChangeGTE}
@@ -368,7 +377,7 @@ const Data = () => {
     <div>
       Less than or equal to:
     </div>
-    <Box sx={{ width: 400 }}>
+    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
 {/*      <Typography id="input-slider" gutterBottom>
         DDOY Greater than or equal to
       </Typography> */}
@@ -398,7 +407,7 @@ const Data = () => {
           />
         </Grid>
         <Grid item>
-          <Input
+          <OutlinedInput
             value={doyChoiceLTE ? doyChoiceLTE : 366}
             size="small"
             onChange={handleInputChangeLTE}
@@ -434,29 +443,82 @@ const Data = () => {
         <div title="The estimate of acres within the final perimeter of the fire">
           FIRE SIZE:
         </div>
-        Greater than or Equal to:
-        <TextField
-          type="number"
-          size="small"
-          variant="outlined"
+        <br />
+
+
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+          <Grid container spacing={2} alignItems="center" justifyContent="space-between">
+            <div>
+              Greater than or equal to:
+            </div>
+            <Grid gte alignItems="right">
+              <OutlinedInput
+                sx={{width: '3vw'}}
+                justifyContent="flex-end"
+                variant="outlined"
+                value={sizeChoiceGTE ? sizeChoiceGTE : 0}
+                size="small"
+                inputProps={{
+                  step: 1,
+                  min: 0,
+                  max: sizeChoiceLTE ? sizeChoiceLTE : 99999999,
+                  type: 'number',
+                  'aria-labelledby': 'input-slider',
+                }}
+                onChange={setSizeChoiceGTEInput}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+        <br />
+{/*        <NumericInput
           min={0}
           max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
           value={sizeChoiceGTE ? sizeChoiceGTE : 0}
-          onChange={(n) => {
-            setSizeChoiceGTE(n);
+          onChange={setSizeChoiceGTEInput}
+        />*/}
+
+
+{/*        <OutlinedInput
+          variant="outlined"
+          size="small" 
+          min={0}
+          max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
+          inputProps={{
+            step: 10,
+            min: doyChoiceGTE ? doyChoiceGTE : 1,
+            max: 366,
+            type: 'number',
+            'aria-labelledby': 'input-slider',
           }}
-        />
-        Less than or Equal to:
-        <NumericInput
-          min={sizeChoiceGTE ? sizeChoiceGTE : 0}
-          value={sizeChoiceLTE ? sizeChoiceLTE : 0}
-          onChange={(n) => {
-            setSizeChoiceLTE(n);
-          }}
-        />
+        />*/}
+
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+          <Grid container spacing={2} alignItems="center" justifyContent="space-between">
+            <div>
+              Less than  or  equal to:
+            </div>
+            <Grid gte alignItems="right">
+              <OutlinedInput
+                sx={{width: '3vw'}}
+                variant="outlined"
+                value={sizeChoiceLTE ? sizeChoiceLTE : 0}
+                size="small"
+                inputProps={{
+                  step: 1,
+                  min: sizeChoiceGTE ? sizeChoiceGTE : 0,
+                  type: 'number',
+                  'aria-labelledby': 'input-slider',
+                }}
+                onChange={setSizeChoiceLTEInput}
+                />
+            </Grid>
+          </Grid>
+        </Box>
         <br />
         <br />
-        <button onClick={handleSearch}>Search</button>
+        <Button variant="contained" onClick={handleSearch}>Search</Button>
+        <br />
         <br />
         <div>Showing {searchCount} results ({searchTime} seconds)</div>
         <Link to={"/"}>
