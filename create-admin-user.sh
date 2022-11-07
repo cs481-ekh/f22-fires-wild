@@ -13,8 +13,8 @@ user=$1
 pass=$2
 email=$3
 
-docker exec -i -w /ffp-backend/ffp-backend ffp-django python manage.py migrate
-docker exec -i -w /ffp-backend/ffp-backend ffp-django python manage.py shell <<< "from django.contrib.auth.models import User; User.objects.create_superuser('${user}', '${email}', '${pass}')"
+docker exec -i -w /ffp-backend ffp-django python manage.py migrate
+docker exec -i -w /ffp-backend ffp-django python manage.py shell <<< "from django.contrib.auth.models import User; User.objects.create_superuser('${user}', '${email}', '${pass}')"
 
 echo ""
 echo "The following are your credentials. Keep them in a safe place."
