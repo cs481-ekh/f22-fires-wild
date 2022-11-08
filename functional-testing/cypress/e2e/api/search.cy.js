@@ -16,11 +16,11 @@ describe("API test suite for the /search endpoint", () => {
       CONT_TIME__gte: 1500,
       STATE: "AZ",
       COUNTY: "Maricopa",
-      Ecoregion_US_L3CODE: 81,
+      Ecoregion_US_L3CODE: "81",
       Ecoregion_US_L4CODE: "81n",
       Ecoregion_NA_L3CODE: "10.2.2",
       Ecoregion_NA_L2CODE: "10.2",
-      Ecoregion_NA_L1CODE: 10,
+      Ecoregion_NA_L1CODE: "10",
     };
     cy.request({
       method: "GET",
