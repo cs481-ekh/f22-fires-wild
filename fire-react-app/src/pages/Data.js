@@ -23,10 +23,9 @@ import Modal from "@mui/material/Modal";
 
 const modalStyle = {
   position: "absolute",
-  top: "20%",
+  top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -134,7 +133,7 @@ const Data = () => {
         headers: headers,
       }
     );
-    console.log(`HEREE ${JSON.stringify(response.data[0])}`);
+    console.log(response.data[0]);
     setModalData(response.data[0]);
   }
 
@@ -467,17 +466,11 @@ const Data = () => {
         <br />
 
         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-          <Grid
-            container
-            spacing={2}
-            alignItems="center"
-            justifyContent="space-between"
-          >
+          <Grid container spacing={2} alignItems="center">
             <div>Greater than or equal to:</div>
-            <Grid gte alignItems="right">
+            <Grid alignItems="right">
               <OutlinedInput
                 sx={{ width: "3vw" }}
-                justifyContent="flex-end"
                 variant="outlined"
                 value={sizeChoiceGTE ? sizeChoiceGTE : 0}
                 size="small"
@@ -523,7 +516,7 @@ const Data = () => {
             justifyContent="space-between"
           >
             <div>Less than or equal to:</div>
-            <Grid gte alignItems="right">
+            <Grid alignItems="right">
               <OutlinedInput
                 sx={{ width: "3vw" }}
                 variant="outlined"
@@ -585,8 +578,8 @@ const Data = () => {
               <br />
               <Button
                 onClick={() => {
-                  setModalVisible(true);
                   getFireDetails(fire.FOD_ID);
+                  setModalVisible(true);
                 }}
               >
                 Additional Details
@@ -596,7 +589,10 @@ const Data = () => {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                sx={{ overflow: "scroll", margin: "auto" }}
+                sx={{
+                  overflow: "scroll",
+                  margin: "auto",
+                }}
               >
                 <Box sx={modalStyle}>
                   <Typography
@@ -605,17 +601,25 @@ const Data = () => {
                     component="h2"
                   >
                     Additional Details for fire: {modalData.FOD_ID}
+                    <br />
+                    (scroll for more)
                   </Typography>
-                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    <ul>
-                      {Object.entries(modalData).map((key, val) => {
-                        return (
-                          <li>
-                            {key}: {val}
-                          </li>
-                        );
-                      })}
-                    </ul>
+                  <Typography
+                    id="modal-modal-description"
+                    sx={{
+                      maxHeight: 700,
+                      overflow: "scroll",
+                      mt: 2,
+                      padding: "auto",
+                    }}
+                  >
+                    {Object.entries(modalData).map((key, val) => {
+                      return (
+                        <li>
+                          {key[0]}: {key[1]}
+                        </li>
+                      );
+                    })}
                   </Typography>
                 </Box>
               </Modal>

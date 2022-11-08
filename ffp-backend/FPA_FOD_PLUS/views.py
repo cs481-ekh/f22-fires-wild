@@ -104,7 +104,7 @@ def perform_search(request):
 def fire_by_id(request):
     if request.method == 'GET':
         id = request.query_params.get("FOD_ID",None)
-        
+
         # now construct queryset using id
         queryset = Data.objects.filter(FOD_ID = id).all()
         serializer = fireByIdSerializer(queryset, context={'request': request}, many=True)
