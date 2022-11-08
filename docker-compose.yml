@@ -65,7 +65,7 @@ services:
     stdin_open: true
     # uncomment these lines to enable hot reload ;)
     # volumes:
-    # - ./fire-react-app/:/app/frontend
+    # - ./fire-react-app:/app/frontend
     depends_on:
       - ffp-django
     networks:

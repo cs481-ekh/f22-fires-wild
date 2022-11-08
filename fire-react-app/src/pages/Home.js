@@ -49,7 +49,6 @@ const Home = () => {
 
   return (
     <div className="home_map">
-      HELLOOOO
       <MapContainer
         style={{
           width: "90%",
