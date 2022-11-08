@@ -12,7 +12,7 @@ body {
 }
 
 .logo {
-    height: 3.5vh;
+    height: 2.25rem;
     width: auto;
 }
 
@@ -130,7 +130,7 @@ p {
 	left: 12px;
 	bottom: 12px;
 	float: right;
-	height: 76px;
+	height: 48px;
 	width: auto;
 }
 .diagram {

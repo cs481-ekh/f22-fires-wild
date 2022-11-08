@@ -294,8 +294,15 @@ const Data = () => {
 
   return (
     <div className="data_container">
-      <div className="data_sidebar">
-        {/* <a onClick={toggleWarning}></a> */}
+      <div
+        className="data_sidebar"
+        style={{
+          width: 400,
+          position: "relative",
+          top: 0,
+          left: 0,
+        }}
+      >
         <JSPopup
           trigger={<Link>⚠️ A Word of Warning ⚠️</Link>}
           position="bottom center"
@@ -308,51 +315,61 @@ const Data = () => {
             possible.
           </div>
         </JSPopup>
-        <br />
-        <br />
-        <div title="Calendar year in which the fire was discovered or confirmed to exist">
-          YEAR:
-        </div>
-        <Select
-          placeholder="-Select Year-"
-          isClearable={true}
-          value={yearChoice}
-          options={yearsList}
-          onChange={handleYearChoiceChange}
-          getOptionLabel={(x) => x.label}
-          getOptionValue={(x) => x.value}
-        />
-        <br />
-        <div title="Two-letter alphabetic code for the state in which the fire burned (or originated), based on the nominal designation in the fire report">
-          STATE:
-        </div>
-        <Select
-          placeholder="-Select State-"
-          isClearable={true}
-          value={stateChoice}
-          options={stateList}
-          onChange={handleStateChange}
-          getOptionLabel={(x) => x.label}
-          getOptionValue={(x) => x.value}
-        />
-        <br />
-        <div title="County, or equivalent, in which the fire burned (or originated), based on nominal designation in the fire report">
-          COUNTY:
-        </div>
-        <Select
-          placeholder="-Select County-"
-          isClearable={true}
-          value={countyChoice}
-          options={countyList}
-          onChange={handleCountyChange}
-          getOptionLabel={(x) => x.label}
-          getOptionValue={(x) => x.value}
-        />
-        <br />
-        <div title="Day of year on which the fire was discovered or confirmed to exist">
-          DISCOVERY DAY OF YEAR:
-        </div>
-        {/*        Greater than or Equal to:
+        <div
+          style={{
+            overflow: "scroll",
+            width: "auto",
+            marginTop: 20,
+            marginBottom: 20,
+            padding: 20,
+            height: "70vh",
+            border: "1px solid #000",
+            borderRadius: "25px",
+          }}
+        >
+          <div title="Calendar year in which the fire was discovered or confirmed to exist">
+            YEAR:
+          </div>
+          <Select
+            placeholder="-Select Year-"
+            isClearable={true}
+            value={yearChoice}
+            options={yearsList}
+            onChange={handleYearChoiceChange}
+            getOptionLabel={(x) => x.label}
+            getOptionValue={(x) => x.value}
+          />
+          <br />
+          <div title="Two-letter alphabetic code for the state in which the fire burned (or originated), based on the nominal designation in the fire report">
+            STATE:
+          </div>
+          <Select
+            placeholder="-Select State-"
+            isClearable={true}
+            value={stateChoice}
+            options={stateList}
+            onChange={handleStateChange}
+            getOptionLabel={(x) => x.label}
+            getOptionValue={(x) => x.value}
+          />
+          <br />
+          <div title="County, or equivalent, in which the fire burned (or originated), based on nominal designation in the fire report">
+            COUNTY:
+          </div>
+          <Select
+            placeholder="-Select County-"
+            isClearable={true}
+            value={countyChoice}
+            options={countyList}
+            onChange={handleCountyChange}
+            getOptionLabel={(x) => x.label}
+            getOptionValue={(x) => x.value}
+          />
+          <br />
+          <div title="Day of year on which the fire was discovered or confirmed to exist">
+            DISCOVERY DAY OF YEAR:
+          </div>
+          {/*        Greater than or Equal to:
         <NumericInput
           min={1}
           max={doyChoiceLTE ? doyChoiceLTE : 366} //leap years?
@@ -361,54 +378,54 @@ const Data = () => {
             setDoyChoiceGTE(n);
           }}
         />*/}
-        {/*        <Slider
+          {/*        <Slider
           aria-label="DOY"
           defaultValue={1}
           min={1}
           max={366}
         />*/}
 
-        <div>Greater than or equal to:</div>
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-          {/*      <Typography id="input-slider" gutterBottom>
+          <div>Greater than or equal to:</div>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+            {/*      <Typography id="input-slider" gutterBottom>
         DDOY Greater than or equal to
       </Typography> */}
-          <Grid container spacing={2} alignItems="center">
-            <Grid item></Grid>
-            <Grid item xs>
-              <Slider
-                value={doyChoiceGTE ? doyChoiceGTE : 1}
-                onChange={handleSliderChangeGTE}
-                min={1}
-                max={doyChoiceLTE ? doyChoiceLTE : 366}
-                aria-labelledby="input-slider"
-              />
+            <Grid container spacing={2} alignItems="center">
+              <Grid item></Grid>
+              <Grid item xs>
+                <Slider
+                  value={doyChoiceGTE ? doyChoiceGTE : 1}
+                  onChange={handleSliderChangeGTE}
+                  min={1}
+                  max={doyChoiceLTE ? doyChoiceLTE : 366}
+                  aria-labelledby="input-slider"
+                />
+              </Grid>
+              <Grid item>
+                <OutlinedInput
+                  value={value}
+                  size="small"
+                  onChange={handleInputChangeGTE}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step: 10,
+                    min: 1,
+                    max: doyChoiceLTE ? doyChoiceLTE : 366,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-              <OutlinedInput
-                value={value}
-                size="small"
-                onChange={handleInputChangeGTE}
-                onBlur={handleBlur}
-                inputProps={{
-                  step: 10,
-                  min: 1,
-                  max: doyChoiceLTE ? doyChoiceLTE : 366,
-                  type: "number",
-                  "aria-labelledby": "input-slider",
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Box>
+          </Box>
 
-        <div>Less than or equal to:</div>
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-          {/*      <Typography id="input-slider" gutterBottom>
+          <div>Less than or equal to:</div>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+            {/*      <Typography id="input-slider" gutterBottom>
         DDOY Greater than or equal to
       </Typography> */}
 
-          {/*      <Grid test>
+            {/*      <Grid test>
         <Slider
           getAriaLabel={() => 'Minimum distance'}
           value={[doyChoiceLTE ? doyChoiceLTE : 366, doyChoiceGTE ? doyChoiceGTE : 1]}
@@ -420,36 +437,36 @@ const Data = () => {
           />
     </Grid>*/}
 
-          <Grid container spacing={2} alignItems="center">
-            <Grid item></Grid>
-            <Grid item xs>
-              <Slider
-                value={doyChoiceLTE ? doyChoiceLTE : 366}
-                onChange={handleSliderChangeLTE}
-                min={doyChoiceGTE ? doyChoiceGTE : 1}
-                max={366}
-                aria-labelledby="input-slider"
-              />
+            <Grid container spacing={2} alignItems="center">
+              <Grid item></Grid>
+              <Grid item xs>
+                <Slider
+                  value={doyChoiceLTE ? doyChoiceLTE : 366}
+                  onChange={handleSliderChangeLTE}
+                  min={doyChoiceGTE ? doyChoiceGTE : 1}
+                  max={366}
+                  aria-labelledby="input-slider"
+                />
+              </Grid>
+              <Grid item>
+                <OutlinedInput
+                  value={doyChoiceLTE ? doyChoiceLTE : 366}
+                  size="small"
+                  onChange={handleInputChangeLTE}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step: 10,
+                    min: doyChoiceGTE ? doyChoiceGTE : 1,
+                    max: 366,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-              <OutlinedInput
-                value={doyChoiceLTE ? doyChoiceLTE : 366}
-                size="small"
-                onChange={handleInputChangeLTE}
-                onBlur={handleBlur}
-                inputProps={{
-                  step: 10,
-                  min: doyChoiceGTE ? doyChoiceGTE : 1,
-                  max: 366,
-                  type: "number",
-                  "aria-labelledby": "input-slider",
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Box>
+          </Box>
 
-        {/*        Less than or Equal to:
+          {/*        Less than or Equal to:
         <NumericInput
           min={doyChoiceGTE ? doyChoiceGTE : 1}
           max={366} //leap years?
@@ -458,43 +475,47 @@ const Data = () => {
             setDoyChoiceLTE(n);
           }}
         />*/}
-        <br />
-        <br />
-        <div title="The estimate of acres within the final perimeter of the fire">
-          FIRE SIZE:
-        </div>
-        <br />
-
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-          <Grid container spacing={2} alignItems="center">
-            <div>Greater than or equal to:</div>
-            <Grid alignItems="right">
-              <OutlinedInput
-                sx={{ width: "3vw" }}
-                variant="outlined"
-                value={sizeChoiceGTE ? sizeChoiceGTE : 0}
-                size="small"
-                inputProps={{
-                  step: 1,
-                  min: 0,
-                  max: sizeChoiceLTE ? sizeChoiceLTE : 99999999,
-                  type: "number",
-                  "aria-labelledby": "input-slider",
-                }}
-                onChange={setSizeChoiceGTEInput}
-              />
+          <br />
+          <div title="The estimate of acres within the final perimeter of the fire">
+            FIRE SIZE:
+          </div>
+          <div>Greater than or equal to:</div>
+          <br />
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Grid alignItems="center">
+                <OutlinedInput
+                  sx={{ width: 200 }}
+                  variant="outlined"
+                  value={sizeChoiceGTE ? sizeChoiceGTE : 0}
+                  size="small"
+                  inputProps={{
+                    step: 1,
+                    min: 0,
+                    max: sizeChoiceLTE ? sizeChoiceLTE : 999999999,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                  onChange={setSizeChoiceGTEInput}
+                  endAdornment="acres"
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-        <br />
-        {/*        <NumericInput
+          </Box>
+          <br />
+          {/*        <NumericInput
           min={0}
           max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
           value={sizeChoiceGTE ? sizeChoiceGTE : 0}
           onChange={setSizeChoiceGTEInput}
         />*/}
 
-        {/*        <OutlinedInput
+          {/*        <OutlinedInput
           variant="outlined"
           size="small" 
           min={0}
@@ -508,40 +529,40 @@ const Data = () => {
           }}
         />*/}
 
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-          <Grid
-            container
-            spacing={2}
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <div>Less than or equal to:</div>
-            <Grid alignItems="right">
-              <OutlinedInput
-                sx={{ width: "3vw" }}
-                variant="outlined"
-                value={sizeChoiceLTE ? sizeChoiceLTE : 0}
-                size="small"
-                inputProps={{
-                  step: 1,
-                  min: sizeChoiceGTE ? sizeChoiceGTE : 0,
-                  type: "number",
-                  "aria-labelledby": "input-slider",
-                }}
-                onChange={setSizeChoiceLTEInput}
-              />
+          <div>Less than or equal to:</div>
+          <br />
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Grid alignItems="center">
+                <OutlinedInput
+                  sx={{ width: 200 }}
+                  variant="outlined"
+                  value={sizeChoiceLTE ? sizeChoiceLTE : 0}
+                  size="small"
+                  inputProps={{
+                    step: 1,
+                    min: sizeChoiceGTE ? sizeChoiceGTE : 0,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                  onChange={setSizeChoiceLTEInput}
+                  endAdornment="acres"
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-        <br />
-        <br />
+          </Box>
+        </div>
         <Button variant="contained" onClick={handleSearch}>
           Search
         </Button>
         <br />
-        <br />
         <div>
-          Showing {searchCount} results ({searchTime} seconds)
+          Showing {searchCount} results <br /> ({searchTime} seconds)
         </div>
         <Link to={"/"}>
           <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
@@ -549,9 +570,12 @@ const Data = () => {
       </div>
       <MapContainer
         style={{
-          width: "85vw",
-          margin: "auto",
-          float: "right",
+          // width: "85vw",
+          // margin: "auto",
+          // float: "right",
+          position: "relative",
+          top: 0,
+          left: 0,
         }}
         center={[39, -98]}
         zoom={4.5}
