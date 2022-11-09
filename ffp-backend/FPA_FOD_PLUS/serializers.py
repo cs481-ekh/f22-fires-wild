@@ -30,7 +30,7 @@ class searchSerializer(serializers.ModelSerializer):
     #     }
 
 
-class fireByIdSerializer(serializers.ModelSerializer):
+class FireRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Data
         fields = '__all__'

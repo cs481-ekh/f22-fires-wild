@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
 import Select from "react-select";
 //import Select from '@mui/material/Select'
 import Slider from "@mui/material/Slider";
-import NumericInput from "react-numeric-input";
 //import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import axios from "axios";
 import "./../styles.css";
@@ -16,10 +15,15 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import MuiInput from "@mui/material/Input";
 import { styled } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+import CircularProgress from "@mui/material/CircularProgress";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 
 const modalStyle = {
   position: "absolute",
@@ -40,16 +44,17 @@ const Data = () => {
   const [stateList, setList] = useState([]);
   const [variableList, setVariableList] = useState([]);
   const [yearsList, setYearsList] = useState([]);
-  const [viewType, setViewType] = useState([]);
+  const [viewType, setViewType] = useState("points");
   const [doyChoiceLTE, setDoyChoiceLTE] = useState(366);
   const [doyChoiceGTE, setDoyChoiceGTE] = useState(1);
   const [sizeChoiceLTE, setSizeChoiceLTE] = useState();
   const [sizeChoiceGTE, setSizeChoiceGTE] = useState();
   const [results, setResults] = useState([]);
-  const [isWarningExpanded, setWarningExpanded] = useState(false);
-
+  const [isWarningExpanded, setWarningVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const handleClose = () => setModalVisible(false);
 
   const Input = styled(MuiInput)`
@@ -251,45 +256,110 @@ const Data = () => {
   };
 
   async function handleSearch() {
-    setSearchTime(0);
-    var startTime = performance.now();
-    try {
-      // django could return html if it wanted, request json specifically
-      const headers = {
-        Accept: "application/json",
-      };
-      const params = {
-        ...(yearChoice && { FIRE_YEAR: yearChoice.value }),
-        ...(doyChoiceGTE && { DISCOVERY_DOY__gte: doyChoiceGTE }),
-        ...(doyChoiceLTE && { DISCOVERY_DOY__lte: doyChoiceLTE }),
-        ...(stateChoice && { STATE: stateChoice.value }),
-        ...(countyChoice && { COUNTY: countyChoice.value }),
-        ...(sizeChoiceGTE && { FIRE_SIZE__gte: sizeChoiceGTE }),
-        ...(sizeChoiceLTE && { FIRE_SIZE__lte: sizeChoiceLTE }),
-      };
-      console.log("params:");
-      console.log(params);
-      //Axios to send and receive HTTP requests
-      const response = await axios.get(
-        process.env.REACT_APP_DJANGO_API_URL + "search/",
-        { params: params, headers: headers }
-      );
-      console.log("requesting");
-      const data = await response.data;
-      console.log(response);
-      console.log(data);
-      setSearchCount(data.length);
-      setResults(data);
-    } catch (e) {
-      console.log(e);
+    if (checkIfEnoughFilter()) {
+      setWarningVisible(false);
+      setLoading(true);
+      console.log(yearChoice);
+      setSearchTime(0);
+      var startTime = performance.now();
+      try {
+        // django could return html if it wanted, request json specifically
+        const headers = {
+          Accept: "application/json",
+        };
+        const params = {
+          ...(yearChoice && { FIRE_YEAR: yearChoice.value }),
+          ...(doyChoiceGTE && { DISCOVERY_DOY__gte: doyChoiceGTE }),
+          ...(doyChoiceLTE && { DISCOVERY_DOY__lte: doyChoiceLTE }),
+          ...(stateChoice && { STATE: stateChoice.value }),
+          ...(countyChoice && { COUNTY: countyChoice.value }),
+          ...(sizeChoiceGTE && { FIRE_SIZE__gte: sizeChoiceGTE }),
+          ...(sizeChoiceLTE && { FIRE_SIZE__lte: sizeChoiceLTE }),
+        };
+        console.log("params:");
+        console.log(params);
+        //Axios to send and receive HTTP requests
+        const response = await axios.get(
+          process.env.REACT_APP_DJANGO_API_URL + "search/",
+          { params: params, headers: headers }
+        );
+        console.log("requesting");
+        const data = await response.data;
+        console.log(response);
+        console.log(data);
+        setSearchCount(data.length);
+        setResults(data);
+      } catch (e) {
+        console.log(e);
+      }
+      var endTime = performance.now();
+      var timeDiff = (endTime - startTime) / 1000;
+      setSearchTime(timeDiff);
+      setLoading(false);
+    } else {
+      setWarningVisible(true);
     }
-    var endTime = performance.now();
-    var timeDiff = (endTime - startTime) / 1000;
-    setSearchTime(timeDiff);
   }
 
-  const toggleWarning = () => {
-    setWarningExpanded(!isWarningExpanded);
+  async function handleDownloadCSV() {
+    const searchParams = new URLSearchParams();
+    if (yearChoice) {
+      searchParams.append("FIRE_YEAR", yearChoice.value);
+    }
+    if (doyChoiceGTE) {
+      searchParams.append("DISCOVERY_DOY__gte", doyChoiceGTE);
+    }
+    if (doyChoiceLTE) {
+      searchParams.append("DISCOVERY_DOY__lte", doyChoiceLTE);
+    }
+    if (stateChoice) {
+      searchParams.append("STATE", stateChoice.value);
+    }
+    if (countyChoice) {
+      searchParams.append("COUNTY", countyChoice.value);
+    }
+    if (sizeChoiceGTE) {
+      searchParams.append("FIRE_SIZE__gte", sizeChoiceGTE);
+    }
+    if (sizeChoiceLTE) {
+      searchParams.append("FIRE_SIZE__lte", sizeChoiceLTE);
+    }
+
+    window.open(
+      process.env.REACT_APP_DJANGO_API_URL +
+        "subset_csv/?" +
+        searchParams.toString(),
+      "_blank",
+      "noopener,noreferrer"
+    );
+  }
+
+  const handleViewChange = (event) => {
+    setViewType(event.target.value);
+  };
+
+  const checkIfEnoughFilter = () => {
+    var points = 0;
+
+    if (yearChoice) {
+      points += 1;
+    }
+    if (stateChoice) {
+      points += 1;
+    }
+    if (doyChoiceLTE - doyChoiceGTE <= 50) {
+      points += 1;
+    }
+    if (sizeChoiceGTE > 1000) {
+      points += 1;
+    }
+
+    if (points >= 2) {
+      console.log("adequate filters");
+      return true;
+    }
+    console.log("inadequate filters");
+    return false;
   };
 
   return (
@@ -304,12 +374,14 @@ const Data = () => {
         }}
       >
         <JSPopup
-          trigger={<Link>⚠️ A Word of Warning ⚠️</Link>}
+          trigger={<Link>⚠️ Important Notice ⚠️</Link>}
           position="bottom center"
         >
           <div>
-            Results with more than 10,000 fires on the map at a time causes poor
-            browser performance.
+            Results with more than 10,000 fires on the map at a time can cause
+            poor browser performance.
+            <br />
+            For this reason, you may be disallowed from a broad search of fires.
             <br />
             For the best experience, filter your search to be as detailed as
             possible.
@@ -322,7 +394,7 @@ const Data = () => {
             marginTop: 20,
             marginBottom: 20,
             padding: 20,
-            height: "70vh",
+            maxHeight: "70vh",
             border: "1px solid #000",
             borderRadius: "25px",
           }}
@@ -369,27 +441,8 @@ const Data = () => {
           <div title="Day of year on which the fire was discovered or confirmed to exist">
             DISCOVERY DAY OF YEAR:
           </div>
-          {/*        Greater than or Equal to:
-        <NumericInput
-          min={1}
-          max={doyChoiceLTE ? doyChoiceLTE : 366} //leap years?
-          value={doyChoiceGTE ? doyChoiceGTE : 1}
-          onChange={(n) => {
-            setDoyChoiceGTE(n);
-          }}
-        />*/}
-          {/*        <Slider
-          aria-label="DOY"
-          defaultValue={1}
-          min={1}
-          max={366}
-        />*/}
-
           <div>Greater than or equal to:</div>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-            {/*      <Typography id="input-slider" gutterBottom>
-        DDOY Greater than or equal to
-      </Typography> */}
             <Grid container spacing={2} alignItems="center">
               <Grid item></Grid>
               <Grid item xs>
@@ -418,25 +471,8 @@ const Data = () => {
               </Grid>
             </Grid>
           </Box>
-
           <div>Less than or equal to:</div>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-            {/*      <Typography id="input-slider" gutterBottom>
-        DDOY Greater than or equal to
-      </Typography> */}
-
-            {/*      <Grid test>
-        <Slider
-          getAriaLabel={() => 'Minimum distance'}
-          value={[doyChoiceLTE ? doyChoiceLTE : 366, doyChoiceGTE ? doyChoiceGTE : 1]}
-          onChange={testSliderChange}
-          max={366}
-          min={1}
-          valueLabelDisplay="auto"
-          disableSwap
-          />
-    </Grid>*/}
-
             <Grid container spacing={2} alignItems="center">
               <Grid item></Grid>
               <Grid item xs>
@@ -465,16 +501,6 @@ const Data = () => {
               </Grid>
             </Grid>
           </Box>
-
-          {/*        Less than or Equal to:
-        <NumericInput
-          min={doyChoiceGTE ? doyChoiceGTE : 1}
-          max={366} //leap years?
-          value={doyChoiceLTE ? doyChoiceLTE : 366}
-          onChange={(n) => {
-            setDoyChoiceLTE(n);
-          }}
-        />*/}
           <br />
           <div title="The estimate of acres within the final perimeter of the fire">
             FIRE SIZE:
@@ -508,55 +534,76 @@ const Data = () => {
             </Grid>
           </Box>
           <br />
-          {/*        <NumericInput
-          min={0}
-          max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
-          value={sizeChoiceGTE ? sizeChoiceGTE : 0}
-          onChange={setSizeChoiceGTEInput}
-        />*/}
-
-          {/*        <OutlinedInput
-          variant="outlined"
-          size="small" 
-          min={0}
-          max={sizeChoiceLTE ? sizeChoiceLTE : 99999999}
-          inputProps={{
-            step: 10,
-            min: doyChoiceGTE ? doyChoiceGTE : 1,
-            max: 366,
-            type: 'number',
-            'aria-labelledby': 'input-slider',
-          }}
-        />*/}
-
           <div>Less than or equal to:</div>
           <br />
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Grid alignItems="center">
-                <OutlinedInput
-                  sx={{ width: 200 }}
-                  variant="outlined"
-                  value={sizeChoiceLTE ? sizeChoiceLTE : 0}
-                  size="small"
-                  inputProps={{
-                    step: 1,
-                    min: sizeChoiceGTE ? sizeChoiceGTE : 0,
-                    type: "number",
-                    "aria-labelledby": "input-slider",
-                  }}
-                  onChange={setSizeChoiceLTEInput}
-                  endAdornment="acres"
-                />
-              </Grid>
+          <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid alignItems="center">
+              <OutlinedInput
+                sx={{ width: 200 }}
+                variant="outlined"
+                value={sizeChoiceLTE ? sizeChoiceLTE : 0}
+                size="small"
+                inputProps={{
+                  step: 1,
+                  min: sizeChoiceGTE ? sizeChoiceGTE : 0,
+                  type: "number",
+                  "aria-labelledby": "input-slider",
+                }}
+                onChange={setSizeChoiceLTEInput}
+                endAdornment="acres"
+              />
             </Grid>
-          </Box>
+          </Grid>
+          <br />
+          MAP VIEW:
+          <br />
+          <Grid
+            container
+            spacing={2}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid alignItems="center" marginTop={2}>
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
+                  name="radio-buttons-group"
+                  value={viewType}
+                  onChange={handleViewChange}
+                >
+                  <FormControlLabel
+                    value="points"
+                    control={<Radio />}
+                    label="Points"
+                  />
+                  <FormControlLabel
+                    value="heatmap"
+                    control={<Radio />}
+                    label="Heatmap"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          </Grid>
         </div>
+        {loading && (
+          <div>
+            <CircularProgress />
+          </div>
+        )}
+        {isWarningExpanded && (
+          <div style={{ color: "red" }}>
+            Unable to process your request due to lack of adequate fiters.
+            <br />
+            Please filter your search further.
+          </div>
+        )}
         <Button variant="contained" onClick={handleSearch}>
           Search
         </Button>
@@ -564,9 +611,11 @@ const Data = () => {
         <div>
           Showing {searchCount} results <br /> ({searchTime} seconds)
         </div>
-        <Link to={"/"}>
-          <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
-        </Link>
+        <br />
+        <Button variant="contained" onClick={handleDownloadCSV}>
+          Download CSV Subset
+        </Button>
+        <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
       </div>
       <MapContainer
         style={{
@@ -586,70 +635,86 @@ const Data = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {results.map((fire) => (
-          <Circle
-            center={[fire.LATITUDE, fire.LONGITUDE]}
-            key={fire.FOD_ID}
-            color={"#ed2626"}
-            radius={acresToMetersRadius(fire.FIRE_SIZE)}
-          >
-            <Popup>
-              FOD ID: {fire.FOD_ID}
-              <br />
-              FPA ID: {fire.FPA_ID}
-              <br />
-              FIRE NAME: {fire.FIRE_NAME}
-              <br />
-              <Button
-                onClick={() => {
-                  getFireDetails(fire.FOD_ID);
-                  setModalVisible(true);
-                }}
-              >
-                Additional Details
-              </Button>
-              <Modal
-                open={modalVisible}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                sx={{
-                  overflow: "scroll",
-                  margin: "auto",
-                }}
-              >
-                <Box sx={modalStyle}>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                  >
-                    Additional Details for fire: {modalData.FOD_ID}
-                    <br />
-                    (scroll for more)
-                  </Typography>
-                  <Typography
-                    id="modal-modal-description"
-                    sx={{
-                      maxHeight: 700,
-                      overflow: "scroll",
-                      mt: 2,
-                      padding: "auto",
-                    }}
-                  >
-                    {Object.entries(modalData).map((key, val) => {
-                      return (
-                        <li>
-                          {key[0]}: {key[1]}
-                        </li>
-                      );
-                    })}
-                  </Typography>
-                </Box>
-              </Modal>
-            </Popup>
-          </Circle>
-        ))}
+        {viewType == "points" &&
+          results.map((fire) => (
+            <Circle
+              center={[fire.LATITUDE, fire.LONGITUDE]}
+              key={fire.FOD_ID}
+              color={"#ed2626"}
+              radius={acresToMetersRadius(fire.FIRE_SIZE)}
+            >
+              <Popup>
+                FOD ID: {fire.FOD_ID}
+                <br />
+                FPA ID: {fire.FPA_ID}
+                <br />
+                FIRE NAME: {fire.FIRE_NAME}
+                <br />
+                <Button
+                  onClick={() => {
+                    getFireDetails(fire.FOD_ID);
+                    setModalVisible(true);
+                  }}
+                >
+                  Additional Details
+                </Button>
+                <Modal
+                  open={modalVisible}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                  sx={{
+                    overflow: "scroll",
+                    margin: "auto",
+                  }}
+                >
+                  <Box sx={modalStyle}>
+                    <Typography
+                      id="modal-modal-title"
+                      variant="h6"
+                      component="h2"
+                    >
+                      Additional Details for fire: {modalData.FOD_ID}
+                      <br />
+                      (scroll for more)
+                    </Typography>
+                    <Typography
+                      id="modal-modal-description"
+                      sx={{
+                        maxHeight: 700,
+                        overflow: "scroll",
+                        mt: 2,
+                        padding: "auto",
+                      }}
+                    >
+                      {Object.entries(modalData).map((key, val) => {
+                        return (
+                          <li>
+                            {key[0]}: {key[1].toString()}
+                          </li>
+                        );
+                      })}
+                    </Typography>
+                  </Box>
+                </Modal>
+              </Popup>
+            </Circle>
+          ))}
+        {viewType == "heatmap" && (
+          <HeatmapLayer
+            //our intensity is fire size which can be far larger than default of 30 i think
+            max={Number.MAX_SAFE_INTEGER}
+            // mess with radius for how detailed / full the heatmap will look
+            radius={25}
+            // this makes sure you always see more detail as you zoom
+            useLocalExtrema
+            fitBoundsOnUpdate
+            points={results}
+            longitudeExtractor={(point) => point.LONGITUDE}
+            latitudeExtractor={(point) => point.LATITUDE}
+            intensityExtractor={(point) => parseFloat(point.FIRE_SIZE)}
+          />
+        )}
       </MapContainer>
     </div>
   );

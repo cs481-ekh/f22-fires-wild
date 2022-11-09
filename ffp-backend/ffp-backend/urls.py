@@ -29,7 +29,7 @@ urlpatterns = [
         re_path(r'^distinct_states_list/$', views.distinct_states_list),
         re_path(r'^distinct_counties_list', views.distinct_counties_list),
         re_path(r'^geojson_list', views.geojson_list),
-        re_path(r'^csv', views.csv_view),
+        re_path(r'^subset_csv', views.subset_csv),
     ]
     ))
 ]
