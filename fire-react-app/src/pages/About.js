@@ -2,31 +2,59 @@ import React from "react";
 import logo from "./../components/sdp_logo_fire.png";
 import diagram from "./../components/fires-wild-diagram.png";
 import "./../styles.css";
-import { Container, Typography, Box, Stack } from '@mui/material';
+import { Typography, Stack, Card } from '@mui/material';
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import {roboto} from '@fontsource/roboto';
 
 export default function About() {
   return (
-      <Box className="about_box">
-      <Stack spacing={2}>
-      <Typography variant='h2'>
+      <div>
+      <Stack spacing={2} >
+      <Card sx={{width:'100vw',
+                alignSelf: 'center',
+                alignContent: 'center',
+                textalign: 'center',
+                bgcolor: '#cfe8fc',
+                boxShadow: "8px 16px 80px -25px rgba(0,150,200,.5)",
+      }}>
+      <Typography variant='h2' sx={{fontFamily:'roboto'}}>
         <br></br>
-        2F+ Mapper<br></br>
-        Wildfire Dataset Interactive Website<br></br>
+        2F+ Mapper
+        <br></br>
+        Wildfire Dataset Interactive Website
+        <br></br>
         Current Version: 1.0.0
-        </Typography>
-      <Typography className="h2">
-      Sponsor:<br></br>
-        Dr. Mojtaba Sadegh<br></br>
-        Yavar Pourmohamad
         <br></br>
-        <br></br>
-        <b>Software Development Team:</b>
-        <br></br>
-        Fires Wild<br></br>
       </Typography>
-      <Typography className="p">
-        <b>Brief:</b>
+      <Typography sx={{width:'auto',
+                      alignSelf: 'center',
+                      alignContent: 'center',
+                      fontFamily: 'roboto',
+                      fontSize: 20,
+      }}>
+      <b>Sponsor</b>
+      <br></br>
+      Dr. Mojtaba Sadegh<br></br>
+      Yavar Pourmohamad
+      <br></br>
+      <br></br>
+      <b>Software Development Team</b>
+      <br></br>
+      Fires Wild
+      <br></br>
+      </Typography>
+      </Card>
+      <Card sx={{width:'85vw',
+                alignSelf: 'center',
+                alignContent: 'left',
+                textalign: 'left',
+                bgcolor: '#cfe8fc',
+                boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                "&:hover": {
+                  boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+                }
+      }}>
+      <Typography sx={{fontSize: 18, fontFamily: 'roboto'}}><b>Brief</b>
         <br></br>
         2F+ Mapper is an interactive website created as a part of a
         collaborative wildfire research plan. Please see &nbsp;
@@ -42,8 +70,18 @@ export default function About() {
         has connected Dr. Mojtaba Sadegh & Yavar Pourmohamad with the team via a
         senior project in Computer Science in the fall of 2022.
         </Typography>
-        <Typography className="p">
-        <b>Utlities:</b>
+        </Card>
+        <Card sx={{width:'85vw',
+                alignSelf: 'center',
+                alignContent: 'left',
+                textalign: 'left',
+                bgcolor: '#cfe8fc',
+                boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                "&:hover": {
+                  boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+                }
+        }}>
+        <Typography sx={{fontSize: 18, fontFamily: 'roboto'}}><b>Utlities</b>
         <br></br>
         The site currently gives the user the option to select the year of fire,
         the state of fire, and the county within that state to produce a map
@@ -51,8 +89,18 @@ export default function About() {
         heatmap (no pun intended) where the size of the fire is considered and
         mapped across the US. 
         </Typography>
-      <Typography className="p">
-        <b>For future site administrators:</b>
+        </Card>
+        <Card sx={{width:'85vw',
+                alignSelf: 'center',
+                alignContent: 'left',
+                textalign: 'left',
+                bgcolor: '#cfe8fc',
+                boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                "&:hover": {
+                  boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+                }
+        }}>
+        <Typography sx={{fontSize: 18, fontFamily: 'roboto'}}><b>For future site administrators</b>
         <br></br>
         For full details of the initial direction of the development project see
         the Fires Wild Project Proposal below. Also please see the working
@@ -62,7 +110,11 @@ export default function About() {
         </a>
         &nbsp; and take the site to the next level.
         </Typography>
+        </Card>
         </Stack>
+        <br></br>
+        <br></br>
+        <br></br>
       <h2>Fires Wild Project Proposal</h2>
       <h4>
         Fires Wild<br></br>
@@ -499,6 +551,6 @@ export default function About() {
       <Link to={"/"}>
         <img alt="[LOGO]" className="sdpLogoLeft" src={logo} />
       </Link>
-      </Box>
+      </div>
   );
 }
