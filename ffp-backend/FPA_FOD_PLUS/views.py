@@ -99,6 +99,39 @@ def perform_search(request):
         serializer = searchSerializer(queryset, context={'request': request}, many=True)
         return Response(serializer.data)
 
+@api_view(['GET'])
+def subset_csv(request):
+    if request.method == 'GET':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="export.csv"'
+
+        requested_fields = {}
+        # grab query params
+        for p in all_query_params:
+            # if we have a value for field as param
+            # then add to requested_fields
+            value = request.query_params.get(p,None)
+            if value:
+                requested_fields[p] = value
+
+        requested_fields = format_ranges(requested_fields)
+
+        # now construct queryset using requested_fields dictionary
+        queryset = Data.objects.filter(**requested_fields).values().order_by('FOD_ID')
+        serializer = FireRecordSerializer(queryset, context={'request': request}, many=True)
+        
+        header = [f.name for f in Data._meta.fields]
+
+        #header = FireRecordSerializer.Meta.fields
+
+        writer = csv.DictWriter(response, fieldnames=header)
+        writer.writeheader()
+        for row in serializer.data:
+            writer.writerow(row)
+
+    return response
+    #return Response(response.content)
+
 
 @api_view(['GET'])
 def fire_by_id(request):
@@ -107,7 +140,7 @@ def fire_by_id(request):
 
         # now construct queryset using id
         queryset = Data.objects.filter(FOD_ID = id).all()
-        serializer = fireByIdSerializer(queryset, context={'request': request}, many=True)
+        serializer = FireRecordSerializer(queryset, context={'request': request}, many=True)
         return Response(serializer.data)
 
 @api_view(['GET'])
