@@ -129,6 +129,10 @@ Below are the manual steps to import data into the sql container. Failing to fol
 - Troubleshooting
   - You may need to restart the ffp-django container to establish connection to the database
   - If you can't run the `LOAD DATA INFILE` command, try running `mysql> SELECT @@GLOBAL.secure_file_priv;` command and try again.
+  - 
+### Work that can be done:
+
+### Work Needed:
 
 # Attributions:
 
