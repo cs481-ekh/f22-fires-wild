@@ -133,25 +133,25 @@ Below are the manual steps to import data into the sql container. Failing to fol
 # Attention Future Developers!
 
 ### Work that can be done:
-- [] Implement a feature where the user can create a polygon on the map, the coordinates to that polygon are ran through a point-in-polygon algorithm, and all points within that polygon are displayed. A useful resource to use might be: https://lvngd.com/blog/point-in-polygon-search-with-geodjango/
-- [] Implement a graph faeture where rather than output the points on a map, the site would return a graph with particular input. 
+- [ ] Implement a feature where the user can create a polygon on the map, the coordinates to that polygon are ran through a point-in-polygon algorithm, and all points within that polygon are displayed. A useful resource to use might be: https://lvngd.com/blog/point-in-polygon-search-with-geodjango/
+- [ ] Implement a graph faeture where rather than output the points on a map, the site would return a graph with particular input. 
 - A simple example might be a line graph with number of fires in said location over time. 
 - A more interesting implementation might be a pie chart with percent of fires by state.
 - An even more interesting implementation of the graph might be a scatter plot considering some of the sponsor's added fire attributes to help the user discover potential trends.
-- [] Implement a feature where you could view all 250+ attributes of a specific record by entering a FOD/FPA ID.
-- [] Implement a feature where you can upload data to the database. Ensuring that the duplicates are not made.
-- [] Implement a feature where an administrator is able to modify the current database with the addition/deletion of a row. 
-- [] Implement a feature where an administrator is able to modify the values of a specific searched record or able to modify all values of a specific attribute.
+- [ ] Implement a feature where you could view all 250+ attributes of a specific record by entering a FOD/FPA ID.
+- [ ] Implement a feature where you can upload data to the database. Ensuring that the duplicates are not made.
+- [ ] Implement a feature where an administrator is able to modify the current database with the addition/deletion of a row. 
+- [ ] Implement a feature where an administrator is able to modify the values of a specific searched record or able to modify all values of a specific attribute.
 - The Django Admin feature handles this but on a very small scale.
-- [] Implement a PDF uploader for the About page.
+- [ ] Implement a PDF uploader for the About page.
 - This way any pertinent documents can be easily accessed associated with improving the website/underestanding the goal of the website.
-- [] We plan on deploying the webpage to the sponsor's server but if this is not tackled by us by the end of the semester, this may be the first thing to tackle.
+- [ ] We plan on deploying the webpage to the sponsor's server but if this is not tackled by us by the end of the semester, this may be the first thing to tackle.
 
 ### Work Needed:
-- [] Implement a UI testing suite. We tested our UI before revamping it before the end of the project and needed to disable quite a few tests. At this point a brand new test suite can be created. We used Cypress.
-- [] 
+- [ ] Implement a UI testing suite. We tested our UI before revamping it before the end of the project and needed to disable quite a few tests. At this point a brand new test suite can be created. We used Cypress.
+- [ ] 
 
-- [] Continue to tell the development story of the features you implemented and what needs to be done when you hand off this project to the next team.
+- [ ] Continue to tell the development story of the features you implemented and what needs to be done when you hand off this project to the next team.
 # Attributions:
 
 - [Django MySQL Docker Sample - Sergei Konik](https://skonik.me/setup-django-with-mysql-using/)
