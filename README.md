@@ -149,9 +149,9 @@ Below are the manual steps to import data into the sql container. Failing to fol
 
 ### Work Needed:
 - [ ] Implement a UI testing suite. We tested our UI before revamping it before the end of the project and needed to disable quite a few tests. At this point a brand new test suite can be created. We used Cypress.
-- [ ] 
 
 - [ ] Continue to tell the development story of the features you implemented and what needs to be done when you hand off this project to the next team.
+
 # Attributions:
 
 - [Django MySQL Docker Sample - Sergei Konik](https://skonik.me/setup-django-with-mysql-using/)
