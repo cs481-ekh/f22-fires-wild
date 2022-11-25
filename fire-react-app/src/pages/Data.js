@@ -675,9 +675,19 @@ const Data = () => {
                       component="h2"
                     >
                       Additional Details for fire: {modalData.FOD_ID}
-                      <br />
-                      (scroll for more)
                     </Typography>
+                    <Button
+                      onClick={() => {
+                        window
+                          .open(
+                            "https://docs.google.com/spreadsheets/d/1vJO7VtQnWXtx43itqYzdjvY_Qi3csCIM/edit#gid=528795580",
+                            "_blank"
+                          )
+                          .focus();
+                      }}
+                    >
+                      About our variables
+                    </Button>
                     <Typography
                       id="modal-modal-description"
                       sx={{
@@ -688,11 +698,12 @@ const Data = () => {
                       }}
                     >
                       {Object.entries(modalData).map((key, val) => {
-                        return (
-                          <li>
-                            {key[0]}: {key[1].toString()}
-                          </li>
-                        );
+                        if (key[1])
+                          return (
+                            <li>
+                              {key[0]}: {String(key[1])}
+                            </li>
+                          );
                       })}
                     </Typography>
                   </Box>
