@@ -688,11 +688,12 @@ const Data = () => {
                       }}
                     >
                       {Object.entries(modalData).map((key, val) => {
-                        return (
-                          <li>
-                            {key[0]}: {key[1].toString()}
-                          </li>
-                        );
+                        if (key[1])
+                          return (
+                            <li>
+                              {key[0]}: {String(key[1])}
+                            </li>
+                          );
                       })}
                     </Typography>
                   </Box>
