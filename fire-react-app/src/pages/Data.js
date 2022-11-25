@@ -675,9 +675,19 @@ const Data = () => {
                       component="h2"
                     >
                       Additional Details for fire: {modalData.FOD_ID}
-                      <br />
-                      (scroll for more)
                     </Typography>
+                    <Button
+                      onClick={() => {
+                        window
+                          .open(
+                            "https://docs.google.com/spreadsheets/d/1vJO7VtQnWXtx43itqYzdjvY_Qi3csCIM/edit#gid=528795580",
+                            "_blank"
+                          )
+                          .focus();
+                      }}
+                    >
+                      About our variables
+                    </Button>
                     <Typography
                       id="modal-modal-description"
                       sx={{
