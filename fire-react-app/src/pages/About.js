@@ -58,7 +58,7 @@ export default function About() {
         <br></br>
         2F+ Mapper is an interactive website created as a part of a
         collaborative wildfire research plan. Please see &nbsp;
-        <a href="https://www.boisestate.edu/news/2022/09/13/boise-state-researchers-lend-expertise-to-collaborative-wildfire-research-plan/">
+        <a href="https://www.boisestate.edu/news/2022/09/13/boise-state-researchers-lend-expertise-to-collaborative-wildfire-research-plan/" target="_blank">
           this article
         </a>
         . The website provides a map that utilizes the FPA-FOD+ database that
@@ -105,7 +105,7 @@ export default function About() {
         For full details of the initial direction of the development project see
         the Fires Wild Project Proposal below. Also please see the working
         repository{" "}
-        <a href="https://github.com/cs481-ekh/f22-fires-wild">
+        <a href="https://github.com/cs481-ekh/f22-fires-wild" target="_blank">
           f22-fires-wild repository
         </a>
         &nbsp; and take the site to the next level.
@@ -190,7 +190,7 @@ export default function About() {
             <br></br>● Frontend (Data Visualization + UI / UX)<br></br>
             &ensp; ○ (Note: general UI attributes are modeled after the Climate
             Mapper tool located at
-            <a href="https://climatetoolbox.org/tool/Climate-Mapper">
+            <a href="https://climatetoolbox.org/tool/Climate-Mapper" target="_blank">
               {" "}
               this site
             </a>
@@ -232,7 +232,7 @@ export default function About() {
             relevant data from the database, querying only for the filters
             requested by the client, and transform the data received into a
             &nbsp;
-            <a href="https://geojson.org/">geoJSON</a> objects
+            <a href="https://geojson.org/" target="_blank">geoJSON</a> objects
           </p>
           <h3>
             <b>1.4 Assumptions and Limitations</b>
@@ -304,45 +304,45 @@ export default function About() {
             The front end has decided to go with a React Native front end
             framework. The React app will import the “Leaflet” and
             “react-leaflet” components for{" "}
-            <a href="https://nodejs.org/api/all.html">React.NodeJS</a>
+            <a href="https://nodejs.org/api/all.html" target="_blank">React.NodeJS</a>
             <br></br>
             <br></br>
             <br></br>● We went with React due to its ease of use and
             capabilities in communicating with our Django backend.<br></br>
             <br></br>
             <br></br>● Packages and dependencies for React app selected by using
-            the "<a href="https://yarnpkg.com/">yarn</a>" package manager and
+            the "<a href="https://yarnpkg.com/" target="_blank">yarn</a>" package manager and
             its `create react-app` utility.<br></br>
             <br></br>
             <br></br>● We chose{" "}
-            <a href="https://leafletjs.com/reference.html">Leaflet</a>{" "}
+            <a href="https://leafletjs.com/reference.html" target="_blank">Leaflet</a>{" "}
             JavaScript library due to its popularity alongside good
             Docs/support. Also, it’s free and requires no API key. Overall we
             decided it’ll be a great open-source mapping api for our purposes.
             <br></br>
             <br></br>
             <br></br>●{" "}
-            <a href="https://react-leaflet.js.org/docs/start-introduction/">
+            <a href="https://react-leaflet.js.org/docs/start-introduction/" target="_blank">
               React-leaflet
             </a>{" "}
             leverages the ability to use leaflet layers as react components.
             This was chosen due to our familiarity with javascript.<br></br>
             <br></br>
             <br></br>● We also chose{" "}
-            <a href="https://recharts.org/en-US/">Recharts</a> due for its
+            <a href="https://recharts.org/en-US/" target="_blank">Recharts</a> due for its
             simplicity for rendering graphs within React.<br></br>
             <b>Alternative Approaches</b>
             <br></br>
             <br></br>
             <br></br>● Backend<br></br>
-            &ensp; ○ Django alternative - <a href="https://www.php.net/">
+            &ensp; ○ Django alternative - <a href="https://www.php.net/" target="_blank">
               PHP
             </a>{" "}
             & PHPMyAdmin- older web tool that we feel won’t give us as simple of
             development on the backend of this project.<br></br>
             <br></br>
             <br></br>● Front End<br></br>
-            &ensp; ○ React alternative - <a href="https://vuejs.net">Vue</a>-
+            &ensp; ○ React alternative - <a href="https://vuejs.net" target="_blank">Vue</a>-
             not as easy to learn and work with at our level of experience
             <br></br>
             &ensp; ○ Leaflet alternative - OpenLayers - less plugins available,
@@ -351,7 +351,7 @@ export default function About() {
             &ensp; ○ React-Leaflet alternative - use class components and
             lifecycle hooks (code the components ourselves) see this how-to:
             &nbsp;
-            <a href="https://medium.com/@cherniavskii/creating-leaflet-maps-in-react-apps-e2750372d6d6">
+            <a href="https://medium.com/@cherniavskii/creating-leaflet-maps-in-react-apps-e2750372d6d6" target="_blank">
               Use Leaflet in React apps{" "}
             </a>
           </p>
@@ -404,10 +404,10 @@ export default function About() {
             The sponsor, Dr. Mojtaba Sadegh, has kindly provided samples of
             similar work in a different sector, more generally based on climate
             mapping. These samples are as follows:<br></br>●{" "}
-            <a href="https://climatetoolbox.org/tool/climate-mapper">
+            <a href="https://climatetoolbox.org/tool/climate-mapper" target="_blank">
               Climate Toolbox
             </a>
-            <br></br>● <a href="https://climateengine.com/">Climate Engine</a>
+            <br></br>● <a href="https://climateengine.com/" target="_blank">Climate Engine</a>
             <br></br>
             <br></br>
             <br></br>
@@ -416,7 +416,7 @@ export default function About() {
             <br></br>
             <br></br>
             <br></br>●{" "}
-            <a href="https://regclim.coas.oregonstate.edu/FireStarts/fpa-fod_RODBC_01.html">
+            <a href="https://regclim.coas.oregonstate.edu/FireStarts/fpa-fod_RODBC_01.html" target="_blank">
               FPA-FOD Original
             </a>
             <br></br>
@@ -425,14 +425,14 @@ export default function About() {
             data driven <br></br>
             <br></br>
             <br></br>●{" "}
-            <a href="https://fsapps.nwcg.gov/">Active Fire Mapping Program</a>{" "}
+            <a href="https://fsapps.nwcg.gov/" target="_blank">Active Fire Mapping Program</a>{" "}
             <br></br>
             <br></br>
             <br></br>
             Finally, there are third-party tools to do a similar live view of
             fires, but are not driven by historical data that has been enriched
             in the same way: <br></br>●{" "}
-            <a href="https://www.esri.com/en-us/disaster-response/disasters/wildfires">
+            <a href="https://www.esri.com/en-us/disaster-response/disasters/wildfires" target="_blank">
               Disaster Response Program
             </a>
             <br></br>
@@ -529,7 +529,7 @@ export default function About() {
             <b>5 Testing and Validation</b>
           </h2>
           <p>
-            <a href="https://docs.cypress.io/) is an end-to-end testing framework that will allow us to write">
+            <a href="https://docs.cypress.io/) is an end-to-end testing framework that will allow us to write" target="_blank">
               Cypress
             </a>{" "}
             &nbsp; functional tests for any UI functionality and REST endpoints.
