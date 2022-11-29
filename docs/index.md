@@ -15,6 +15,7 @@ Our goal was to display wildfire data graphically, while making the data easily 
 
 This project has only one main page that the user will interact with. It contains a map and a filter pane. The end-user will be able to see two different visualizations. A heatmap, or points. The heatmap is a multicolor visualizer that will show red colors in areas of large fires, or an area where many fires have occured. When users zoom in or out, the heat map will change the heatmapping to show the area that is in view, and not the entire dataset. If a user wants to see individual fires, they can use the point view. Where each fire has a point, and can view the data that is associated with that fire. The user can then either download the entire dataset, or download the filtered dataset that they have chosen. 
 
+
 Site admins will be able to use the Django admin center to add more data into the database that holds each fire record is stored in, and also manage existing records. Once added to the database, each fire will show up in the map.
 
 ## Description
@@ -34,3 +35,4 @@ The user can view fire data by using a heatmap. Which shows where there are a la
 <img width="1792" alt="Screen Shot 2022-11-29 at 10 43 50 AM" src="https://user-images.githubusercontent.com/51347468/204603929-904c1e11-f8ff-4e4d-9d96-42aa03d6a905.png">
 
 When a user had filtered the data they want displayed on the map. They can download the data as a csv file, where they will get all of the data points that are available in the FPA-FOD-Plus dataset. Site admins can use the Django admin portal to add and modify data in the database. 
+
