@@ -61,6 +61,13 @@ Contained in the `.env` file are environment variables used for building the pro
 - DJANGO_API_URL - the fully qualified URL of the API container WITHOUT the route above. Locally this MUST be `http://localhost:<HOST_API_PORT>/`
 - REACT_WEB_ROUTE - base web path for the website (no trailing `/`). this can be blanked out to have the website hosted at `/`
 
+## Django deployment options
+- In `/ffp-backend/ffp-backend/settings.py`
+  - Set `SECRET_KEY` to a secure password, preferably a generated password of more than 20. Keep this value secret.
+  - Set `DEBUG` to `False`, this can be changed to true if the API is having issues for debugging.
+  - Add the hostname for the deployed server to the `ALLOWED_HOSTS` list.
+  - Add the hostname with prefixed `https://*.` to the `CSRF_TRUSTED_ORIGINS` list
+
 ## Clean install (or clean refresh)
 
 When you make changes to the project, you will need to re-build the docker containers before your changes will be reflected in the docker project.
