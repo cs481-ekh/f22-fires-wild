@@ -15,8 +15,6 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -32,6 +30,9 @@ CSRF_TRUSTED_ORIGINS = ['https://*.sdp.boisestate.edu','https://*.127.0.0.1']
 
 # Base path
 DJANGO_API_ROUTE = os.environ.get('DJANGO_API_ROUTE', 'f22-fires-wild/api/')
+
+STATIC_URL = DJANGO_API_ROUTE + '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Application definition
 
