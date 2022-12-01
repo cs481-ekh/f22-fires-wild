@@ -31,8 +31,8 @@ CSRF_TRUSTED_ORIGINS = ['https://*.sdp.boisestate.edu','https://*.127.0.0.1']
 # Base path
 DJANGO_API_ROUTE = os.environ.get('DJANGO_API_ROUTE', 'f22-fires-wild/api/')
 
-STATIC_URL = DJANGO_API_ROUTE + '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/' + DJANGO_API_ROUTE + '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, DJANGO_API_ROUTE + 'static')
 
 # Application definition
 
