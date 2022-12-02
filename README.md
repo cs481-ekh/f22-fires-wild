@@ -159,6 +159,7 @@ Below are the manual steps to import data into the sql container. Failing to fol
 - [ ] Continue to tell the development story of the features you implemented and what needs to be done when you hand off this project to the next team.
 - [ ] Implement a feature to open external links in About page in new 
 - [ ] Remove unused dependencies and funcitons from the project.
+- [ ] For mobile users: Sidebar needs to beexpandable because it is taking up oo much of the map.
 # Attributions:
 
 - [Django MySQL Docker Sample - Sergei Konik](https://skonik.me/setup-django-with-mysql-using/)
