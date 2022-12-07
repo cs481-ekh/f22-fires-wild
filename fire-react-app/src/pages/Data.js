@@ -534,32 +534,6 @@ const Data = () => {
             </Grid>
           </Box>
           <br />
-          <div>Less than or equal to:</div>
-          <br />
-          <Grid
-            container
-            spacing={2}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Grid alignItems="center">
-              <OutlinedInput
-                sx={{ width: 200 }}
-                variant="outlined"
-                value={sizeChoiceLTE ? sizeChoiceLTE : 0}
-                size="small"
-                inputProps={{
-                  step: 1,
-                  min: sizeChoiceGTE ? sizeChoiceGTE : 0,
-                  type: "number",
-                  "aria-labelledby": "input-slider",
-                }}
-                onChange={setSizeChoiceLTEInput}
-                endAdornment="acres"
-              />
-            </Grid>
-          </Grid>
-          <br />
           MAP VIEW:
           <br />
           <Grid
